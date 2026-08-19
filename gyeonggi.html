@@ -195,6 +195,35 @@
   .tile-revenue .tile-avg { color: var(--grp-revenue); }
   .tile-members .tile-avg { color: var(--grp-members); }
   .tile-new .tile-avg { color: var(--grp-new); }
+  .tile-value-prev { font-size: 12.5px; font-weight: 600; color: var(--muted); margin-left: 2px; }
+  .cell-sub-prev {
+    font-size: 10.5px; font-weight: 600; color: var(--muted); margin-top: 2px;
+  }
+
+  .tab-nav { display:flex; gap:8px; margin-bottom: 20px; flex-wrap: wrap; }
+  .tab-btn {
+    border: 1px solid var(--border); background: var(--surface-1); color: var(--text-secondary);
+    border-radius: 10px; padding: 10px 20px; font-size: 13.5px; font-weight: 700; cursor: pointer;
+  }
+  .tab-btn.active { background: var(--pine); color: #fff; border-color: var(--pine); }
+  .tab-panel { display: none; }
+  .tab-panel.active { display: block; }
+
+  .promo-summary-card { border-left: 5px solid var(--grp-new); margin-bottom: 20px; }
+  .promo-stats { display:flex; gap: 28px; flex-wrap: wrap; margin: 14px 0; }
+  .promo-stat { display:flex; flex-direction: column; gap: 4px; }
+  .promo-stat-label { font-size: 12px; color: var(--text-secondary); }
+  .promo-stat-value { font-size: 19px; font-weight: 800; color: var(--grp-new); }
+  .promo-badge {
+    display: inline-block; font-size: 11.5px; font-weight: 700; padding: 4px 10px;
+    border-radius: 999px; white-space: nowrap;
+  }
+  .promo-ok { background: rgba(0,99,0,0.12); color: var(--good-text); }
+  .promo-no { background: rgba(208,59,59,0.10); color: var(--critical); }
+  .promo-pending { background: var(--amber-bg); color: var(--amber); }
+  .promo-pending-low { background: var(--grid); color: var(--muted); }
+  .promo-wait { background: var(--grid); color: var(--muted); }
+  .promo-live-tag { font-size: 10.5px; color: var(--amber); font-weight: 700; }
 
   .avg-strip {
     margin-top: 12px; background: var(--surface-1); border: 1px solid var(--border); border-left: 4px solid var(--grp-ref); border-radius: 14px;
@@ -331,6 +360,13 @@
 
   <div class="confidential-banner">🔒 본 영업실적 링크는 <b>대외비</b>이며, <b>외부 유출은 불가</b>합니다. 사장님 개인 확인 용도로만 사용해 주세요.</div>
 
+  <div class="tab-nav">
+    <button class="tab-btn active" data-tab="performance" id="tabBtnPerf">📊 실적 현황</button>
+    <button class="tab-btn" data-tab="promotion" id="tabBtnPromo">🍂 프로모션 현황</button>
+  </div>
+
+  <div class="tab-panel active" id="tabPanel-performance">
+
   <section>
     <h2 style="font-size:15px; margin:0 0 10px;">📢 공지사항</h2>
     <div class="notice-box">
@@ -347,6 +383,7 @@
       <label for="monthFilter">조회 기준월</label>
       <select id="monthFilter">
         <option value="cur" selected>2026년 08월 (현재 시점)</option>
+<option value="7">2026년 07월 (마감)</option>
 <option value="6">2026년 06월 (마감)</option>
 <option value="5">2026년 05월 (마감)</option>
 <option value="4">2026년 04월 (마감)</option>
@@ -365,13 +402,13 @@
         <div class="tile-deltas">
           <span class="delta-tag">전월대비 <span id="t-rev-mom"><span class="delta down">▼ 48.9%</span></span></span>
           <span class="delta-tag">전년동기대비 <span id="t-rev-yoy"><span class="delta down">▼ 51.2%</span></span></span>
-          <span class="delta-tag tile-ytd">2026년 지역 누적 <span id="t-rev-ytd">607,660천원</span></span>
+          <span class="delta-tag tile-ytd">2026년 지역 누적 <span id="t-rev-ytd">704,166천원</span></span>
           <span class="delta-tag tile-avg">센터당 지역평균 <span id="t-rev-avg">1,441천원</span></span>
         </div>
       </div>
       <div class="tile tile-members">
         <div class="tile-label">회원수 (<span class="basisWord2">당월</span>)</div>
-        <div class="tile-value" id="t-mem-v">1,574명</div>
+        <div class="tile-value" id="t-mem-v">1,574명 <span class="tile-value-prev">(전월 1,577명)</span></div>
         <div class="tile-deltas">
           <span class="delta-tag">전월대비 <span id="t-mem-mom"><span class="delta down">▼ 0.2%</span></span></span>
           <span class="delta-tag">전년동기대비 <span id="t-mem-yoy"><span class="delta down">▼ 10.4%</span></span></span>
@@ -380,7 +417,7 @@
       </div>
       <div class="tile tile-new">
         <div class="tile-label">신규회원 (<span class="basisWord2">당월</span>)</div>
-        <div class="tile-value" id="t-new-v">26명</div>
+        <div class="tile-value" id="t-new-v">26명 <span class="tile-value-prev">(전월 62명)</span></div>
         <div class="tile-deltas">
           <span class="delta-tag">전월대비 <span id="t-new-mom"><span class="delta down">▼ 58.1%</span></span></span>
           <span class="delta-tag">전년동기대비 <span id="t-new-yoy"><span class="delta down">▼ 54.4%</span></span></span>
@@ -463,11 +500,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 77.6%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 79.1%</span></td>
           <td class="num grp-revenue c-rev-ytd">81,067천원</td>
-          <td class="num grp-members c-mem-v">181명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">181명</div><div class="cell-sub-prev">전월 181명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 2.7%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,11.6 9.7,17.3 17.3,24.0 25.0,23.0 32.7,3.9 40.3,7.7 48.0,2.0 55.7,4.9 63.3,6.8 71.0,9.7 78.7,11.6 86.3,13.5 94.0,22.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼11</span></span></td>
-          <td class="num grp-new c-new-v">2명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 8명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 75.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 60.0%</span></td>
           <td class="num grp-new c-new-ytd">68명</td>
@@ -502,11 +539,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 35.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 43.6%</span></td>
           <td class="num grp-revenue c-rev-ytd">59,308천원</td>
-          <td class="num grp-members c-mem-v">107명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">107명</div><div class="cell-sub-prev">전월 106명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 0.9%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 26.7%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,6.7 17.3,9.2 25.0,9.6 32.7,9.6 40.3,10.0 48.0,10.9 55.7,14.3 63.3,18.1 71.0,23.6 78.7,24.0 86.3,23.2 94.0,23.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼51</span></span></td>
-          <td class="num grp-new c-new-v">2명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 33.3%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">▲ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">28명</td>
@@ -541,11 +578,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 21.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 23.0%</span></td>
           <td class="num grp-revenue c-rev-ytd">34,991천원</td>
-          <td class="num grp-members c-mem-v">98명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">98명</div><div class="cell-sub-prev">전월 97명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 1.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 6.5%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,6.4 9.7,13.0 17.3,10.8 25.0,19.6 32.7,19.6 40.3,21.8 48.0,24.0 55.7,19.6 63.3,19.6 71.0,24.0 78.7,24.0 86.3,15.2 94.0,2.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲2</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 9명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 88.9%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 75.0%</span></td>
           <td class="num grp-new c-new-ytd">51명</td>
@@ -580,11 +617,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 33.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 37.0%</span></td>
           <td class="num grp-revenue c-rev-ytd">39,404천원</td>
-          <td class="num grp-members c-mem-v">89명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">89명</div><div class="cell-sub-prev">전월 86명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 3.5%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 12.7%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,6.4 9.7,6.4 17.3,2.0 25.0,5.3 32.7,8.6 40.3,14.1 48.0,14.1 55.7,15.2 63.3,16.3 71.0,20.7 78.7,24.0 86.3,21.8 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼16</span></span></td>
-          <td class="num grp-new c-new-v">4명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">4명</div><div class="cell-sub-prev">전월 4명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">▲ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">24명</td>
@@ -619,11 +656,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 78.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 73.5%</span></td>
           <td class="num grp-revenue c-rev-ytd">31,561천원</td>
-          <td class="num grp-members c-mem-v">77명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">77명</div><div class="cell-sub-prev">전월 79명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 2.5%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 1.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,24.0 9.7,19.6 17.3,13.0 25.0,15.2 32.7,13.0 40.3,13.0 48.0,2.0 55.7,8.6 63.3,6.4 71.0,8.6 78.7,17.4 86.3,10.8 94.0,13.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲5</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">34명</td>
@@ -658,11 +695,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 54.8%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 56.0%</span></td>
           <td class="num grp-revenue c-rev-ytd">34,030천원</td>
-          <td class="num grp-members c-mem-v">71명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">71명</div><div class="cell-sub-prev">전월 71명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 11.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,6.4 9.7,4.2 17.3,4.2 25.0,2.0 32.7,6.4 40.3,8.6 48.0,10.8 55.7,13.0 63.3,8.6 71.0,15.2 78.7,13.0 86.3,17.4 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼8</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 50.0%</span></td>
           <td class="num grp-new c-new-ytd">15명</td>
@@ -697,11 +734,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 25.6%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta up">▲ 28.4%</span></td>
           <td class="num grp-revenue c-rev-ytd">35,511천원</td>
-          <td class="num grp-members c-mem-v">70명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">70명</div><div class="cell-sub-prev">전월 70명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 52.2%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,20.8 9.7,20.8 17.3,22.7 25.0,23.4 32.7,23.4 40.3,24.0 48.0,7.8 55.7,4.6 63.3,3.9 71.0,3.3 78.7,2.0 86.3,5.9 94.0,5.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲24</span></span></td>
-          <td class="num grp-new c-new-v">2명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">▲ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">30명</td>
@@ -736,11 +773,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 61.2%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 63.4%</span></td>
           <td class="num grp-revenue c-rev-ytd">29,810천원</td>
-          <td class="num grp-members c-mem-v">69명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">69명</div><div class="cell-sub-prev">전월 69명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 15.9%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,4.9 17.3,6.4 25.0,4.9 32.7,6.4 40.3,10.8 48.0,9.3 55.7,18.1 63.3,21.1 71.0,24.0 78.7,21.1 86.3,19.6 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼15</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 4명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 75.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 83.3%</span></td>
           <td class="num grp-new c-new-ytd">22명</td>
@@ -775,11 +812,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 53.6%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 54.5%</span></td>
           <td class="num grp-revenue c-rev-ytd">26,143천원</td>
-          <td class="num grp-members c-mem-v">57명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">57명</div><div class="cell-sub-prev">전월 58명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 1.7%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 5.0%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,8.3 17.3,11.4 25.0,17.7 32.7,14.6 40.3,11.4 48.0,11.4 55.7,17.7 63.3,8.3 71.0,24.0 78.7,17.7 86.3,8.3 94.0,14.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼4</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 2명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">18명</td>
@@ -814,11 +851,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 37.3%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 44.1%</span></td>
           <td class="num grp-revenue c-rev-ytd">26,230천원</td>
-          <td class="num grp-members c-mem-v">50명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">50명</div><div class="cell-sub-prev">전월 52명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 3.8%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 23.1%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,8.3 9.7,3.6 17.3,2.0 25.0,6.7 32.7,3.6 40.3,6.7 48.0,9.9 55.7,14.6 63.3,14.6 71.0,16.1 78.7,14.6 86.3,17.7 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼10</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">15명</td>
@@ -853,11 +890,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 55.9%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 56.5%</span></td>
           <td class="num grp-revenue c-rev-ytd">21,644천원</td>
-          <td class="num grp-members c-mem-v">49명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">49명</div><div class="cell-sub-prev">전월 49명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 3.9%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-flat"><polyline points="2.0,24.0 9.7,15.2 17.3,19.6 25.0,19.6 32.7,19.6 40.3,19.6 48.0,2.0 55.7,19.6 63.3,19.6 71.0,24.0 78.7,15.2 86.3,19.6 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta flat spark-delta">—0</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">14명</td>
@@ -892,11 +929,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 69.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 70.8%</span></td>
           <td class="num grp-revenue c-rev-ytd">22,368천원</td>
-          <td class="num grp-members c-mem-v">49명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">49명</div><div class="cell-sub-prev">전월 48명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 2.1%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 12.5%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,3.6 9.7,5.1 17.3,9.9 25.0,19.3 32.7,13.0 40.3,2.0 48.0,2.0 55.7,3.6 63.3,13.0 71.0,24.0 78.7,8.3 86.3,9.9 94.0,17.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼9</span></span></td>
-          <td class="num grp-new c-new-v">3명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">3명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-ytd">23명</td>
@@ -931,11 +968,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 64.8%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 72.4%</span></td>
           <td class="num grp-revenue c-rev-ytd">18,695천원</td>
-          <td class="num grp-members c-mem-v">48명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">48명</div><div class="cell-sub-prev">전월 47명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 2.1%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 21.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,3.4 17.3,3.4 25.0,8.9 32.7,11.6 40.3,17.1 48.0,17.1 55.7,18.5 63.3,18.5 71.0,21.2 78.7,24.0 86.3,22.6 94.0,22.6" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼15</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 66.7%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 50.0%</span></td>
           <td class="num grp-new c-new-ytd">14명</td>
@@ -970,11 +1007,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta up">▲ 2.9%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 14.7%</span></td>
           <td class="num grp-revenue c-rev-ytd">18,570천원</td>
-          <td class="num grp-members c-mem-v">47명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">47명</div><div class="cell-sub-prev">전월 47명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 14.5%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,4.4 17.3,2.0 25.0,9.3 32.7,16.7 40.3,16.7 48.0,19.1 55.7,19.1 63.3,11.8 71.0,14.2 78.7,14.2 86.3,21.6 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼9</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-ytd">14명</td>
@@ -1009,11 +1046,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 56.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 58.8%</span></td>
           <td class="num grp-revenue c-rev-ytd">23,230천원</td>
-          <td class="num grp-members c-mem-v">47명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">47명</div><div class="cell-sub-prev">전월 48명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 2.1%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 19.0%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,12.4 9.7,10.1 17.3,10.1 25.0,8.9 32.7,10.1 40.3,6.6 48.0,2.0 55.7,4.3 63.3,10.1 71.0,7.8 78.7,7.8 86.3,24.0 94.0,21.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼8</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 2명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 50.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 75.0%</span></td>
           <td class="num grp-new c-new-ytd">17명</td>
@@ -1048,11 +1085,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 31.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 35.7%</span></td>
           <td class="num grp-revenue c-rev-ytd">19,850천원</td>
-          <td class="num grp-members c-mem-v">45명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">45명</div><div class="cell-sub-prev">전월 44명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 2.3%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 15.1%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,3.5 17.3,6.4 25.0,13.7 32.7,19.6 40.3,19.6 48.0,15.2 55.7,18.1 63.3,18.1 71.0,24.0 78.7,16.7 86.3,21.1 94.0,16.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼10</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 66.7%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-ytd">16명</td>
@@ -1087,11 +1124,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 20.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 20.0%</span></td>
           <td class="num grp-revenue c-rev-ytd">17,936천원</td>
-          <td class="num grp-members c-mem-v">42명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">42명</div><div class="cell-sub-prev">전월 45명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 6.7%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 17.6%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,5.7 9.7,7.5 17.3,7.5 25.0,2.0 32.7,16.7 40.3,3.8 48.0,11.2 55.7,24.0 63.3,16.7 71.0,13.0 78.7,14.8 86.3,18.5 94.0,18.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼7</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 66.7%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-ytd">23명</td>
@@ -1126,11 +1163,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 51.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 50.2%</span></td>
           <td class="num grp-revenue c-rev-ytd">18,591천원</td>
-          <td class="num grp-members c-mem-v">41명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">41명</div><div class="cell-sub-prev">전월 43명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 4.7%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 10.9%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,16.7 9.7,13.0 17.3,9.3 25.0,9.3 32.7,9.3 40.3,13.0 48.0,5.7 55.7,5.7 63.3,2.0 71.0,5.7 78.7,9.3 86.3,9.3 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼2</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">12명</td>
@@ -1165,11 +1202,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 46.9%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 43.5%</span></td>
           <td class="num grp-revenue c-rev-ytd">15,563천원</td>
-          <td class="num grp-members c-mem-v">40명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">40명</div><div class="cell-sub-prev">전월 39명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 2.6%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 21.2%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,18.5 9.7,18.5 17.3,18.5 25.0,24.0 32.7,18.5 40.3,10.2 48.0,7.5 55.7,21.2 63.3,7.5 71.0,7.5 78.7,2.0 86.3,2.0 94.0,2.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲6</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-ytd">14명</td>
@@ -1204,11 +1241,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 47.3%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 53.0%</span></td>
           <td class="num grp-revenue c-rev-ytd">20,300천원</td>
-          <td class="num grp-members c-mem-v">39명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">39명</div><div class="cell-sub-prev">전월 38명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 2.6%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 11.4%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,15.5 9.7,13.8 17.3,15.5 25.0,12.2 32.7,12.2 40.3,8.8 48.0,13.8 55.7,12.2 63.3,2.0 71.0,13.8 78.7,13.8 86.3,13.8 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼5</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 50.0%</span></td>
           <td class="num grp-new c-new-ytd">21명</td>
@@ -1243,11 +1280,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 56.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 63.2%</span></td>
           <td class="num grp-revenue c-rev-ytd">15,876천원</td>
-          <td class="num grp-members c-mem-v">38명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">38명</div><div class="cell-sub-prev">전월 39명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 2.6%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 13.6%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,4.4 17.3,6.9 25.0,6.9 32.7,11.8 40.3,9.3 48.0,9.3 55.7,21.6 63.3,24.0 71.0,16.7 78.7,19.1 86.3,19.1 94.0,16.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼6</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 2명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">10명</td>
@@ -1282,11 +1319,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 68.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 69.3%</span></td>
           <td class="num grp-revenue c-rev-ytd">12,591천원</td>
-          <td class="num grp-members c-mem-v">38명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">38명</div><div class="cell-sub-prev">전월 40명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta down">▼ 5.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 2.6%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,24.0 9.7,18.5 17.3,24.0 25.0,18.5 32.7,7.5 40.3,18.5 48.0,18.5 55.7,2.0 63.3,13.0 71.0,13.0 78.7,24.0 86.3,13.0 94.0,13.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲2</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 3명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">20명</td>
@@ -1321,11 +1358,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 74.4%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 66.6%</span></td>
           <td class="num grp-revenue c-rev-ytd">18,353천원</td>
-          <td class="num grp-members c-mem-v">37명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">37명</div><div class="cell-sub-prev">전월 37명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 12.1%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,13.0 9.7,18.5 17.3,13.0 25.0,18.5 32.7,15.8 40.3,24.0 48.0,4.8 55.7,2.0 63.3,4.8 71.0,7.5 78.7,4.8 86.3,4.8 94.0,7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲2</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-ytd">17명</td>
@@ -1360,11 +1397,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 42.7%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 12.3%</span></td>
           <td class="num grp-revenue c-rev-ytd">11,634천원</td>
-          <td class="num grp-members c-mem-v">33명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">33명</div><div class="cell-sub-prev">전월 32명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta up">▲ 3.1%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 17.9%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,14.6 9.7,17.7 17.3,14.6 25.0,14.6 32.7,17.7 40.3,24.0 48.0,14.6 55.7,11.4 63.3,5.1 71.0,5.1 78.7,2.0 86.3,5.1 94.0,5.1" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲3</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-ytd">19명</td>
@@ -1399,11 +1436,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 34.5%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 29.8%</span></td>
           <td class="num grp-revenue c-rev-ytd">16,638천원</td>
-          <td class="num grp-members c-mem-v">28명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">28명</div><div class="cell-sub-prev">전월 28명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 12.5%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,5.7 9.7,5.7 17.3,5.7 25.0,9.3 32.7,5.7 40.3,2.0 48.0,5.7 55.7,13.0 63.3,16.7 71.0,24.0 78.7,24.0 86.3,20.3 94.0,20.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼4</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">8명</td>
@@ -1438,11 +1475,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 12.1%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta up">▲ 18.6%</span></td>
           <td class="num grp-revenue c-rev-ytd">8,951천원</td>
-          <td class="num grp-members c-mem-v">23명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">23명</div><div class="cell-sub-prev">전월 23명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 35.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,24.0 9.7,24.0 17.3,24.0 25.0,21.2 32.7,21.2 40.3,18.5 48.0,15.8 55.7,15.8 63.3,7.5 71.0,2.0 78.7,4.8 86.3,7.5 94.0,7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲6</span></span></td>
-          <td class="num grp-new c-new-v">1명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta up">신규발생</span></td>
           <td class="num grp-new c-new-ytd">11명</td>
@@ -1477,11 +1514,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 4.4%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 3.6%</span></td>
           <td class="num grp-revenue c-rev-ytd">4,957천원</td>
-          <td class="num grp-members c-mem-v">15명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">15명</div><div class="cell-sub-prev">전월 15명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 6.2%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,18.5 17.3,24.0 25.0,24.0 32.7,18.5 40.3,18.5 48.0,13.0 55.7,13.0 63.3,13.0 71.0,18.5 78.7,18.5 86.3,24.0 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼4</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">7명</td>
@@ -1516,11 +1553,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 81.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 74.5%</span></td>
           <td class="num grp-revenue c-rev-ytd">6,791천원</td>
-          <td class="num grp-members c-mem-v">13명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">13명</div><div class="cell-sub-prev">전월 13명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 18.8%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,10.2 9.7,15.8 17.3,10.2 25.0,4.8 32.7,2.0 40.3,2.0 48.0,4.8 55.7,4.8 63.3,15.8 71.0,15.8 78.7,15.8 86.3,18.5 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼5</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">1명</td>
@@ -1555,11 +1592,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 36.9%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 32.1%</span></td>
           <td class="num grp-revenue c-rev-ytd">4,083천원</td>
-          <td class="num grp-members c-mem-v">12명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">12명</div><div class="cell-sub-prev">전월 12명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 25.0%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,5.7 17.3,13.0 25.0,16.7 32.7,13.0 40.3,16.7 48.0,5.7 55.7,9.3 63.3,13.0 71.0,16.7 78.7,13.0 86.3,24.0 94.0,20.3" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼5</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">1명</td>
@@ -1594,11 +1631,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-revenue c-rev-ytd">3,647천원</td>
-          <td class="num grp-members c-mem-v">8명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">8명</div><div class="cell-sub-prev">전월 8명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 33.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-flat"><polyline points="2.0,2.0 9.7,24.0 17.3,13.0 25.0,13.0 32.7,24.0 40.3,24.0 48.0,24.0 55.7,24.0 63.3,2.0 71.0,2.0 78.7,13.0 86.3,13.0 94.0,2.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta flat spark-delta">—0</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">5명</td>
@@ -1633,11 +1670,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 54.8%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 81.1%</span></td>
           <td class="num grp-revenue c-rev-ytd">4,087천원</td>
-          <td class="num grp-members c-mem-v">7명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">7명</div><div class="cell-sub-prev">전월 7명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 41.7%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,5.7 17.3,5.7 25.0,5.7 32.7,2.0 40.3,2.0 48.0,2.0 55.7,2.0 63.3,9.3 71.0,13.0 78.7,16.7 86.3,20.3 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼6</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">1명</td>
@@ -1672,11 +1709,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta flat">—</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta up">▲ 37.5%</span></td>
           <td class="num grp-revenue c-rev-ytd">2,107천원</td>
-          <td class="num grp-members c-mem-v">4명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">4명</div><div class="cell-sub-prev">전월 4명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 33.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,24.0 9.7,24.0 17.3,13.0 25.0,13.0 32.7,13.0 40.3,13.0 48.0,2.0 55.7,2.0 63.3,2.0 71.0,2.0 78.7,13.0 86.3,13.0 94.0,13.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲1</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
           <td class="num grp-new c-new-ytd">1명</td>
@@ -1711,11 +1748,11 @@
           <td class="num grp-revenue c-rev-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 64.7%</span></td>
           <td class="num grp-revenue c-rev-ytd">456천원</td>
-          <td class="num grp-members c-mem-v">2명</td>
+          <td class="num grp-members c-mem-v"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 2명</div></td>
           <td class="num grp-members c-mem-mom"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 50.0%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,24.0 9.7,2.0 17.3,2.0 25.0,2.0 32.7,2.0 40.3,9.3 48.0,9.3 55.7,16.7 63.3,24.0 71.0,24.0 78.7,24.0 86.3,24.0 94.0,16.7" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲1</span></span></td>
-          <td class="num grp-new c-new-v">0명</td>
+          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
           <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
           <td class="num grp-new c-new-ytd">1명</td>
@@ -1804,6 +1841,446 @@
     </div>
   </section>
 
+  </div>
+
+  <div class="tab-panel" id="tabPanel-promotion">
+    
+    <section>
+      <div class="card promo-summary-card">
+        <h2>🍂 가을 신학기 신규 회원 모집 프로모션</h2>
+        <div class="card-sub">내용: 8~9월 합산 신규 회원 × 10,000원 지원 &nbsp;·&nbsp; 지원 조건: 8~9월 센터 합산 3명 이상 모집 시 지원 &nbsp;·&nbsp; 집행 시기: 11월 중순</div>
+        <div class="promo-stats">
+          <div class="promo-stat"><span class="promo-stat-label">지원 조건 충족(예상) 센터</span><span class="promo-stat-value">2개 / 33개</span></div>
+          <div class="promo-stat"><span class="promo-stat-label">지원 예정 총액</span><span class="promo-stat-value">70,000원</span></div>
+          <div class="promo-stat"><span class="promo-stat-label">집계 상태</span><span class="promo-stat-value" style="font-size:14px;">8월 진행중</span></div>
+        </div>
+        <div class="ref-formula-note">
+          <b>안내:</b> 8월이 아직 진행중입니다 — 아래 합계·지원여부·금액은 진행중 잠정치입니다. 9월 실적이 마감되기 전까지의 9월 신규회원 수는 "집계 전"으로 표시됩니다. 최종 지원 여부·금액은 9월 마감 후 확정되며, 지원금은 11월 중순 집행 예정입니다.
+        </div>
+      </div>
+    </section>
+
+    <section>
+      <div class="card">
+        <h2>센터별 프로모션 수혜 현황 (33개 센터)</h2>
+        <div class="card-sub">8월·9월 신규회원 수와 합계, 지원조건(합산 3명 이상) 충족 여부, 지원 예정 금액(합산 신규회원 × 10,000원)을 센터별로 확인할 수 있습니다.</div>
+        <div class="table-scroll">
+          <table>
+            <thead>
+              <tr>
+                <th style="text-align:left;">센터</th>
+                <th>8월 신규회원</th>
+                <th>9월 신규회원</th>
+                <th>8~9월 합계</th>
+                <th>지원 여부</th>
+                <th>지원 예정 금액</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실동수원</div>
+            <div class="center-sub">이명규 사장님</div>
+          </td>
+          <td class="num">2명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>2명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실오산</div>
+            <div class="center-sub">문정숙 사장님</div>
+          </td>
+          <td class="num">2명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>2명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실분당중앙</div>
+            <div class="center-sub">이상은 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실성남중앙</div>
+            <div class="center-sub">강윤정 사장님</div>
+          </td>
+          <td class="num">4명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>4명</b></td>
+          <td class="num"><span class="promo-badge promo-pending">진행중 · 조건 충족</span></td>
+          <td class="num">40,000원</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실안양평촌</div>
+            <div class="center-sub">박현서 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실화성남양</div>
+            <div class="center-sub">이동훈 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실용인죽전</div>
+            <div class="center-sub">박재현 사장님</div>
+          </td>
+          <td class="num">2명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>2명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실경기하남</div>
+            <div class="center-sub">이선자 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실광명</div>
+            <div class="center-sub">김경옥 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실평택비전</div>
+            <div class="center-sub">이성문 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실부천서</div>
+            <div class="center-sub">김미정 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실화성동탄</div>
+            <div class="center-sub">이성문 사장님</div>
+          </td>
+          <td class="num">3명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>3명</b></td>
+          <td class="num"><span class="promo-badge promo-pending">진행중 · 조건 충족</span></td>
+          <td class="num">30,000원</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실산본동</div>
+            <div class="center-sub">박현지 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실수원광교</div>
+            <div class="center-sub">박금옥 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실이천</div>
+            <div class="center-sub">정현정 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실화성</div>
+            <div class="center-sub">이은옥 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실용인상하</div>
+            <div class="center-sub">정운선 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실용인둔전</div>
+            <div class="center-sub">한상구 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실시흥은행</div>
+            <div class="center-sub">박순연 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실용인상현</div>
+            <div class="center-sub">김남윤 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실안산</div>
+            <div class="center-sub">여인일 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실안양북</div>
+            <div class="center-sub">박완 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실안산상록</div>
+            <div class="center-sub">박영식 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실부천옥길</div>
+            <div class="center-sub">김정서 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실시흥정왕</div>
+            <div class="center-sub">김정숙 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실부천상동</div>
+            <div class="center-sub">고종명 사장님</div>
+          </td>
+          <td class="num">1명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>1명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실수원정자</div>
+            <div class="center-sub">박금옥 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실수원율천</div>
+            <div class="center-sub">박선영 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실송탄</div>
+            <div class="center-sub">허성강 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실과천</div>
+            <div class="center-sub">노미경 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실화성병점</div>
+            <div class="center-sub">이종철 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실광주초월M</div>
+            <div class="center-sub">이상옥 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col">
+            <div class="center-name">교실수원팔달</div>
+            <div class="center-sub">박금옥 사장님</div>
+          </td>
+          <td class="num">0명 <span class="promo-live-tag">(진행중)</span></td>
+          <td class="num"><span class="muted">집계 전</span></td>
+          <td class="num"><b>0명</b></td>
+          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num">—</td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+  </div>
+
   <footer>
     데이터 출처: 슬랙 #00-notice-실적공지 채널 · (공유)영업실적현황_20260813_v1.xlsx (기준일 2026-08-13) · 참고 지표 과거월(04~06월)은 같은 채널의 각 마감월 자료에서 확인했습니다 · 홈(교실) BM 기준.
     매출·회원수·신규회원은 조회 기준월에 따라 값과 전월대비/전년동기대비가 달라집니다(8월은 진행중인 잠정치 기준). 2026년 누적은 연초부터 선택한 달까지의 누계입니다.
@@ -1825,7 +2302,21 @@
     }
   });
 
-  const DATA = {"centers": [{"revenue_monthly": [10383260, 10615010, 10747660, 11667920, 11602900, 11397580, 12327600, 12107720, 10877440, 10684790, 10060940, 11131760, 10466130, 10095760, 10287420, 10375480, 10100940, 11245720, 10479320, 10940340, 10738320, 10402160, 10790900, 11479360], "members_monthly": [181, 190, 192, 194, 197, 199, 202, 196, 200, 180, 179, 186, 192, 193, 195, 200, 217, 212, 204, 228, 217, 215, 218, 215], "new_members_monthly": [8, 5, 5, 9, 11, 9, 19, 9, 5, 6, 3, 5, 9, 6, 2, 4, 18, 12, 5, 18, 8, 2, 2, 8], "refHistory": {"04": {"dormant_rate": 0.06091370558375635, "churn_rate": 0.0594059405940594, "per_member_sessions": 19.430051813471504, "per_member_ysli": 61.82383419689119, "per_member_revenue": 60143.9175257732}, "05": {"dormant_rate": 0.041237113402061855, "churn_rate": 0.07537688442211055, "per_member_sessions": 20.010416666666668, "per_member_ysli": 62.598958333333336, "per_member_revenue": 55977.395833333336}, "06": {"dormant_rate": 0.041666666666666664, "churn_rate": 0.05583756345177665, "per_member_sessions": 19.99473684210526, "per_member_ysli": 62.49473684210526, "per_member_revenue": 55868.47368421053}}}, {"revenue_monthly": [7983980, 7407370, 6764350, 7099110, 8102100, 7561080, 9201520, 9052430, 9285810, 8954290, 10762020, 9202690, 10655680, 10759760, 10947680, 11424240, 11282940, 11205240, 11324380, 11075740, 11200060, 12267140, 13235800, 12707440], "members_monthly": [106, 107, 105, 106, 119, 128, 136, 138, 139, 139, 140, 146, 157, 167, 168, 161, 159, 160, 158, 166, 171, 182, 184, 186], "new_members_monthly": [3, 6, 3, 1, 4, 2, 7, 6, 3, 4, 2, 1, 2, 4, 11, 3, 4, 7, 6, 3, 3, 2, 3, 9], "refHistory": {"04": {"dormant_rate": 0.11764705882352941, "churn_rate": 0.07352941176470588, "per_member_sessions": 26.28301886792453, "per_member_ysli": 74.73584905660377, "per_member_revenue": 66972.7358490566}, "05": {"dormant_rate": 0.03773584905660377, "churn_rate": 0.109375, "per_member_sessions": 26.542857142857144, "per_member_ysli": 72.66666666666667, "per_member_revenue": 64422.380952380954}, "06": {"dormant_rate": 0.0380952380952381, "churn_rate": 0.1092436974789916, "per_member_sessions": 25.785046728971963, "per_member_ysli": 72.3644859813084, "per_member_revenue": 69227.75700934579}}}, {"revenue_monthly": [4646460, 4553220, 4672360, 4431490, 4690490, 4206160, 4123280, 5698000, 4615380, 4861430, 5273240, 4761160, 5131400, 6252260, 4646460, 5621040, 4858840, 5174820, 5201200, 6325260, 6009280, 4113160, 8371120, 5573920], "members_monthly": [97, 91, 87, 87, 89, 89, 87, 88, 89, 89, 93, 92, 95, 95, 93, 97, 101, 98, 104, 105, 104, 108, 109, 106], "new_members_monthly": [9, 8, 5, 7, 5, 9, 7, 4, 3, 3, 7, 4, 5, 2, 3, 6, 4, 1, 7, 4, 3, 8, 6, 5], "refHistory": {"04": {"dormant_rate": 0.10112359550561797, "churn_rate": 0.04597701149425287, "per_member_sessions": 18.568181818181817, "per_member_ysli": 50.64772727272727, "per_member_revenue": 50936.666666666664}, "05": {"dormant_rate": 0.05747126436781609, "churn_rate": 0.06741573033707865, "per_member_sessions": 17.586206896551722, "per_member_ysli": 46.96551724137931, "per_member_revenue": 53705.28735632184}, "06": {"dormant_rate": 0.04597701149425287, "churn_rate": 0.10112359550561797, "per_member_sessions": 18.406593406593405, "per_member_ysli": 49.010989010989015, "per_member_revenue": 50035.38461538462}}}, {"revenue_monthly": [5278420, 5190360, 5086760, 4988340, 4889920, 5009060, 5428640, 6133120, 6050240, 4071480, 7604240, 5609940, 6778030, 5718720, 5874120, 6412840, 5765340, 6034700, 5801600, 6138300, 4858840, 5397560, 6179740, 5320600], "members_monthly": [86, 88, 86, 89, 93, 94, 95, 95, 100, 103, 106, 102, 102, 104, 105, 103, 100, 98, 95, 95, 99, 94, 100, 101], "new_members_monthly": [4, 2, 0, 0, 6, 2, 6, 0, 2, 1, 7, 2, 1, 5, 4, 4, 6, 6, 4, 0, 6, 1, 3, 6], "refHistory": {"04": {"dormant_rate": 0.043010752688172046, "churn_rate": 0.042105263157894736, "per_member_sessions": 22.88888888888889, "per_member_ysli": 69.73333333333333, "per_member_revenue": 56048.76404494382}, "05": {"dormant_rate": 0.033707865168539325, "churn_rate": 0.09574468085106383, "per_member_sessions": 23.53488372093023, "per_member_ysli": 68.0813953488372, "per_member_revenue": 59148.37209302326}, "06": {"dormant_rate": 0, "churn_rate": 0.03225806451612903, "per_member_sessions": 22.113636363636363, "per_member_ysli": 67.80681818181819, "per_member_revenue": 58981.36363636364}}}, {"revenue_monthly": [4593000, 4131740, 4313000, 4015860, 5002800, 3985400, 4510770, 4345170, 4026660, 4345620, 4227720, 3802200, 4514000, 4291400, 4088600, 5029600, 4437200, 4479000, 4515800, 4777080, 4824080, 4493160, 4655600, 4776480], "members_monthly": [79, 80, 77, 81, 82, 81, 84, 79, 79, 78, 79, 76, 74, 76, 83, 86, 90, 88, 86, 91, 88, 88, 87, 88], "new_members_monthly": [3, 3, 2, 5, 9, 3, 9, 2, 3, 3, 6, 3, 0, 2, 0, 1, 7, 5, 3, 7, 3, 1, 6, 2], "refHistory": {"04": {"dormant_rate": 0.06097560975609756, "churn_rate": 0.07142857142857142, "per_member_sessions": 19.536585365853657, "per_member_ysli": 63.4390243902439, "per_member_revenue": 49578.51851851852}, "05": {"dormant_rate": 0.07407407407407407, "churn_rate": 0.09876543209876543, "per_member_sessions": 20.155844155844157, "per_member_ysli": 63.467532467532465, "per_member_revenue": 56012.98701298701}, "06": {"dormant_rate": 0.012987012987012988, "churn_rate": 0.07317073170731707, "per_member_sessions": 19.475, "per_member_ysli": 64.55, "per_member_revenue": 51646.75}}}, {"revenue_monthly": [4594720, 4451480, 4425730, 4717880, 4651600, 4702220, 4408000, 4862450, 4808180, 4702780, 5088380, 4728000, 4510140, 5325500, 4292160, 4603680, 4889260, 4313800, 4700680, 4574960, 5147100, 5442800, 5223140, 4761580], "members_monthly": [71, 74, 76, 75, 78, 76, 77, 78, 79, 81, 80, 80, 79, 77, 77, 76, 75, 73, 77, 83, 83, 84, 83, 83], "new_members_monthly": [1, 1, 5, 1, 2, 4, 0, 1, 2, 2, 2, 2, 2, 3, 3, 5, 4, 3, 2, 4, 1, 1, 3, 3], "refHistory": {"04": {"dormant_rate": 0.05128205128205128, "churn_rate": 0.05194805194805195, "per_member_sessions": 21.613333333333333, "per_member_ysli": 72.66666666666667, "per_member_revenue": 62905.066666666666}, "05": {"dormant_rate": 0.06666666666666667, "churn_rate": 0.013157894736842105, "per_member_sessions": 21.736842105263158, "per_member_ysli": 72.9342105263158, "per_member_revenue": 58233.28947368421}, "06": {"dormant_rate": 0.039473684210526314, "churn_rate": 0.038461538461538464, "per_member_sessions": 21.62162162162162, "per_member_ysli": 71.20270270270271, "per_member_revenue": 60155.13513513513}}}, {"revenue_monthly": [4456480, 4430760, 4606700, 5063220, 4788400, 4404940, 4445660, 2887380, 2514260, 2446280, 2410500, 2581560, 2788760, 3079380, 2773760, 3058500, 3230280, 3261540, 2841660, 3188920, 3241400, 2826240, 3209920, 3193860], "members_monthly": [70, 69, 75, 73, 72, 71, 66, 41, 42, 42, 43, 46, 46, 46, 49, 52, 59, 54, 53, 55, 58, 58, 58, 61], "new_members_monthly": [0, 1, 5, 4, 5, 6, 7, 0, 1, 2, 0, 1, 1, 0, 0, 0, 7, 2, 2, 0, 4, 1, 1, 2], "refHistory": {"04": {"dormant_rate": 0.08333333333333333, "churn_rate": 0.0, "per_member_sessions": 22.094594594594593, "per_member_ysli": 66.1891891891892, "per_member_revenue": 69359.17808219178}, "05": {"dormant_rate": 0.0547945205479452, "churn_rate": 0.056338028169014086, "per_member_sessions": 23.08, "per_member_ysli": 67.49333333333334, "per_member_revenue": 61422.666666666664}, "06": {"dormant_rate": 0.08, "churn_rate": 0.08333333333333333, "per_member_sessions": 24.028985507246375, "per_member_ysli": 70.21739130434783, "per_member_revenue": 64213.913043478264}}}, {"revenue_monthly": [4052220, 3998700, 3957520, 3798530, 4667930, 3706580, 4054750, 4571260, 4207000, 3893050, 4956480, 4303190, 4710960, 3595080, 4612200, 4353020, 4574920, 5858400, 4372000, 5416800, 4492840, 6431940, 5347280, 5354460], "members_monthly": [69, 72, 71, 69, 71, 73, 79, 78, 81, 82, 81, 82, 84, 82, 81, 82, 92, 90, 87, 87, 92, 90, 92, 93], "new_members_monthly": [4, 2, 3, 3, 2, 2, 5, 1, 0, 4, 2, 6, 5, 3, 3, 0, 7, 4, 7, 2, 4, 1, 7, 3], "refHistory": {"04": {"dormant_rate": 0.07042253521126761, "churn_rate": 0.06329113924050633, "per_member_sessions": 18.33823529411765, "per_member_ysli": 62.955882352941174, "per_member_revenue": 55051.159420289856}, "05": {"dormant_rate": 0.028985507246376812, "churn_rate": 0.1095890410958904, "per_member_sessions": 17.338028169014084, "per_member_ysli": 61.7887323943662, "per_member_revenue": 55739.718309859156}, "06": {"dormant_rate": 0.04225352112676056, "churn_rate": 0.056338028169014086, "per_member_sessions": 18.09722222222222, "per_member_ysli": 62.44444444444444, "per_member_revenue": 55537.5}}}, {"revenue_monthly": [3578440, 3377760, 3147620, 3962180, 3460360, 3421580, 3532800, 3345960, 3581960, 2826020, 4155950, 3651400, 3656740, 3565540, 3721720, 3921100, 4024420, 4374820, 3759020, 4314600, 4222540, 4224320, 4329160, 4506340], "members_monthly": [58, 60, 57, 55, 60, 57, 59, 59, 58, 57, 59, 60, 62, 61, 67, 68, 69, 74, 70, 70, 71, 68, 73, 80], "new_members_monthly": [2, 3, 3, 1, 4, 2, 3, 1, 1, 2, 1, 3, 4, 2, 3, 3, 2, 8, 3, 2, 4, 0, 1, 1], "refHistory": {"04": {"dormant_rate": 0.1, "churn_rate": 0.06779661016949153, "per_member_sessions": 22.490909090909092, "per_member_ysli": 72.36363636363636, "per_member_revenue": 72039.63636363637}, "05": {"dormant_rate": 0.05454545454545454, "churn_rate": 0.03508771929824561, "per_member_sessions": 20.54385964912281, "per_member_ysli": 68.01754385964912, "per_member_revenue": 55221.40350877193}, "06": {"dormant_rate": 0.017543859649122806, "churn_rate": 0.06666666666666667, "per_member_sessions": 21.15, "per_member_ysli": 68.13333333333334, "per_member_revenue": 56296.0}}}, {"revenue_monthly": [3212700, 2962840, 3238840, 3818280, 3729540, 3175420, 4078040, 3948800, 3992120, 3897320, 4183360, 3600440, 4026720, 2296800, 2290800, 2234600, 2592260, 2732800, 1625060, 3030200, 2979000, 3819400, 3097800, 3326360], "members_monthly": [52, 56, 58, 57, 58, 58, 61, 63, 65, 63, 66, 65, 62, 42, 36, 37, 39, 42, 44, 50, 55, 53, 52, 51], "new_members_monthly": [1, 1, 1, 3, 2, 4, 3, 4, 3, 0, 3, 5, 2, 6, 1, 0, 1, 1, 2, 1, 5, 3, 2, 0], "refHistory": {"04": {"dormant_rate": 0.06896551724137931, "churn_rate": 0.08196721311475409, "per_member_sessions": 20.75438596491228, "per_member_ysli": 63.63157894736842, "per_member_revenue": 66987.36842105263}, "05": {"dormant_rate": 0.0, "churn_rate": 0.06896551724137931, "per_member_sessions": 21.155172413793103, "per_member_ysli": 63.672413793103445, "per_member_revenue": 55842.06896551724}, "06": {"dormant_rate": 0.05172413793103448, "churn_rate": 0.06896551724137931, "per_member_sessions": 20.75, "per_member_ysli": 61.75, "per_member_revenue": 52907.857142857145}}}, {"revenue_monthly": [3062460, 2953680, 2961690, 2927780, 2677570, 2484830, 3223700, 3363920, 3107510, 2246130, 3335850, 3104200, 3291700, 2860680, 3084140, 2975540, 3052760, 3303140, 2442900, 2344720, 2350140, 2484580, 2693620, 1862020], "members_monthly": [49, 50, 51, 49, 50, 50, 54, 50, 50, 50, 50, 51, 49, 49, 48, 50, 54, 54, 48, 45, 41, 43, 42, 39], "new_members_monthly": [0, 3, 1, 4, 2, 0, 4, 1, 1, 1, 0, 2, 0, 2, 0, 4, 3, 8, 4, 4, 1, 1, 3, 1], "refHistory": {"04": {"dormant_rate": 0.1, "churn_rate": 0.07407407407407407, "per_member_sessions": 20.959183673469386, "per_member_ysli": 73.36734693877551, "per_member_revenue": 59750.61224489796}, "05": {"dormant_rate": 0.0, "churn_rate": 0.04, "per_member_sessions": 21.058823529411764, "per_member_ysli": 71.72549019607843, "per_member_revenue": 58072.35294117647}, "06": {"dormant_rate": 0.0784313725490196, "churn_rate": 0.08, "per_member_sessions": 20.52, "per_member_ysli": 71.18, "per_member_revenue": 59073.6}}}, {"revenue_monthly": [2805700, 3206560, 3051800, 3321250, 3090890, 3067980, 2955360, 4921860, 2558200, 2993280, 3077300, 2971740, 3620820, 3628280, 3866740, 3611280, 3949120, 3046580, 3697260, 2977300, 3570020, 3157900, 3478660, 4008160], "members_monthly": [48, 53, 54, 44, 51, 57, 58, 58, 51, 47, 53, 56, 57, 56, 59, 62, 64, 58, 51, 52, 52, 57, 65, 68], "new_members_monthly": [3, 1, 8, 3, 2, 0, 3, 8, 4, 3, 1, 0, 1, 2, 1, 3, 8, 6, 2, 4, 1, 0, 2, 2], "refHistory": {"04": {"dormant_rate": 0.19607843137254902, "churn_rate": 0.08620689655172414, "per_member_sessions": 18.522727272727273, "per_member_ysli": 58.34090909090909, "per_member_revenue": 75482.95454545454}, "05": {"dormant_rate": 0.06818181818181818, "churn_rate": 0.10526315789473684, "per_member_sessions": 16.51851851851852, "per_member_ysli": 52.05555555555556, "per_member_revenue": 56514.81481481482}, "06": {"dormant_rate": 0.09259259259259259, "churn_rate": 0.09803921568627451, "per_member_sessions": 17.735849056603772, "per_member_ysli": 54.339622641509436, "per_member_revenue": 60501.1320754717}}}, {"revenue_monthly": [2421400, 2381120, 2130800, 3038480, 2718440, 2217760, 2934400, 2987600, 2427600, 2239000, 3671900, 3086900, 3595840, 3149400, 3300000, 3539700, 3362600, 3585660, 3427780, 3121700, 2803080, 3561180, 3059780, 3578080], "members_monthly": [47, 47, 46, 48, 50, 50, 51, 51, 55, 57, 61, 61, 62, 61, 67, 69, 65, 66, 66, 65, 61, 62, 65, 66], "new_members_monthly": [3, 2, 1, 0, 1, 3, 3, 3, 0, 0, 1, 2, 1, 0, 1, 5, 1, 7, 6, 5, 1, 3, 0, 0], "refHistory": {"04": {"dormant_rate": 0.04, "churn_rate": 0.0784313725490196, "per_member_sessions": 19.5625, "per_member_ysli": 52.416666666666664, "per_member_revenue": 63301.666666666664}, "05": {"dormant_rate": 0.0625, "churn_rate": 0.06, "per_member_sessions": 19.195652173913043, "per_member_ysli": 51.17391304347826, "per_member_revenue": 46321.739130434784}, "06": {"dormant_rate": 0.021739130434782608, "churn_rate": 0.02, "per_member_sessions": 18.872340425531913, "per_member_ysli": 51.808510638297875, "per_member_revenue": 50662.12765957447}}}, {"revenue_monthly": [2123800, 2393160, 2455320, 2574460, 2579640, 2134160, 2123800, 2766120, 2206680, 2375030, 2968140, 2564100, 2921520, 2450140, 2709140, 3429160, 3242680, 3144260, 2890440, 3330740, 2517480, 4195800, 3574200, 3662260], "members_monthly": [47, 48, 51, 51, 52, 49, 49, 50, 50, 53, 56, 55, 56, 61, 63, 65, 70, 65, 59, 63, 72, 73, 73, 81], "new_members_monthly": [1, 0, 0, 2, 6, 3, 1, 4, 0, 0, 1, 1, 0, 1, 2, 3, 8, 7, 2, 0, 2, 4, 0, 3], "refHistory": {"04": {"dormant_rate": 0.057692307692307696, "churn_rate": 0.061224489795918366, "per_member_sessions": 19.941176470588236, "per_member_ysli": 56.07843137254902, "per_member_revenue": 50479.60784313725}, "05": {"dormant_rate": 0.0, "churn_rate": 0.08163265306122448, "per_member_sessions": 18.88235294117647, "per_member_ysli": 51.6078431372549, "per_member_revenue": 48143.529411764706}, "06": {"dormant_rate": 0.058823529411764705, "churn_rate": 0.038461538461538464, "per_member_sessions": 18.604166666666668, "per_member_ysli": 50.6875, "per_member_revenue": 49857.5}}}, {"revenue_monthly": [3138360, 3147940, 2645580, 3281040, 3174600, 3246280, 3219860, 4068860, 3157340, 3688360, 3757240, 3336280, 3553940, 3664080, 3343380, 3290380, 3365500, 2975980, 3316120, 4266110, 3514240, 3862140, 4370970, 4229870], "members_monthly": [48, 46, 60, 60, 58, 63, 65, 61, 58, 59, 58, 58, 56, 56, 54, 48, 45, 47, 55, 57, 59, 61, 62, 64], "new_members_monthly": [2, 0, 2, 3, 1, 2, 6, 7, 0, 1, 1, 4, 1, 3, 7, 3, 1, 2, 3, 1, 1, 1, 1, 2], "refHistory": {"04": {"dormant_rate": 0.017241379310344827, "churn_rate": 0.09230769230769231, "per_member_sessions": 16.433333333333334, "per_member_ysli": 62.28333333333333, "per_member_revenue": 54684.0}, "05": {"dormant_rate": 0.06666666666666667, "churn_rate": 0.09523809523809523, "per_member_sessions": 16.266666666666666, "per_member_ysli": 61.31666666666667, "per_member_revenue": 44093.0}, "06": {"dormant_rate": 0.23333333333333334, "churn_rate": 0.017241379310344827, "per_member_sessions": 21.97826086956522, "per_member_ysli": 73.30434782608695, "per_member_revenue": 68433.47826086957}}}, {"revenue_monthly": [2441220, 2295300, 3109020, 2382300, 2581740, 2420480, 2936140, 2611760, 2612020, 2428000, 3222700, 2619900, 3836820, 3155500, 3753840, 3612660, 3332580, 3429100, 3591000, 4141800, 3827560, 4541680, 3934560, 3156460], "members_monthly": [44, 41, 44, 39, 43, 43, 45, 42, 42, 46, 51, 53, 54, 50, 53, 56, 59, 61, 63, 67, 66, 67, 64, 60], "new_members_monthly": [3, 0, 5, 1, 3, 1, 2, 2, 1, 3, 2, 0, 3, 2, 1, 2, 3, 3, 2, 3, 0, 5, 4, 3], "refHistory": {"04": {"dormant_rate": 0.11627906976744186, "churn_rate": 0.044444444444444446, "per_member_sessions": 18.82051282051282, "per_member_ysli": 57.15384615384615, "per_member_revenue": 61084.61538461538}, "05": {"dormant_rate": 0.02564102564102564, "churn_rate": 0.06976744186046512, "per_member_sessions": 17.318181818181817, "per_member_ysli": 57.29545454545455, "per_member_revenue": 70659.54545454546}, "06": {"dormant_rate": 0.06818181818181818, "churn_rate": 0.13953488372093023, "per_member_sessions": 18.902439024390244, "per_member_ysli": 61.26829268292683, "per_member_revenue": 55982.92682926829}}}, {"revenue_monthly": [2201500, 2538200, 2312870, 2812740, 2408700, 1989120, 1911420, 2652160, 2160060, 2413880, 3032890, 2201500, 2810150, 2470860, 2626260, 2755760, 2926700, 2771300, 2766120, 3087280, 3014760, 3149440, 3092460, 3377360], "members_monthly": [45, 45, 47, 48, 46, 42, 49, 53, 46, 54, 51, 51, 52, 54, 56, 57, 58, 57, 55, 60, 61, 62, 62, 63], "new_members_monthly": [3, 2, 1, 5, 6, 2, 3, 3, 1, 3, 2, 1, 1, 0, 1, 1, 6, 7, 1, 4, 2, 3, 4, 3], "refHistory": {"04": {"dormant_rate": 0.06521739130434782, "churn_rate": 0.20408163265306123, "per_member_sessions": 20.25531914893617, "per_member_ysli": 54.95744680851064, "per_member_revenue": 58598.75}, "05": {"dormant_rate": 0.0625, "churn_rate": 0.047619047619047616, "per_member_sessions": 19.04255319148936, "per_member_ysli": 53.51063829787234, "per_member_revenue": 49210.0}, "06": {"dormant_rate": 0.06382978723404255, "churn_rate": 0.06521739130434782, "per_member_sessions": 20.355555555555554, "per_member_ysli": 52.333333333333336, "per_member_revenue": 56404.444444444445}}}, {"revenue_monthly": [2444960, 2838640, 2040920, 3056200, 2056460, 2812740, 2144520, 3076920, 1699040, 2874900, 2957780, 2403520, 2447550, 2310280, 1906240, 2393160, 1880340, 2356900, 2382800, 1921780, 1595440, 2496760, 1823360, 1740480], "members_monthly": [43, 47, 47, 48, 49, 48, 48, 46, 47, 47, 47, 46, 45, 42, 41, 39, 41, 37, 38, 37, 38, 38, 40, 38], "new_members_monthly": [0, 1, 2, 2, 2, 1, 4, 2, 1, 1, 1, 3, 2, 3, 3, 0, 5, 0, 2, 2, 1, 0, 1, 2], "refHistory": {"04": {"dormant_rate": 0.04081632653061224, "churn_rate": 0.041666666666666664, "per_member_sessions": 21.104166666666668, "per_member_ysli": 66.58333333333333, "per_member_revenue": 63670.833333333336}, "05": {"dormant_rate": 0.08333333333333333, "churn_rate": 0.020833333333333332, "per_member_sessions": 20.340425531914892, "per_member_ysli": 65.06382978723404, "per_member_revenue": 43423.82978723404}, "06": {"dormant_rate": 0.02127659574468085, "churn_rate": 0.04081632653061224, "per_member_sessions": 20.80851063829787, "per_member_ysli": 63.95744680851064, "per_member_revenue": 60396.59574468085}}}, {"revenue_monthly": [2187810, 2188650, 2327910, 2040180, 2263760, 1634040, 1759440, 2232620, 1733180, 1801360, 1821180, 2055480, 1505560, 1811300, 1697100, 2018140, 2230520, 2349980, 2205320, 2511740, 2003500, 2398080, 2408620, 2439460], "members_monthly": [39, 39, 39, 37, 37, 32, 37, 36, 33, 31, 33, 33, 33, 34, 36, 36, 41, 40, 41, 41, 44, 41, 39, 39], "new_members_monthly": [0, 1, 3, 1, 6, 1, 1, 3, 2, 0, 3, 1, 1, 2, 2, 1, 4, 1, 1, 0, 3, 4, 0, 0], "refHistory": {"04": {"dormant_rate": 0.02702702702702703, "churn_rate": 0.10810810810810811, "per_member_sessions": 22.35135135135135, "per_member_ysli": 54.513513513513516, "per_member_revenue": 55140.0}, "05": {"dormant_rate": 0.02702702702702703, "churn_rate": 0.03125, "per_member_sessions": 20.94871794871795, "per_member_ysli": 51.53846153846154, "per_member_revenue": 59690.0}, "06": {"dormant_rate": 0.02564102564102564, "churn_rate": 0.02702702702702703, "per_member_sessions": 22.53846153846154, "per_member_ysli": 55.02564102564103, "per_member_revenue": 56119.230769230766}}}, {"revenue_monthly": [2337000, 2787600, 2723280, 2734080, 3149280, 2764580, 2573280, 2803020, 2896140, 2725200, 2885060, 2615720, 2373460, 2688780, 2822860, 3040600, 2900800, 2818220, 2585480, 2626960, 2347360, 2421440, 2368920, 2275680], "members_monthly": [38, 44, 44, 44, 51, 45, 44, 47, 45, 45, 43, 44, 43, 44, 44, 45, 47, 45, 42, 41, 42, 41, 38, 39], "new_members_monthly": [0, 2, 4, 1, 6, 3, 4, 3, 0, 3, 0, 2, 1, 2, 1, 0, 3, 3, 1, 4, 3, 3, 0, 1], "refHistory": {"04": {"dormant_rate": 0.1568627450980392, "churn_rate": 0.045454545454545456, "per_member_sessions": 21.522727272727273, "per_member_ysli": 56.47727272727273, "per_member_revenue": 62138.181818181816}, "05": {"dormant_rate": 0.11363636363636363, "churn_rate": 0.0, "per_member_sessions": 20.977272727272727, "per_member_ysli": 55.34090909090909, "per_member_revenue": 61892.72727272727}, "06": {"dormant_rate": 0.045454545454545456, "churn_rate": 0.13725490196078433, "per_member_sessions": 20.75, "per_member_ysli": 53.88636363636363, "per_member_revenue": 63354.545454545456}}}, {"revenue_monthly": [2276400, 1932000, 1869600, 2523600, 1990300, 1729800, 2556000, 2347200, 2373000, 2368800, 2740800, 2710800, 2446800, 2523600, 2710200, 2896800, 2662200, 2756400, 2304000, 2887440, 2820000, 3457980, 3301680, 3302400], "members_monthly": [39, 38, 38, 39, 36, 37, 42, 42, 41, 43, 43, 44, 45, 46, 48, 50, 46, 45, 42, 49, 51, 53, 55, 53], "new_members_monthly": [2, 2, 1, 2, 0, 0, 3, 2, 0, 1, 1, 0, 0, 0, 3, 4, 4, 3, 0, 2, 1, 2, 2, 3], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.09523809523809523, "per_member_sessions": 19.82051282051282, "per_member_ysli": 68.97435897435898, "per_member_revenue": 64707.692307692305}, "05": {"dormant_rate": 0.10256410256410256, "churn_rate": 0.02702702702702703, "per_member_sessions": 20.57894736842105, "per_member_ysli": 67.44736842105263, "per_member_revenue": 49200.0}, "06": {"dormant_rate": 0.07894736842105263, "churn_rate": 0, "per_member_sessions": 19.81578947368421, "per_member_ysli": 65.6842105263158, "per_member_revenue": 50842.10526315789}}}, {"revenue_monthly": [1840200, 1512600, 1722000, 1798600, 1820180, 1387200, 1922800, 2234000, 1558800, 2078580, 1792200, 1912800, 1897000, 1539200, 1784380, 1777800, 2006600, 2200760, 1856780, 2647960, 2001840, 2901740, 1903120, 2750480], "members_monthly": [40, 40, 38, 40, 40, 42, 39, 39, 41, 39, 38, 39, 38, 40, 37, 39, 42, 42, 39, 38, 41, 44, 46, 45], "new_members_monthly": [3, 2, 2, 1, 5, 3, 4, 1, 3, 1, 2, 1, 1, 3, 0, 3, 2, 3, 2, 1, 2, 1, 1, 1], "refHistory": {"04": {"dormant_rate": 0.025, "churn_rate": 0.0, "per_member_sessions": 18.3, "per_member_ysli": 53.625, "per_member_revenue": 44965.0}, "05": {"dormant_rate": 0.1, "churn_rate": 0.16666666666666666, "per_member_sessions": 17.07894736842105, "per_member_ysli": 47.421052631578945, "per_member_revenue": 45315.78947368421}, "06": {"dormant_rate": 0, "churn_rate": 0.025, "per_member_sessions": 17.425, "per_member_ysli": 47.775, "per_member_revenue": 37815.0}}}, {"revenue_monthly": [2724410, 2318470, 2635770, 2451320, 2583360, 2420330, 2520550, 2317960, 1988520, 2297100, 2416520, 2091530, 2442610, 2442660, 2664520, 2748660, 3095600, 3178800, 3167240, 3625960, 3159820, 3750660, 3621700, 3367260], "members_monthly": [37, 38, 38, 37, 38, 39, 38, 31, 34, 33, 35, 33, 35, 37, 39, 44, 48, 48, 52, 56, 55, 55, 51, 54], "new_members_monthly": [1, 1, 1, 1, 2, 2, 8, 0, 2, 1, 2, 1, 1, 1, 1, 1, 4, 1, 1, 2, 0, 5, 1, 2], "refHistory": {"04": {"dormant_rate": 0.05263157894736842, "churn_rate": 0.02631578947368421, "per_member_sessions": 23.38888888888889, "per_member_ysli": 72.55555555555556, "per_member_revenue": 66251.8918918919}, "05": {"dormant_rate": 0.0, "churn_rate": 0.07692307692307693, "per_member_sessions": 24.342105263157894, "per_member_ysli": 71.28947368421052, "per_member_revenue": 69362.36842105263}, "06": {"dormant_rate": 0.02631578947368421, "churn_rate": 0.05263157894736842, "per_member_sessions": 21.763157894736842, "per_member_ysli": 70.92105263157895, "per_member_revenue": 61012.36842105263}}}, {"revenue_monthly": [1673140, 1647240, 1610980, 1735300, 1331260, 1414140, 1263920, 1098160, 1030820, 1118880, 1559180, 1092980, 1144780, 1377880, 1429680, 1683500, 1217300, 1429680, 953120, 1735300, 1103340, 1476300, 1616160, 1320900], "members_monthly": [32, 32, 33, 32, 32, 30, 29, 26, 28, 29, 29, 28, 29, 32, 31, 32, 29, 31, 32, 31, 30, 33, 35, 38], "new_members_monthly": [1, 1, 2, 2, 5, 2, 5, 0, 2, 2, 3, 0, 0, 2, 0, 4, 2, 2, 1, 2, 2, 2, 3, 4], "refHistory": {"04": {"dormant_rate": 0.0625, "churn_rate": 0.034482758620689655, "per_member_sessions": 19.0, "per_member_ysli": 61.78125, "per_member_revenue": 54228.125}, "05": {"dormant_rate": 0.03125, "churn_rate": 0.1, "per_member_sessions": 18.151515151515152, "per_member_ysli": 61.42424242424242, "per_member_revenue": 48817.57575757576}, "06": {"dormant_rate": 0.06060606060606061, "churn_rate": 0.0625, "per_member_sessions": 19.78125, "per_member_ysli": 60.4375, "per_member_revenue": 51476.25}}}, {"revenue_monthly": [2317380, 2316950, 2020920, 1924370, 1758610, 2245530, 2536500, 2267440, 2358330, 2283220, 2882000, 2162460, 2456040, 2394720, 2176080, 2963960, 2455800, 2745880, 2693840, 2890920, 2383040, 2569520, 2616140, 2321120], "members_monthly": [28, 28, 27, 27, 29, 30, 32, 33, 32, 31, 32, 32, 32, 34, 34, 35, 37, 38, 36, 35, 34, 34, 35, 34], "new_members_monthly": [1, 1, 2, 0, 1, 2, 1, 2, 1, 1, 1, 2, 0, 0, 2, 1, 3, 2, 3, 1, 0, 2, 2, 3], "refHistory": {"04": {"dormant_rate": 0.06896551724137931, "churn_rate": 0.125, "per_member_sessions": 28.22222222222222, "per_member_ysli": 69.4074074074074, "per_member_revenue": 71272.96296296296}, "05": {"dormant_rate": 0.07407407407407407, "churn_rate": 0.06666666666666667, "per_member_sessions": 29.40740740740741, "per_member_ysli": 68.92592592592592, "per_member_revenue": 74848.88888888889}, "06": {"dormant_rate": 0, "churn_rate": 0.06896551724137931, "per_member_sessions": 25.964285714285715, "per_member_ysli": 71.21428571428571, "per_member_revenue": 82748.21428571429}}}, {"revenue_monthly": [1238020, 1098160, 1030820, 1191400, 1346800, 1010100, 947940, 890960, 875420, 782180, 725200, 916860, 808080, 714840, 554260, 393680, 932400, 963480, 865060, 973840, 1025640, 947940, 885780, 844340], "members_monthly": [23, 23, 24, 25, 23, 20, 20, 19, 18, 18, 17, 17, 17, 17, 17, 16, 18, 19, 18, 18, 17, 16, 16, 15], "new_members_monthly": [1, 0, 0, 2, 4, 2, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.1, "per_member_sessions": 18.84, "per_member_ysli": 53.2, "per_member_revenue": 47656.0}, "05": {"dormant_rate": 0.04, "churn_rate": 0.05, "per_member_sessions": 19.25, "per_member_ysli": 54.208333333333336, "per_member_revenue": 42950.833333333336}, "06": {"dormant_rate": 0.041666666666666664, "churn_rate": 0, "per_member_sessions": 18.956521739130434, "per_member_ysli": 54.91304347826087, "per_member_revenue": 47746.086956521736}}}, {"revenue_monthly": [585340, 616420, 626780, 720020, 709660, 595700, 543900, 569800, 652680, 471380, 720020, 580160, 880600, 678580, 932400, 979020, 808080, 771820, 528360, 1061900, 751100, 1010100, 890960, 725200], "members_monthly": [15, 15, 16, 16, 17, 17, 17, 16, 16, 15, 15, 16, 19, 19, 21, 19, 16, 17, 20, 20, 21, 23, 22, 20], "new_members_monthly": [1, 0, 0, 1, 2, 0, 3, 2, 1, 0, 1, 0, 1, 1, 2, 2, 2, 1, 0, 0, 1, 0, 3, 0], "refHistory": {"04": {"dormant_rate": 0.11764705882352941, "churn_rate": 0.0, "per_member_sessions": 16.4375, "per_member_ysli": 44.3125, "per_member_revenue": 45001.25}, "05": {"dormant_rate": 0.0, "churn_rate": 0.11764705882352941, "per_member_sessions": 16.125, "per_member_ysli": 44.875, "per_member_revenue": 39173.75}, "06": {"dormant_rate": 0.0625, "churn_rate": 0.11764705882352941, "per_member_sessions": 15.733333333333333, "per_member_ysli": 41.6, "per_member_revenue": 41094.666666666664}}}, {"revenue_monthly": [1061900, 766640, 720020, 911680, 1284640, 870240, 973840, 1284640, 1072260, 1077440, 1048950, 792540, 668220, 2206680, 958300, 828800, 1067080, 797720, 813260, 1046360, 1036000, 1087800, 1025640, 1030820], "members_monthly": [13, 15, 16, 16, 16, 20, 20, 21, 21, 20, 18, 16, 18, 19, 19, 18, 17, 16, 17, 19, 19, 19, 19, 20], "new_members_monthly": [0, 0, 0, 0, 0, 1, 0, 0, 1, 2, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], "refHistory": {"04": {"dormant_rate": 0.0625, "churn_rate": 0.05, "per_member_sessions": 23.0, "per_member_ysli": 48.4375, "per_member_revenue": 56980.0}, "05": {"dormant_rate": 0.0, "churn_rate": 0.2, "per_member_sessions": 22.75, "per_member_ysli": 49.1875, "per_member_revenue": 45001.25}, "06": {"dormant_rate": 0.0625, "churn_rate": 0.0625, "per_member_sessions": 17.733333333333334, "per_member_ysli": 39.4, "per_member_revenue": 51109.333333333336}}}, {"revenue_monthly": [582750, 486920, 606060, 598290, 616420, 217560, 606800, 756280, 631960, 554260, 710400, 541310, 797720, 875420, 714840, 797720, 849520, 984200, 959040, 943500, 942760, 880600, 1046360, 1010100], "members_monthly": [12, 11, 14, 13, 14, 15, 16, 13, 14, 13, 14, 16, 17, 16, 18, 17, 17, 19, 20, 21, 19, 21, 21, 22], "new_members_monthly": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1], "refHistory": {"04": {"dormant_rate": 0.07142857142857142, "churn_rate": 0.0625, "per_member_sessions": 13.846153846153847, "per_member_ysli": 48.61538461538461, "per_member_revenue": 46022.307692307695}, "05": {"dormant_rate": 0.07692307692307693, "churn_rate": 0.06666666666666667, "per_member_sessions": 15.714285714285714, "per_member_ysli": 45.5, "per_member_revenue": 43290.0}, "06": {"dormant_rate": 0.21428571428571427, "churn_rate": 0, "per_member_sessions": 15.272727272727273, "per_member_ysli": 53, "per_member_revenue": 44265.454545454544}}}, {"revenue_monthly": [422170, 621600, 497280, 611240, 624190, 497280, 372960, 435120, 435120, 435120, 455840, 396270, 590520, 476560, 585340, 461020, 429940, 642320, 284900, 849520, 787360, 859880, 740740, 647500], "members_monthly": [8, 7, 7, 8, 8, 6, 6, 6, 6, 7, 7, 6, 8, 7, 8, 7, 9, 9, 8, 11, 11, 12, 11, 10], "new_members_monthly": [1, 0, 0, 1, 2, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 3, 1, 0, 0, 0, 1, 1, 1], "refHistory": {"04": {"dormant_rate": 0.125, "churn_rate": 0.0, "per_member_sessions": 23.375, "per_member_ysli": 57.625, "per_member_revenue": 76405.0}, "05": {"dormant_rate": 0.0, "churn_rate": 0.16666666666666666, "per_member_sessions": 29.0, "per_member_ysli": 60.857142857142854, "per_member_revenue": 71040.0}, "06": {"dormant_rate": 0, "churn_rate": 0.125, "per_member_sessions": 28.285714285714285, "per_member_ysli": 63.57142857142857, "per_member_revenue": 88800.0}}}, {"revenue_monthly": [312000, 498960, 436560, 639360, 670560, 639360, 749340, 873360, 623760, 810960, 686160, 748560, 740790, 748560, 950760, 1137960, 903960, 1138560, 686160, 998160, 1013760, 1029600, 686400, 1076100], "members_monthly": [7, 8, 9, 10, 11, 13, 13, 13, 13, 12, 12, 12, 13, 16, 16, 15, 16, 16, 17, 16, 16, 15, 15, 17], "new_members_monthly": [0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.0, "per_member_sessions": 20.9, "per_member_ysli": 59.3, "per_member_revenue": 63936.0}, "05": {"dormant_rate": 0.1, "churn_rate": 0.07692307692307693, "per_member_sessions": 24.666666666666668, "per_member_ysli": 66.55555555555556, "per_member_revenue": 48506.666666666664}, "06": {"dormant_rate": 0.1111111111111111, "churn_rate": 0, "per_member_sessions": 18.75, "per_member_ysli": 57.5, "per_member_revenue": 62370.0}}}, {"revenue_monthly": [0, 338800, 240240, 246400, 314160, 264880, 363440, 184800, 295680, 209440, 418880, 246400, 0, 234080, 221760, 221760, 221760, 221760, 147840, 221760, 0, 147840, 147840, 147840], "members_monthly": [4, 4, 4, 5, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3], "new_members_monthly": [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.0, "per_member_sessions": 18.4, "per_member_ysli": 47.2, "per_member_revenue": 49280.0}, "05": {"dormant_rate": 0.2, "churn_rate": 0.0, "per_member_sessions": 20.5, "per_member_ysli": 46.75, "per_member_revenue": 60060.0}, "06": {"dormant_rate": 0, "churn_rate": 0, "per_member_sessions": 22, "per_member_ysli": 49.75, "per_member_revenue": 84700.0}}}, {"revenue_monthly": [62160, 41440, 62160, 62160, 41440, 62160, 62160, 93240, 108780, 139860, 217560, 176120, 41440, 0, 0, 0, 0, 0, 0, 113960, 139860, 113960, 0, 0], "members_monthly": [2, 1, 1, 1, 1, 2, 3, 3, 4, 4, 4, 4, 1, 0, 0, 0, 0, 0, 1, 2, 2, 2, 0, 1], "new_members_monthly": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.3333333333333333, "per_member_sessions": 22.0, "per_member_ysli": 85.0, "per_member_revenue": 62160.0}, "05": {"dormant_rate": 0.0, "churn_rate": 0.5, "per_member_sessions": 22.0, "per_member_ysli": 86.0, "per_member_revenue": 62160.0}, "06": {"dormant_rate": 0, "churn_rate": 0, "per_member_sessions": 22, "per_member_ysli": 88, "per_member_revenue": 41440.0}}}], "region": {"revenue_monthly": [93039760, 92046290, 90798920, 97145060, 97378700, 89696270, 96505790, 105551290, 94138110, 93959960, 109038180, 97440690, 105047580, 103479660, 102155160, 109030420, 106871940, 110753320, 103666240, 114563710, 107197520, 117251020, 119498650, 116256050], "members_monthly": [1577, 1607, 1633, 1624, 1677, 1682, 1730, 1698, 1706, 1717, 1745, 1757, 1781, 1785, 1837, 1856, 1918, 1900, 1879, 1957, 1975, 2002, 2025, 2056], "new_members_monthly": [62, 51, 67, 66, 107, 71, 126, 72, 45, 53, 59, 57, 49, 62, 62, 68, 127, 115, 77, 85, 65, 61, 66, 77]}, "labels": ["2026년07월", "2026년06월", "2026년05월", "2026년04월", "2026년03월", "2026년02월", "2026년01월", "2025년12월", "2025년11월", "2025년10월", "2025년09월", "2025년08월", "2025년07월", "2025년06월", "2025년05월", "2025년04월", "2025년03월", "2025년02월", "2025년01월", "2024년12월", "2024년11월", "2024년10월", "2024년09월", "2024년08월"], "centerCount": 33, "refAvgsHistory": {"04": {"dormant_rate": 0.07215265354800239, "churn_rate": 0.06589595375722543, "per_member_revenue": 59855.24337646334, "per_member_sessions": 20.641009852216747, "per_member_ysli": 62.764162561576356}, "05": {"dormant_rate": 0.04864532019704434, "churn_rate": 0.07491082045184304, "per_member_revenue": 55636.5931372549, "per_member_sessions": 20.496019595835886, "per_member_ysli": 61.491120636864665}, "06": {"dormant_rate": 0.05143906919779547, "churn_rate": 0.06320810971973763, "per_member_revenue": 57278.338518979464, "per_member_sessions": 20.627255756067207, "per_member_ysli": 62.05102675793404}}};
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', () => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      document.querySelectorAll('.tab-panel').forEach(p => p.classList.remove('active'));
+      btn.classList.add('active');
+      document.getElementById('tabPanel-' + btn.dataset.tab).classList.add('active');
+    });
+  });
+
+  const DATA = {"centers": [{"revenue_monthly": [10383260, 10615010, 10747660, 11667920, 11602900, 11397580, 12327600, 12107720, 10877440, 10684790, 10060940, 11131760, 10466130, 10095760, 10287420, 10375480, 10100940, 11245720, 10479320, 10940340, 10738320, 10402160, 10790900, 11479360], "members_monthly": [181, 190, 192, 194, 197, 199, 202, 196, 200, 180, 179, 186, 192, 193, 195, 200, 217, 212, 204, 228, 217, 215, 218, 215], "new_members_monthly": [8, 5, 5, 9, 11, 9, 19, 9, 5, 6, 3, 5, 9, 6, 2, 4, 18, 12, 5, 18, 8, 2, 2, 8], "refHistory": {"04": {"dormant_rate": 0.06091370558375635, "churn_rate": 0.0594059405940594, "per_member_sessions": 19.430051813471504, "per_member_ysli": 61.82383419689119, "per_member_revenue": 60143.9175257732}, "05": {"dormant_rate": 0.041237113402061855, "churn_rate": 0.07537688442211055, "per_member_sessions": 20.010416666666668, "per_member_ysli": 62.598958333333336, "per_member_revenue": 55977.395833333336}, "06": {"dormant_rate": 0.041666666666666664, "churn_rate": 0.05583756345177665, "per_member_sessions": 19.99473684210526, "per_member_ysli": 62.49473684210526, "per_member_revenue": 55868.47368421053}, "07": {"dormant_rate": 0.11578947368421053, "churn_rate": 0.03608247422680412, "per_member_sessions": 19.92265193370166, "per_member_ysli": 63.110497237569064, "per_member_revenue": 57366.0773480663}}}, {"revenue_monthly": [7983980, 7407370, 6764350, 7099110, 8102100, 7561080, 9201520, 9052430, 9285810, 8954290, 10762020, 9202690, 10655680, 10759760, 10947680, 11424240, 11282940, 11205240, 11324380, 11075740, 11200060, 12267140, 13235800, 12707440], "members_monthly": [106, 107, 105, 106, 119, 128, 136, 138, 139, 139, 140, 146, 157, 167, 168, 161, 159, 160, 158, 166, 171, 182, 184, 186], "new_members_monthly": [3, 6, 3, 1, 4, 2, 7, 6, 3, 4, 2, 1, 2, 4, 11, 3, 4, 7, 6, 3, 3, 2, 3, 9], "refHistory": {"04": {"dormant_rate": 0.11764705882352941, "churn_rate": 0.07352941176470588, "per_member_sessions": 26.28301886792453, "per_member_ysli": 74.73584905660377, "per_member_revenue": 66972.7358490566}, "05": {"dormant_rate": 0.03773584905660377, "churn_rate": 0.109375, "per_member_sessions": 26.542857142857144, "per_member_ysli": 72.66666666666667, "per_member_revenue": 64422.380952380954}, "06": {"dormant_rate": 0.0380952380952381, "churn_rate": 0.1092436974789916, "per_member_sessions": 25.785046728971963, "per_member_ysli": 72.3644859813084, "per_member_revenue": 69227.75700934579}, "07": {"dormant_rate": 0.037383177570093455, "churn_rate": 0.03773584905660377, "per_member_sessions": 27.40566037735849, "per_member_ysli": 73.21698113207547, "per_member_revenue": 75320.56603773584}}}, {"revenue_monthly": [4646460, 4553220, 4672360, 4431490, 4690490, 4206160, 4123280, 5698000, 4615380, 4861430, 5273240, 4761160, 5131400, 6252260, 4646460, 5621040, 4858840, 5174820, 5201200, 6325260, 6009280, 4113160, 8371120, 5573920], "members_monthly": [97, 91, 87, 87, 89, 89, 87, 88, 89, 89, 93, 92, 95, 95, 93, 97, 101, 98, 104, 105, 104, 108, 109, 106], "new_members_monthly": [9, 8, 5, 7, 5, 9, 7, 4, 3, 3, 7, 4, 5, 2, 3, 6, 4, 1, 7, 4, 3, 8, 6, 5], "refHistory": {"04": {"dormant_rate": 0.10112359550561797, "churn_rate": 0.04597701149425287, "per_member_sessions": 18.568181818181817, "per_member_ysli": 50.64772727272727, "per_member_revenue": 50936.666666666664}, "05": {"dormant_rate": 0.05747126436781609, "churn_rate": 0.06741573033707865, "per_member_sessions": 17.586206896551722, "per_member_ysli": 46.96551724137931, "per_member_revenue": 53705.28735632184}, "06": {"dormant_rate": 0.04597701149425287, "churn_rate": 0.10112359550561797, "per_member_sessions": 18.406593406593405, "per_member_ysli": 49.010989010989015, "per_member_revenue": 50035.38461538462}, "07": {"dormant_rate": 0.04395604395604396, "churn_rate": 0.05747126436781609, "per_member_sessions": 18.144329896907216, "per_member_ysli": 46.23711340206186, "per_member_revenue": 47901.64948453608}}}, {"revenue_monthly": [5278420, 5190360, 5086760, 4988340, 4889920, 5009060, 5428640, 6133120, 6050240, 4071480, 7604240, 5609940, 6778030, 5718720, 5874120, 6412840, 5765340, 6034700, 5801600, 6138300, 4858840, 5397560, 6179740, 5320600], "members_monthly": [86, 88, 86, 89, 93, 94, 95, 95, 100, 103, 106, 102, 102, 104, 105, 103, 100, 98, 95, 95, 99, 94, 100, 101], "new_members_monthly": [4, 2, 0, 0, 6, 2, 6, 0, 2, 1, 7, 2, 1, 5, 4, 4, 6, 6, 4, 0, 6, 1, 3, 6], "refHistory": {"04": {"dormant_rate": 0.043010752688172046, "churn_rate": 0.042105263157894736, "per_member_sessions": 22.88888888888889, "per_member_ysli": 69.73333333333333, "per_member_revenue": 56048.76404494382}, "05": {"dormant_rate": 0.033707865168539325, "churn_rate": 0.09574468085106383, "per_member_sessions": 23.53488372093023, "per_member_ysli": 68.0813953488372, "per_member_revenue": 59148.37209302326}, "06": {"dormant_rate": 0, "churn_rate": 0.03225806451612903, "per_member_sessions": 22.113636363636363, "per_member_ysli": 67.80681818181819, "per_member_revenue": 58981.36363636364}, "07": {"dormant_rate": 0.07954545454545454, "churn_rate": 0.033707865168539325, "per_member_sessions": 23.1046511627907, "per_member_ysli": 68.77906976744185, "per_member_revenue": 61376.976744186046}}}, {"revenue_monthly": [4593000, 4131740, 4313000, 4015860, 5002800, 3985400, 4510770, 4345170, 4026660, 4345620, 4227720, 3802200, 4514000, 4291400, 4088600, 5029600, 4437200, 4479000, 4515800, 4777080, 4824080, 4493160, 4655600, 4776480], "members_monthly": [79, 80, 77, 81, 82, 81, 84, 79, 79, 78, 79, 76, 74, 76, 83, 86, 90, 88, 86, 91, 88, 88, 87, 88], "new_members_monthly": [3, 3, 2, 5, 9, 3, 9, 2, 3, 3, 6, 3, 0, 2, 0, 1, 7, 5, 3, 7, 3, 1, 6, 2], "refHistory": {"04": {"dormant_rate": 0.06097560975609756, "churn_rate": 0.07142857142857142, "per_member_sessions": 19.536585365853657, "per_member_ysli": 63.4390243902439, "per_member_revenue": 49578.51851851852}, "05": {"dormant_rate": 0.07407407407407407, "churn_rate": 0.09876543209876543, "per_member_sessions": 20.155844155844157, "per_member_ysli": 63.467532467532465, "per_member_revenue": 56012.98701298701}, "06": {"dormant_rate": 0.012987012987012988, "churn_rate": 0.07317073170731707, "per_member_sessions": 19.475, "per_member_ysli": 64.55, "per_member_revenue": 51646.75}, "07": {"dormant_rate": 0.075, "churn_rate": 0.06172839506172839, "per_member_sessions": 19.936708860759495, "per_member_ysli": 64.87341772151899, "per_member_revenue": 58139.240506329115}}}, {"revenue_monthly": [4594720, 4451480, 4425730, 4717880, 4651600, 4702220, 4408000, 4862450, 4808180, 4702780, 5088380, 4728000, 4510140, 5325500, 4292160, 4603680, 4889260, 4313800, 4700680, 4574960, 5147100, 5442800, 5223140, 4761580], "members_monthly": [71, 74, 76, 75, 78, 76, 77, 78, 79, 81, 80, 80, 79, 77, 77, 76, 75, 73, 77, 83, 83, 84, 83, 83], "new_members_monthly": [1, 1, 5, 1, 2, 4, 0, 1, 2, 2, 2, 2, 2, 3, 3, 5, 4, 3, 2, 4, 1, 1, 3, 3], "refHistory": {"04": {"dormant_rate": 0.05128205128205128, "churn_rate": 0.05194805194805195, "per_member_sessions": 21.613333333333333, "per_member_ysli": 72.66666666666667, "per_member_revenue": 62905.066666666666}, "05": {"dormant_rate": 0.06666666666666667, "churn_rate": 0.013157894736842105, "per_member_sessions": 21.736842105263158, "per_member_ysli": 72.9342105263158, "per_member_revenue": 58233.28947368421}, "06": {"dormant_rate": 0.039473684210526314, "churn_rate": 0.038461538461538464, "per_member_sessions": 21.62162162162162, "per_member_ysli": 71.20270270270271, "per_member_revenue": 60155.13513513513}, "07": {"dormant_rate": 0.05405405405405406, "churn_rate": 0.05333333333333334, "per_member_sessions": 23.830985915492956, "per_member_ysli": 74.43661971830986, "per_member_revenue": 64714.366197183095}}}, {"revenue_monthly": [4456480, 4430760, 4606700, 5063220, 4788400, 4404940, 4445660, 2887380, 2514260, 2446280, 2410500, 2581560, 2788760, 3079380, 2773760, 3058500, 3230280, 3261540, 2841660, 3188920, 3241400, 2826240, 3209920, 3193860], "members_monthly": [70, 69, 75, 73, 72, 71, 66, 41, 42, 42, 43, 46, 46, 46, 49, 52, 59, 54, 53, 55, 58, 58, 58, 61], "new_members_monthly": [0, 1, 5, 4, 5, 6, 7, 0, 1, 2, 0, 1, 1, 0, 0, 0, 7, 2, 2, 0, 4, 1, 1, 2], "refHistory": {"04": {"dormant_rate": 0.08333333333333333, "churn_rate": 0.0, "per_member_sessions": 22.094594594594593, "per_member_ysli": 66.1891891891892, "per_member_revenue": 69359.17808219178}, "05": {"dormant_rate": 0.0547945205479452, "churn_rate": 0.056338028169014086, "per_member_sessions": 23.08, "per_member_ysli": 67.49333333333334, "per_member_revenue": 61422.666666666664}, "06": {"dormant_rate": 0.08, "churn_rate": 0.08333333333333333, "per_member_sessions": 24.028985507246375, "per_member_ysli": 70.21739130434783, "per_member_revenue": 64213.913043478264}, "07": {"dormant_rate": 0.014492753623188406, "churn_rate": 0.0410958904109589, "per_member_sessions": 24, "per_member_ysli": 68.88571428571429, "per_member_revenue": 63664.0}}}, {"revenue_monthly": [4052220, 3998700, 3957520, 3798530, 4667930, 3706580, 4054750, 4571260, 4207000, 3893050, 4956480, 4303190, 4710960, 3595080, 4612200, 4353020, 4574920, 5858400, 4372000, 5416800, 4492840, 6431940, 5347280, 5354460], "members_monthly": [69, 72, 71, 69, 71, 73, 79, 78, 81, 82, 81, 82, 84, 82, 81, 82, 92, 90, 87, 87, 92, 90, 92, 93], "new_members_monthly": [4, 2, 3, 3, 2, 2, 5, 1, 0, 4, 2, 6, 5, 3, 3, 0, 7, 4, 7, 2, 4, 1, 7, 3], "refHistory": {"04": {"dormant_rate": 0.07042253521126761, "churn_rate": 0.06329113924050633, "per_member_sessions": 18.33823529411765, "per_member_ysli": 62.955882352941174, "per_member_revenue": 55051.159420289856}, "05": {"dormant_rate": 0.028985507246376812, "churn_rate": 0.1095890410958904, "per_member_sessions": 17.338028169014084, "per_member_ysli": 61.7887323943662, "per_member_revenue": 55739.718309859156}, "06": {"dormant_rate": 0.04225352112676056, "churn_rate": 0.056338028169014086, "per_member_sessions": 18.09722222222222, "per_member_ysli": 62.44444444444444, "per_member_revenue": 55537.5}, "07": {"dormant_rate": 0.1111111111111111, "churn_rate": 0.014492753623188406, "per_member_sessions": 17.608695652173914, "per_member_ysli": 64.33333333333333, "per_member_revenue": 58727.82608695652}}}, {"revenue_monthly": [3578440, 3377760, 3147620, 3962180, 3460360, 3421580, 3532800, 3345960, 3581960, 2826020, 4155950, 3651400, 3656740, 3565540, 3721720, 3921100, 4024420, 4374820, 3759020, 4314600, 4222540, 4224320, 4329160, 4506340], "members_monthly": [58, 60, 57, 55, 60, 57, 59, 59, 58, 57, 59, 60, 62, 61, 67, 68, 69, 74, 70, 70, 71, 68, 73, 80], "new_members_monthly": [2, 3, 3, 1, 4, 2, 3, 1, 1, 2, 1, 3, 4, 2, 3, 3, 2, 8, 3, 2, 4, 0, 1, 1], "refHistory": {"04": {"dormant_rate": 0.1, "churn_rate": 0.06779661016949153, "per_member_sessions": 22.490909090909092, "per_member_ysli": 72.36363636363636, "per_member_revenue": 72039.63636363637}, "05": {"dormant_rate": 0.05454545454545454, "churn_rate": 0.03508771929824561, "per_member_sessions": 20.54385964912281, "per_member_ysli": 68.01754385964912, "per_member_revenue": 55221.40350877193}, "06": {"dormant_rate": 0.017543859649122806, "churn_rate": 0.06666666666666667, "per_member_sessions": 21.15, "per_member_ysli": 68.13333333333334, "per_member_revenue": 56296.0}, "07": {"dormant_rate": 0.06666666666666667, "churn_rate": 0.03636363636363636, "per_member_sessions": 21.948275862068964, "per_member_ysli": 68.41379310344827, "per_member_revenue": 61697.24137931035}}}, {"revenue_monthly": [3212700, 2962840, 3238840, 3818280, 3729540, 3175420, 4078040, 3948800, 3992120, 3897320, 4183360, 3600440, 4026720, 2296800, 2290800, 2234600, 2592260, 2732800, 1625060, 3030200, 2979000, 3819400, 3097800, 3326360], "members_monthly": [52, 56, 58, 57, 58, 58, 61, 63, 65, 63, 66, 65, 62, 42, 36, 37, 39, 42, 44, 50, 55, 53, 52, 51], "new_members_monthly": [1, 1, 1, 3, 2, 4, 3, 4, 3, 0, 3, 5, 2, 6, 1, 0, 1, 1, 2, 1, 5, 3, 2, 0], "refHistory": {"04": {"dormant_rate": 0.06896551724137931, "churn_rate": 0.08196721311475409, "per_member_sessions": 20.75438596491228, "per_member_ysli": 63.63157894736842, "per_member_revenue": 66987.36842105263}, "05": {"dormant_rate": 0.0, "churn_rate": 0.06896551724137931, "per_member_sessions": 21.155172413793103, "per_member_ysli": 63.672413793103445, "per_member_revenue": 55842.06896551724}, "06": {"dormant_rate": 0.05172413793103448, "churn_rate": 0.06896551724137931, "per_member_sessions": 20.75, "per_member_ysli": 61.75, "per_member_revenue": 52907.857142857145}, "07": {"dormant_rate": 0.08928571428571429, "churn_rate": 0, "per_member_sessions": 20.596153846153847, "per_member_ysli": 61.09615384615385, "per_member_revenue": 61782.692307692305}}}, {"revenue_monthly": [3062460, 2953680, 2961690, 2927780, 2677570, 2484830, 3223700, 3363920, 3107510, 2246130, 3335850, 3104200, 3291700, 2860680, 3084140, 2975540, 3052760, 3303140, 2442900, 2344720, 2350140, 2484580, 2693620, 1862020], "members_monthly": [49, 50, 51, 49, 50, 50, 54, 50, 50, 50, 50, 51, 49, 49, 48, 50, 54, 54, 48, 45, 41, 43, 42, 39], "new_members_monthly": [0, 3, 1, 4, 2, 0, 4, 1, 1, 1, 0, 2, 0, 2, 0, 4, 3, 8, 4, 4, 1, 1, 3, 1], "refHistory": {"04": {"dormant_rate": 0.1, "churn_rate": 0.07407407407407407, "per_member_sessions": 20.959183673469386, "per_member_ysli": 73.36734693877551, "per_member_revenue": 59750.61224489796}, "05": {"dormant_rate": 0.0, "churn_rate": 0.04, "per_member_sessions": 21.058823529411764, "per_member_ysli": 71.72549019607843, "per_member_revenue": 58072.35294117647}, "06": {"dormant_rate": 0.0784313725490196, "churn_rate": 0.08, "per_member_sessions": 20.52, "per_member_ysli": 71.18, "per_member_revenue": 59073.6}, "07": {"dormant_rate": 0.02, "churn_rate": 0, "per_member_sessions": 21.551020408163264, "per_member_ysli": 74.34693877551021, "per_member_revenue": 62499.183673469386}}}, {"revenue_monthly": [2805700, 3206560, 3051800, 3321250, 3090890, 3067980, 2955360, 4921860, 2558200, 2993280, 3077300, 2971740, 3620820, 3628280, 3866740, 3611280, 3949120, 3046580, 3697260, 2977300, 3570020, 3157900, 3478660, 4008160], "members_monthly": [48, 53, 54, 44, 51, 57, 58, 58, 51, 47, 53, 56, 57, 56, 59, 62, 64, 58, 51, 52, 52, 57, 65, 68], "new_members_monthly": [3, 1, 8, 3, 2, 0, 3, 8, 4, 3, 1, 0, 1, 2, 1, 3, 8, 6, 2, 4, 1, 0, 2, 2], "refHistory": {"04": {"dormant_rate": 0.19607843137254902, "churn_rate": 0.08620689655172414, "per_member_sessions": 18.522727272727273, "per_member_ysli": 58.34090909090909, "per_member_revenue": 75482.95454545454}, "05": {"dormant_rate": 0.06818181818181818, "churn_rate": 0.10526315789473684, "per_member_sessions": 16.51851851851852, "per_member_ysli": 52.05555555555556, "per_member_revenue": 56514.81481481482}, "06": {"dormant_rate": 0.09259259259259259, "churn_rate": 0.09803921568627451, "per_member_sessions": 17.735849056603772, "per_member_ysli": 54.339622641509436, "per_member_revenue": 60501.1320754717}, "07": {"dormant_rate": 0.18867924528301888, "churn_rate": 0.06818181818181818, "per_member_sessions": 19.1875, "per_member_ysli": 54.958333333333336, "per_member_revenue": 58452.083333333336}}}, {"revenue_monthly": [2421400, 2381120, 2130800, 3038480, 2718440, 2217760, 2934400, 2987600, 2427600, 2239000, 3671900, 3086900, 3595840, 3149400, 3300000, 3539700, 3362600, 3585660, 3427780, 3121700, 2803080, 3561180, 3059780, 3578080], "members_monthly": [47, 47, 46, 48, 50, 50, 51, 51, 55, 57, 61, 61, 62, 61, 67, 69, 65, 66, 66, 65, 61, 62, 65, 66], "new_members_monthly": [3, 2, 1, 0, 1, 3, 3, 3, 0, 0, 1, 2, 1, 0, 1, 5, 1, 7, 6, 5, 1, 3, 0, 0], "refHistory": {"04": {"dormant_rate": 0.04, "churn_rate": 0.0784313725490196, "per_member_sessions": 19.5625, "per_member_ysli": 52.416666666666664, "per_member_revenue": 63301.666666666664}, "05": {"dormant_rate": 0.0625, "churn_rate": 0.06, "per_member_sessions": 19.195652173913043, "per_member_ysli": 51.17391304347826, "per_member_revenue": 46321.739130434784}, "06": {"dormant_rate": 0.021739130434782608, "churn_rate": 0.02, "per_member_sessions": 18.872340425531913, "per_member_ysli": 51.808510638297875, "per_member_revenue": 50662.12765957447}, "07": {"dormant_rate": 0.06382978723404255, "churn_rate": 0.0625, "per_member_sessions": 18.76595744680851, "per_member_ysli": 49.87234042553192, "per_member_revenue": 51519.14893617021}}}, {"revenue_monthly": [2123800, 2393160, 2455320, 2574460, 2579640, 2134160, 2123800, 2766120, 2206680, 2375030, 2968140, 2564100, 2921520, 2450140, 2709140, 3429160, 3242680, 3144260, 2890440, 3330740, 2517480, 4195800, 3574200, 3662260], "members_monthly": [47, 48, 51, 51, 52, 49, 49, 50, 50, 53, 56, 55, 56, 61, 63, 65, 70, 65, 59, 63, 72, 73, 73, 81], "new_members_monthly": [1, 0, 0, 2, 6, 3, 1, 4, 0, 0, 1, 1, 0, 1, 2, 3, 8, 7, 2, 0, 2, 4, 0, 3], "refHistory": {"04": {"dormant_rate": 0.057692307692307696, "churn_rate": 0.061224489795918366, "per_member_sessions": 19.941176470588236, "per_member_ysli": 56.07843137254902, "per_member_revenue": 50479.60784313725}, "05": {"dormant_rate": 0.0, "churn_rate": 0.08163265306122448, "per_member_sessions": 18.88235294117647, "per_member_ysli": 51.6078431372549, "per_member_revenue": 48143.529411764706}, "06": {"dormant_rate": 0.058823529411764705, "churn_rate": 0.038461538461538464, "per_member_sessions": 18.604166666666668, "per_member_ysli": 50.6875, "per_member_revenue": 49857.5}, "07": {"dormant_rate": 0.08333333333333333, "churn_rate": 0, "per_member_sessions": 20.23404255319149, "per_member_ysli": 56.297872340425535, "per_member_revenue": 45187.234042553195}}}, {"revenue_monthly": [3138360, 3147940, 2645580, 3281040, 3174600, 3246280, 3219860, 4068860, 3157340, 3688360, 3757240, 3336280, 3553940, 3664080, 3343380, 3290380, 3365500, 2975980, 3316120, 4266110, 3514240, 3862140, 4370970, 4229870], "members_monthly": [48, 46, 60, 60, 58, 63, 65, 61, 58, 59, 58, 58, 56, 56, 54, 48, 45, 47, 55, 57, 59, 61, 62, 64], "new_members_monthly": [2, 0, 2, 3, 1, 2, 6, 7, 0, 1, 1, 4, 1, 3, 7, 3, 1, 2, 3, 1, 1, 1, 1, 2], "refHistory": {"04": {"dormant_rate": 0.017241379310344827, "churn_rate": 0.09230769230769231, "per_member_sessions": 16.433333333333334, "per_member_ysli": 62.28333333333333, "per_member_revenue": 54684.0}, "05": {"dormant_rate": 0.06666666666666667, "churn_rate": 0.09523809523809523, "per_member_sessions": 16.266666666666666, "per_member_ysli": 61.31666666666667, "per_member_revenue": 44093.0}, "06": {"dormant_rate": 0.23333333333333334, "churn_rate": 0.017241379310344827, "per_member_sessions": 21.97826086956522, "per_member_ysli": 73.30434782608695, "per_member_revenue": 68433.47826086957}, "07": {"dormant_rate": 0.021739130434782608, "churn_rate": 0.03333333333333333, "per_member_sessions": 20.208333333333332, "per_member_ysli": 69.27083333333333, "per_member_revenue": 65382.5}}}, {"revenue_monthly": [2441220, 2295300, 3109020, 2382300, 2581740, 2420480, 2936140, 2611760, 2612020, 2428000, 3222700, 2619900, 3836820, 3155500, 3753840, 3612660, 3332580, 3429100, 3591000, 4141800, 3827560, 4541680, 3934560, 3156460], "members_monthly": [44, 41, 44, 39, 43, 43, 45, 42, 42, 46, 51, 53, 54, 50, 53, 56, 59, 61, 63, 67, 66, 67, 64, 60], "new_members_monthly": [3, 0, 5, 1, 3, 1, 2, 2, 1, 3, 2, 0, 3, 2, 1, 2, 3, 3, 2, 3, 0, 5, 4, 3], "refHistory": {"04": {"dormant_rate": 0.11627906976744186, "churn_rate": 0.044444444444444446, "per_member_sessions": 18.82051282051282, "per_member_ysli": 57.15384615384615, "per_member_revenue": 61084.61538461538}, "05": {"dormant_rate": 0.02564102564102564, "churn_rate": 0.06976744186046512, "per_member_sessions": 17.318181818181817, "per_member_ysli": 57.29545454545455, "per_member_revenue": 70659.54545454546}, "06": {"dormant_rate": 0.06818181818181818, "churn_rate": 0.13953488372093023, "per_member_sessions": 18.902439024390244, "per_member_ysli": 61.26829268292683, "per_member_revenue": 55982.92682926829}, "07": {"dormant_rate": 0.04878048780487805, "churn_rate": 0.02564102564102564, "per_member_sessions": 18.181818181818183, "per_member_ysli": 61.84090909090909, "per_member_revenue": 55482.27272727273}}}, {"revenue_monthly": [2201500, 2538200, 2312870, 2812740, 2408700, 1989120, 1911420, 2652160, 2160060, 2413880, 3032890, 2201500, 2810150, 2470860, 2626260, 2755760, 2926700, 2771300, 2766120, 3087280, 3014760, 3149440, 3092460, 3377360], "members_monthly": [45, 45, 47, 48, 46, 42, 49, 53, 46, 54, 51, 51, 52, 54, 56, 57, 58, 57, 55, 60, 61, 62, 62, 63], "new_members_monthly": [3, 2, 1, 5, 6, 2, 3, 3, 1, 3, 2, 1, 1, 0, 1, 1, 6, 7, 1, 4, 2, 3, 4, 3], "refHistory": {"04": {"dormant_rate": 0.06521739130434782, "churn_rate": 0.20408163265306123, "per_member_sessions": 20.25531914893617, "per_member_ysli": 54.95744680851064, "per_member_revenue": 58598.75}, "05": {"dormant_rate": 0.0625, "churn_rate": 0.047619047619047616, "per_member_sessions": 19.04255319148936, "per_member_ysli": 53.51063829787234, "per_member_revenue": 49210.0}, "06": {"dormant_rate": 0.06382978723404255, "churn_rate": 0.06521739130434782, "per_member_sessions": 20.355555555555554, "per_member_ysli": 52.333333333333336, "per_member_revenue": 56404.444444444445}, "07": {"dormant_rate": 0.06666666666666667, "churn_rate": 0.041666666666666664, "per_member_sessions": 19.488888888888887, "per_member_ysli": 50.53333333333333, "per_member_revenue": 48922.22222222222}}}, {"revenue_monthly": [2444960, 2838640, 2040920, 3056200, 2056460, 2812740, 2144520, 3076920, 1699040, 2874900, 2957780, 2403520, 2447550, 2310280, 1906240, 2393160, 1880340, 2356900, 2382800, 1921780, 1595440, 2496760, 1823360, 1740480], "members_monthly": [43, 47, 47, 48, 49, 48, 48, 46, 47, 47, 47, 46, 45, 42, 41, 39, 41, 37, 38, 37, 38, 38, 40, 38], "new_members_monthly": [0, 1, 2, 2, 2, 1, 4, 2, 1, 1, 1, 3, 2, 3, 3, 0, 5, 0, 2, 2, 1, 0, 1, 2], "refHistory": {"04": {"dormant_rate": 0.04081632653061224, "churn_rate": 0.041666666666666664, "per_member_sessions": 21.104166666666668, "per_member_ysli": 66.58333333333333, "per_member_revenue": 63670.833333333336}, "05": {"dormant_rate": 0.08333333333333333, "churn_rate": 0.020833333333333332, "per_member_sessions": 20.340425531914892, "per_member_ysli": 65.06382978723404, "per_member_revenue": 43423.82978723404}, "06": {"dormant_rate": 0.02127659574468085, "churn_rate": 0.04081632653061224, "per_member_sessions": 20.80851063829787, "per_member_ysli": 63.95744680851064, "per_member_revenue": 60396.59574468085}, "07": {"dormant_rate": 0.0851063829787234, "churn_rate": 0.041666666666666664, "per_member_sessions": 22.069767441860463, "per_member_ysli": 66.16279069767442, "per_member_revenue": 56859.53488372093}}}, {"revenue_monthly": [2187810, 2188650, 2327910, 2040180, 2263760, 1634040, 1759440, 2232620, 1733180, 1801360, 1821180, 2055480, 1505560, 1811300, 1697100, 2018140, 2230520, 2349980, 2205320, 2511740, 2003500, 2398080, 2408620, 2439460], "members_monthly": [39, 39, 39, 37, 37, 32, 37, 36, 33, 31, 33, 33, 33, 34, 36, 36, 41, 40, 41, 41, 44, 41, 39, 39], "new_members_monthly": [0, 1, 3, 1, 6, 1, 1, 3, 2, 0, 3, 1, 1, 2, 2, 1, 4, 1, 1, 0, 3, 4, 0, 0], "refHistory": {"04": {"dormant_rate": 0.02702702702702703, "churn_rate": 0.10810810810810811, "per_member_sessions": 22.35135135135135, "per_member_ysli": 54.513513513513516, "per_member_revenue": 55140.0}, "05": {"dormant_rate": 0.02702702702702703, "churn_rate": 0.03125, "per_member_sessions": 20.94871794871795, "per_member_ysli": 51.53846153846154, "per_member_revenue": 59690.0}, "06": {"dormant_rate": 0.02564102564102564, "churn_rate": 0.02702702702702703, "per_member_sessions": 22.53846153846154, "per_member_ysli": 55.02564102564103, "per_member_revenue": 56119.230769230766}, "07": {"dormant_rate": 0, "churn_rate": 0.02702702702702703, "per_member_sessions": 24.025641025641026, "per_member_ysli": 57.282051282051285, "per_member_revenue": 56097.692307692305}}}, {"revenue_monthly": [2337000, 2787600, 2723280, 2734080, 3149280, 2764580, 2573280, 2803020, 2896140, 2725200, 2885060, 2615720, 2373460, 2688780, 2822860, 3040600, 2900800, 2818220, 2585480, 2626960, 2347360, 2421440, 2368920, 2275680], "members_monthly": [38, 44, 44, 44, 51, 45, 44, 47, 45, 45, 43, 44, 43, 44, 44, 45, 47, 45, 42, 41, 42, 41, 38, 39], "new_members_monthly": [0, 2, 4, 1, 6, 3, 4, 3, 0, 3, 0, 2, 1, 2, 1, 0, 3, 3, 1, 4, 3, 3, 0, 1], "refHistory": {"04": {"dormant_rate": 0.1568627450980392, "churn_rate": 0.045454545454545456, "per_member_sessions": 21.522727272727273, "per_member_ysli": 56.47727272727273, "per_member_revenue": 62138.181818181816}, "05": {"dormant_rate": 0.11363636363636363, "churn_rate": 0.0, "per_member_sessions": 20.977272727272727, "per_member_ysli": 55.34090909090909, "per_member_revenue": 61892.72727272727}, "06": {"dormant_rate": 0.045454545454545456, "churn_rate": 0.13725490196078433, "per_member_sessions": 20.75, "per_member_ysli": 53.88636363636363, "per_member_revenue": 63354.545454545456}, "07": {"dormant_rate": 0.13636363636363635, "churn_rate": 0.11363636363636363, "per_member_sessions": 21.289473684210527, "per_member_ysli": 51.63157894736842, "per_member_revenue": 61500.0}}}, {"revenue_monthly": [2276400, 1932000, 1869600, 2523600, 1990300, 1729800, 2556000, 2347200, 2373000, 2368800, 2740800, 2710800, 2446800, 2523600, 2710200, 2896800, 2662200, 2756400, 2304000, 2887440, 2820000, 3457980, 3301680, 3302400], "members_monthly": [39, 38, 38, 39, 36, 37, 42, 42, 41, 43, 43, 44, 45, 46, 48, 50, 46, 45, 42, 49, 51, 53, 55, 53], "new_members_monthly": [2, 2, 1, 2, 0, 0, 3, 2, 0, 1, 1, 0, 0, 0, 3, 4, 4, 3, 0, 2, 1, 2, 2, 3], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.09523809523809523, "per_member_sessions": 19.82051282051282, "per_member_ysli": 68.97435897435898, "per_member_revenue": 64707.692307692305}, "05": {"dormant_rate": 0.10256410256410256, "churn_rate": 0.02702702702702703, "per_member_sessions": 20.57894736842105, "per_member_ysli": 67.44736842105263, "per_member_revenue": 49200.0}, "06": {"dormant_rate": 0.07894736842105263, "churn_rate": 0, "per_member_sessions": 19.81578947368421, "per_member_ysli": 65.6842105263158, "per_member_revenue": 50842.10526315789}, "07": {"dormant_rate": 0.02631578947368421, "churn_rate": 0.02564102564102564, "per_member_sessions": 19.897435897435898, "per_member_ysli": 69.28205128205128, "per_member_revenue": 58369.230769230766}}}, {"revenue_monthly": [1840200, 1512600, 1722000, 1798600, 1820180, 1387200, 1922800, 2234000, 1558800, 2078580, 1792200, 1912800, 1897000, 1539200, 1784380, 1777800, 2006600, 2200760, 1856780, 2647960, 2001840, 2901740, 1903120, 2750480], "members_monthly": [40, 40, 38, 40, 40, 42, 39, 39, 41, 39, 38, 39, 38, 40, 37, 39, 42, 42, 39, 38, 41, 44, 46, 45], "new_members_monthly": [3, 2, 2, 1, 5, 3, 4, 1, 3, 1, 2, 1, 1, 3, 0, 3, 2, 3, 2, 1, 2, 1, 1, 1], "refHistory": {"04": {"dormant_rate": 0.025, "churn_rate": 0.0, "per_member_sessions": 18.3, "per_member_ysli": 53.625, "per_member_revenue": 44965.0}, "05": {"dormant_rate": 0.1, "churn_rate": 0.16666666666666666, "per_member_sessions": 17.07894736842105, "per_member_ysli": 47.421052631578945, "per_member_revenue": 45315.78947368421}, "06": {"dormant_rate": 0, "churn_rate": 0.025, "per_member_sessions": 17.425, "per_member_ysli": 47.775, "per_member_revenue": 37815.0}, "07": {"dormant_rate": 0.075, "churn_rate": 0.1, "per_member_sessions": 18.075, "per_member_ysli": 49.525, "per_member_revenue": 46005.0}}}, {"revenue_monthly": [2724410, 2318470, 2635770, 2451320, 2583360, 2420330, 2520550, 2317960, 1988520, 2297100, 2416520, 2091530, 2442610, 2442660, 2664520, 2748660, 3095600, 3178800, 3167240, 3625960, 3159820, 3750660, 3621700, 3367260], "members_monthly": [37, 38, 38, 37, 38, 39, 38, 31, 34, 33, 35, 33, 35, 37, 39, 44, 48, 48, 52, 56, 55, 55, 51, 54], "new_members_monthly": [1, 1, 1, 1, 2, 2, 8, 0, 2, 1, 2, 1, 1, 1, 1, 1, 4, 1, 1, 2, 0, 5, 1, 2], "refHistory": {"04": {"dormant_rate": 0.05263157894736842, "churn_rate": 0.02631578947368421, "per_member_sessions": 23.38888888888889, "per_member_ysli": 72.55555555555556, "per_member_revenue": 66251.8918918919}, "05": {"dormant_rate": 0.0, "churn_rate": 0.07692307692307693, "per_member_sessions": 24.342105263157894, "per_member_ysli": 71.28947368421052, "per_member_revenue": 69362.36842105263}, "06": {"dormant_rate": 0.02631578947368421, "churn_rate": 0.05263157894736842, "per_member_sessions": 21.763157894736842, "per_member_ysli": 70.92105263157895, "per_member_revenue": 61012.36842105263}, "07": {"dormant_rate": 0.05263157894736842, "churn_rate": 0, "per_member_sessions": 23.216216216216218, "per_member_ysli": 71.83783783783784, "per_member_revenue": 73632.7027027027}}}, {"revenue_monthly": [1673140, 1647240, 1610980, 1735300, 1331260, 1414140, 1263920, 1098160, 1030820, 1118880, 1559180, 1092980, 1144780, 1377880, 1429680, 1683500, 1217300, 1429680, 953120, 1735300, 1103340, 1476300, 1616160, 1320900], "members_monthly": [32, 32, 33, 32, 32, 30, 29, 26, 28, 29, 29, 28, 29, 32, 31, 32, 29, 31, 32, 31, 30, 33, 35, 38], "new_members_monthly": [1, 1, 2, 2, 5, 2, 5, 0, 2, 2, 3, 0, 0, 2, 0, 4, 2, 2, 1, 2, 2, 2, 3, 4], "refHistory": {"04": {"dormant_rate": 0.0625, "churn_rate": 0.034482758620689655, "per_member_sessions": 19.0, "per_member_ysli": 61.78125, "per_member_revenue": 54228.125}, "05": {"dormant_rate": 0.03125, "churn_rate": 0.1, "per_member_sessions": 18.151515151515152, "per_member_ysli": 61.42424242424242, "per_member_revenue": 48817.57575757576}, "06": {"dormant_rate": 0.06060606060606061, "churn_rate": 0.0625, "per_member_sessions": 19.78125, "per_member_ysli": 60.4375, "per_member_revenue": 51476.25}, "07": {"dormant_rate": 0.125, "churn_rate": 0.03125, "per_member_sessions": 19.15625, "per_member_ysli": 59.78125, "per_member_revenue": 52285.625}}}, {"revenue_monthly": [2317380, 2316950, 2020920, 1924370, 1758610, 2245530, 2536500, 2267440, 2358330, 2283220, 2882000, 2162460, 2456040, 2394720, 2176080, 2963960, 2455800, 2745880, 2693840, 2890920, 2383040, 2569520, 2616140, 2321120], "members_monthly": [28, 28, 27, 27, 29, 30, 32, 33, 32, 31, 32, 32, 32, 34, 34, 35, 37, 38, 36, 35, 34, 34, 35, 34], "new_members_monthly": [1, 1, 2, 0, 1, 2, 1, 2, 1, 1, 1, 2, 0, 0, 2, 1, 3, 2, 3, 1, 0, 2, 2, 3], "refHistory": {"04": {"dormant_rate": 0.06896551724137931, "churn_rate": 0.125, "per_member_sessions": 28.22222222222222, "per_member_ysli": 69.4074074074074, "per_member_revenue": 71272.96296296296}, "05": {"dormant_rate": 0.07407407407407407, "churn_rate": 0.06666666666666667, "per_member_sessions": 29.40740740740741, "per_member_ysli": 68.92592592592592, "per_member_revenue": 74848.88888888889}, "06": {"dormant_rate": 0, "churn_rate": 0.06896551724137931, "per_member_sessions": 25.964285714285715, "per_member_ysli": 71.21428571428571, "per_member_revenue": 82748.21428571429}, "07": {"dormant_rate": 0.03571428571428571, "churn_rate": 0.07407407407407407, "per_member_sessions": 28.857142857142858, "per_member_ysli": 69.78571428571429, "per_member_revenue": 82763.57142857143}}}, {"revenue_monthly": [1238020, 1098160, 1030820, 1191400, 1346800, 1010100, 947940, 890960, 875420, 782180, 725200, 916860, 808080, 714840, 554260, 393680, 932400, 963480, 865060, 973840, 1025640, 947940, 885780, 844340], "members_monthly": [23, 23, 24, 25, 23, 20, 20, 19, 18, 18, 17, 17, 17, 17, 17, 16, 18, 19, 18, 18, 17, 16, 16, 15], "new_members_monthly": [1, 0, 0, 2, 4, 2, 1, 1, 0, 1, 0, 0, 1, 0, 1, 0, 0, 1, 0, 1, 1, 1, 1, 0], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.1, "per_member_sessions": 18.84, "per_member_ysli": 53.2, "per_member_revenue": 47656.0}, "05": {"dormant_rate": 0.04, "churn_rate": 0.05, "per_member_sessions": 19.25, "per_member_ysli": 54.208333333333336, "per_member_revenue": 42950.833333333336}, "06": {"dormant_rate": 0.041666666666666664, "churn_rate": 0, "per_member_sessions": 18.956521739130434, "per_member_ysli": 54.91304347826087, "per_member_revenue": 47746.086956521736}, "07": {"dormant_rate": 0.043478260869565216, "churn_rate": 0.04, "per_member_sessions": 20.217391304347824, "per_member_ysli": 58.56521739130435, "per_member_revenue": 53826.95652173913}}}, {"revenue_monthly": [585340, 616420, 626780, 720020, 709660, 595700, 543900, 569800, 652680, 471380, 720020, 580160, 880600, 678580, 932400, 979020, 808080, 771820, 528360, 1061900, 751100, 1010100, 890960, 725200], "members_monthly": [15, 15, 16, 16, 17, 17, 17, 16, 16, 15, 15, 16, 19, 19, 21, 19, 16, 17, 20, 20, 21, 23, 22, 20], "new_members_monthly": [1, 0, 0, 1, 2, 0, 3, 2, 1, 0, 1, 0, 1, 1, 2, 2, 2, 1, 0, 0, 1, 0, 3, 0], "refHistory": {"04": {"dormant_rate": 0.11764705882352941, "churn_rate": 0.0, "per_member_sessions": 16.4375, "per_member_ysli": 44.3125, "per_member_revenue": 45001.25}, "05": {"dormant_rate": 0.0, "churn_rate": 0.11764705882352941, "per_member_sessions": 16.125, "per_member_ysli": 44.875, "per_member_revenue": 39173.75}, "06": {"dormant_rate": 0.0625, "churn_rate": 0.11764705882352941, "per_member_sessions": 15.733333333333333, "per_member_ysli": 41.6, "per_member_revenue": 41094.666666666664}, "07": {"dormant_rate": 0.06666666666666667, "churn_rate": 0, "per_member_sessions": 15.8, "per_member_ysli": 39.266666666666666, "per_member_revenue": 39022.666666666664}}}, {"revenue_monthly": [1061900, 766640, 720020, 911680, 1284640, 870240, 973840, 1284640, 1072260, 1077440, 1048950, 792540, 668220, 2206680, 958300, 828800, 1067080, 797720, 813260, 1046360, 1036000, 1087800, 1025640, 1030820], "members_monthly": [13, 15, 16, 16, 16, 20, 20, 21, 21, 20, 18, 16, 18, 19, 19, 18, 17, 16, 17, 19, 19, 19, 19, 20], "new_members_monthly": [0, 0, 0, 0, 0, 1, 0, 0, 1, 2, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0], "refHistory": {"04": {"dormant_rate": 0.0625, "churn_rate": 0.05, "per_member_sessions": 23.0, "per_member_ysli": 48.4375, "per_member_revenue": 56980.0}, "05": {"dormant_rate": 0.0, "churn_rate": 0.2, "per_member_sessions": 22.75, "per_member_ysli": 49.1875, "per_member_revenue": 45001.25}, "06": {"dormant_rate": 0.0625, "churn_rate": 0.0625, "per_member_sessions": 17.733333333333334, "per_member_ysli": 39.4, "per_member_revenue": 51109.333333333336}, "07": {"dormant_rate": 0.13333333333333333, "churn_rate": 0, "per_member_sessions": 24.384615384615383, "per_member_ysli": 46.84615384615385, "per_member_revenue": 81684.61538461539}}}, {"revenue_monthly": [582750, 486920, 606060, 598290, 616420, 217560, 606800, 756280, 631960, 554260, 710400, 541310, 797720, 875420, 714840, 797720, 849520, 984200, 959040, 943500, 942760, 880600, 1046360, 1010100], "members_monthly": [12, 11, 14, 13, 14, 15, 16, 13, 14, 13, 14, 16, 17, 16, 18, 17, 17, 19, 20, 21, 19, 21, 21, 22], "new_members_monthly": [0, 0, 0, 0, 0, 0, 1, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 2, 0, 0, 0, 1], "refHistory": {"04": {"dormant_rate": 0.07142857142857142, "churn_rate": 0.0625, "per_member_sessions": 13.846153846153847, "per_member_ysli": 48.61538461538461, "per_member_revenue": 46022.307692307695}, "05": {"dormant_rate": 0.07692307692307693, "churn_rate": 0.06666666666666667, "per_member_sessions": 15.714285714285714, "per_member_ysli": 45.5, "per_member_revenue": 43290.0}, "06": {"dormant_rate": 0.21428571428571427, "churn_rate": 0, "per_member_sessions": 15.272727272727273, "per_member_ysli": 53, "per_member_revenue": 44265.454545454544}, "07": {"dormant_rate": 0.09090909090909091, "churn_rate": 0, "per_member_sessions": 14.5, "per_member_ysli": 42.5, "per_member_revenue": 48562.5}}}, {"revenue_monthly": [422170, 621600, 497280, 611240, 624190, 497280, 372960, 435120, 435120, 435120, 455840, 396270, 590520, 476560, 585340, 461020, 429940, 642320, 284900, 849520, 787360, 859880, 740740, 647500], "members_monthly": [8, 7, 7, 8, 8, 6, 6, 6, 6, 7, 7, 6, 8, 7, 8, 7, 9, 9, 8, 11, 11, 12, 11, 10], "new_members_monthly": [1, 0, 0, 1, 2, 0, 1, 0, 0, 0, 1, 0, 1, 0, 0, 0, 3, 1, 0, 0, 0, 1, 1, 1], "refHistory": {"04": {"dormant_rate": 0.125, "churn_rate": 0.0, "per_member_sessions": 23.375, "per_member_ysli": 57.625, "per_member_revenue": 76405.0}, "05": {"dormant_rate": 0.0, "churn_rate": 0.16666666666666666, "per_member_sessions": 29.0, "per_member_ysli": 60.857142857142854, "per_member_revenue": 71040.0}, "06": {"dormant_rate": 0, "churn_rate": 0.125, "per_member_sessions": 28.285714285714285, "per_member_ysli": 63.57142857142857, "per_member_revenue": 88800.0}, "07": {"dormant_rate": 0, "churn_rate": 0.125, "per_member_sessions": 25.75, "per_member_ysli": 53.5, "per_member_revenue": 52771.25}}}, {"revenue_monthly": [312000, 498960, 436560, 639360, 670560, 639360, 749340, 873360, 623760, 810960, 686160, 748560, 740790, 748560, 950760, 1137960, 903960, 1138560, 686160, 998160, 1013760, 1029600, 686400, 1076100], "members_monthly": [7, 8, 9, 10, 11, 13, 13, 13, 13, 12, 12, 12, 13, 16, 16, 15, 16, 16, 17, 16, 16, 15, 15, 17], "new_members_monthly": [0, 0, 0, 0, 0, 0, 1, 0, 1, 1, 0, 0, 0, 0, 1, 0, 1, 1, 1, 0, 1, 0, 0, 1], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.0, "per_member_sessions": 20.9, "per_member_ysli": 59.3, "per_member_revenue": 63936.0}, "05": {"dormant_rate": 0.1, "churn_rate": 0.07692307692307693, "per_member_sessions": 24.666666666666668, "per_member_ysli": 66.55555555555556, "per_member_revenue": 48506.666666666664}, "06": {"dormant_rate": 0.1111111111111111, "churn_rate": 0, "per_member_sessions": 18.75, "per_member_ysli": 57.5, "per_member_revenue": 62370.0}, "07": {"dormant_rate": 0.125, "churn_rate": 0.1, "per_member_sessions": 23.285714285714285, "per_member_ysli": 66, "per_member_revenue": 44571.42857142857}}}, {"revenue_monthly": [0, 338800, 240240, 246400, 314160, 264880, 363440, 184800, 295680, 209440, 418880, 246400, 0, 234080, 221760, 221760, 221760, 221760, 147840, 221760, 0, 147840, 147840, 147840], "members_monthly": [4, 4, 4, 5, 5, 5, 5, 4, 4, 4, 4, 3, 3, 3, 3, 3, 3, 3, 2, 2, 2, 3, 3, 3], "new_members_monthly": [0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.0, "per_member_sessions": 18.4, "per_member_ysli": 47.2, "per_member_revenue": 49280.0}, "05": {"dormant_rate": 0.2, "churn_rate": 0.0, "per_member_sessions": 20.5, "per_member_ysli": 46.75, "per_member_revenue": 60060.0}, "06": {"dormant_rate": 0, "churn_rate": 0, "per_member_sessions": 22, "per_member_ysli": 49.75, "per_member_revenue": 84700.0}, "07": {"dormant_rate": 0, "churn_rate": 0.2, "per_member_sessions": 21.25, "per_member_ysli": 52.25, "per_member_revenue": 0.0}}}, {"revenue_monthly": [62160, 41440, 62160, 62160, 41440, 62160, 62160, 93240, 108780, 139860, 217560, 176120, 41440, 0, 0, 0, 0, 0, 0, 113960, 139860, 113960, 0, 0], "members_monthly": [2, 1, 1, 1, 1, 2, 3, 3, 4, 4, 4, 4, 1, 0, 0, 0, 0, 0, 1, 2, 2, 2, 0, 1], "new_members_monthly": [1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {"04": {"dormant_rate": 0.0, "churn_rate": 0.3333333333333333, "per_member_sessions": 22.0, "per_member_ysli": 85.0, "per_member_revenue": 62160.0}, "05": {"dormant_rate": 0.0, "churn_rate": 0.5, "per_member_sessions": 22.0, "per_member_ysli": 86.0, "per_member_revenue": 62160.0}, "06": {"dormant_rate": 0, "churn_rate": 0, "per_member_sessions": 22, "per_member_ysli": 88, "per_member_revenue": 41440.0}, "07": {"dormant_rate": 0, "churn_rate": 0, "per_member_sessions": 12, "per_member_ysli": 53, "per_member_revenue": 31080.0}}}], "region": {"revenue_monthly": [93039760, 92046290, 90798920, 97145060, 97378700, 89696270, 96505790, 105551290, 94138110, 93959960, 109038180, 97440690, 105047580, 103479660, 102155160, 109030420, 106871940, 110753320, 103666240, 114563710, 107197520, 117251020, 119498650, 116256050], "members_monthly": [1577, 1607, 1633, 1624, 1677, 1682, 1730, 1698, 1706, 1717, 1745, 1757, 1781, 1785, 1837, 1856, 1918, 1900, 1879, 1957, 1975, 2002, 2025, 2056], "new_members_monthly": [62, 51, 67, 66, 107, 71, 126, 72, 45, 53, 59, 57, 49, 62, 62, 68, 127, 115, 77, 85, 65, 61, 66, 77]}, "labels": ["2026년07월", "2026년06월", "2026년05월", "2026년04월", "2026년03월", "2026년02월", "2026년01월", "2025년12월", "2025년11월", "2025년10월", "2025년09월", "2025년08월", "2025년07월", "2025년06월", "2025년05월", "2025년04월", "2025년03월", "2025년02월", "2025년01월", "2024년12월", "2024년11월", "2024년10월", "2024년09월", "2024년08월"], "centerCount": 33, "refAvgsHistory": {"04": {"dormant_rate": 0.07215265354800239, "churn_rate": 0.06589595375722543, "per_member_revenue": 59855.24337646334, "per_member_sessions": 20.641009852216747, "per_member_ysli": 62.764162561576356}, "05": {"dormant_rate": 0.04864532019704434, "churn_rate": 0.07491082045184304, "per_member_revenue": 55636.5931372549, "per_member_sessions": 20.496019595835886, "per_member_ysli": 61.491120636864665}, "06": {"dormant_rate": 0.05143906919779547, "churn_rate": 0.06320810971973763, "per_member_revenue": 57278.338518979464, "per_member_sessions": 20.627255756067207, "per_member_ysli": 62.05102675793404}, "07": {"dormant_rate": 0.07218419415059116, "churn_rate": 0.04064039408866995, "per_member_revenue": 58997.94546607482, "per_member_sessions": 21.157894736842106, "per_member_ysli": 62.46036778693722}}};
+  // 2026-08-18 fix: was hardcoded to 6 (assumed most-recent-closed-month = June);
+  // now derived from the same cur_month_num build.py/gen_html.py already use
+  // elsewhere on this page, so the month filter keeps working correctly as
+  // months roll forward without another manual edit.
+  const CUR_MONTH_NUM_JS = 8;
 
   function pctDelta(thisVal, baseVal) {
     if (!baseVal) {
@@ -1868,12 +2359,17 @@
 
   function computeMetric(monthly, sel, wantYtd) {
     if (sel === 'cur') return null; // caller uses server-rendered current values
-    const idx = 6 - sel;
+    const idx = (CUR_MONTH_NUM_JS - 1) - sel;
     const v = monthly[idx];
-    const mom = pctDelta(v, monthly[idx+1]);
+    const prevV = monthly[idx+1];
+    const mom = pctDelta(v, prevV);
     const yoy = pctDelta(v, monthly[idx+12]);
-    const ytd = wantYtd ? sum(monthly.slice(idx, 6)) : null;
-    return {v, mom, yoy, ytd};
+    // YTD-through-selected-month = sum from idx back through January's index.
+    // was hardcoded to slice(idx, 6) (correct only when the most-recent-closed
+    // month was June); now derived from CUR_MONTH_NUM_JS so it stays correct
+    // as months roll forward (same bug class as the idx fix above).
+    const ytd = wantYtd ? sum(monthly.slice(idx, CUR_MONTH_NUM_JS - 1)) : null;
+    return {v, mom, yoy, ytd, prevV};
   }
 
   // cache the server-rendered "current month" values so we can restore them when the user picks "cur" again
@@ -1952,10 +2448,10 @@
       tr.querySelector('.c-rev-mom').innerHTML = deltaHtml(rev.mom);
       tr.querySelector('.c-rev-yoy').innerHTML = deltaHtml(rev.yoy);
       tr.querySelector('.c-rev-ytd').innerHTML = fmtWon(rev.ytd);
-      tr.querySelector('.c-mem-v').innerHTML = fmtNum(mem.v) + '명';
+      tr.querySelector('.c-mem-v').innerHTML = `<div class="cell-main">${fmtNum(mem.v)}명</div><div class="cell-sub-prev">전월 ${fmtNum(mem.prevV)}명</div>`;
       tr.querySelector('.c-mem-mom').innerHTML = deltaHtml(mem.mom);
       tr.querySelector('.c-mem-yoy').innerHTML = deltaHtml(mem.yoy);
-      tr.querySelector('.c-new-v').innerHTML = fmtNum(nm.v) + '명';
+      tr.querySelector('.c-new-v').innerHTML = `<div class="cell-main">${fmtNum(nm.v)}명</div><div class="cell-sub-prev">전월 ${fmtNum(nm.prevV)}명</div>`;
       tr.querySelector('.c-new-mom').innerHTML = deltaHtml(nm.mom);
       tr.querySelector('.c-new-yoy').innerHTML = deltaHtml(nm.yoy);
       tr.querySelector('.c-new-ytd').innerHTML = fmtNum(nm.ytd) + '명';
@@ -2013,11 +2509,11 @@
       document.getElementById('t-rev-yoy').innerHTML = deltaHtml(rev.yoy);
       document.getElementById('t-rev-ytd').innerHTML = fmtWon(rev.ytd);
       document.getElementById('t-rev-avg').innerHTML = fmtWon(rev.v / cc);
-      document.getElementById('t-mem-v').innerHTML = fmtNum(mem.v) + '명';
+      document.getElementById('t-mem-v').innerHTML = `${fmtNum(mem.v)}명 <span class="tile-value-prev">(전월 ${fmtNum(mem.prevV)}명)</span>`;
       document.getElementById('t-mem-mom').innerHTML = deltaHtml(mem.mom);
       document.getElementById('t-mem-yoy').innerHTML = deltaHtml(mem.yoy);
       document.getElementById('t-mem-avg').innerHTML = fmtNum(mem.v / cc) + '명';
-      document.getElementById('t-new-v').innerHTML = fmtNum(nm.v) + '명';
+      document.getElementById('t-new-v').innerHTML = `${fmtNum(nm.v)}명 <span class="tile-value-prev">(전월 ${fmtNum(nm.prevV)}명)</span>`;
       document.getElementById('t-new-mom').innerHTML = deltaHtml(nm.mom);
       document.getElementById('t-new-yoy').innerHTML = deltaHtml(nm.yoy);
       document.getElementById('t-new-ytd').innerHTML = fmtNum(nm.ytd) + '명';
