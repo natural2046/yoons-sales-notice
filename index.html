@@ -27,7 +27,17 @@
   }
   h1 {
     font-size: 1.4rem;
-    margin: 0 0 32px;
+    margin: 0 0 8px;
+  }
+  .group-label {
+    font-size: 0.8rem;
+    color: rgba(11,11,11,0.45);
+    margin: 24px 0 10px;
+    text-align: left;
+    font-weight: 600;
+  }
+  .group-label:first-of-type {
+    margin-top: 0;
   }
   .links {
     display: flex;
@@ -48,17 +58,23 @@
   a.notice-link:hover {
     opacity: 0.88;
   }
-  a.notice-link.gyeonggi {
-    background: #eb6834;
-  }
+  a.notice-link.gyeonggi { background: #eb6834; }
+  a.notice-link.incheon-gimpo { background: #2f9e6f; }
+  a.notice-link.chungcheong { background: #7a5cc9; }
 </style>
 </head>
 <body>
   <div class="card">
     <h1>사장단 공지 — 영업실적 · 자료실</h1>
+    <div class="group-label">서울남 · 경기남 (박정선 매니저)</div>
     <div class="links">
       <a class="notice-link seoulnam" href="seoulnam.html">서울남 사장단 공지 바로가기</a>
       <a class="notice-link gyeonggi" href="gyeonggi.html">경기남 사장단 공지 바로가기</a>
+    </div>
+    <div class="group-label">인천김포 · 충청대전세종 (김미옥 매니저)</div>
+    <div class="links">
+      <a class="notice-link incheon-gimpo" href="incheon_gimpo.html">인천김포 사장단 공지 바로가기</a>
+      <a class="notice-link chungcheong" href="chungcheong.html">충청대전세종 사장단 공지 바로가기</a>
     </div>
   </div>
 </body>

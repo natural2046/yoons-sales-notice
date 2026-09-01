@@ -383,13 +383,13 @@
       <label for="monthFilter">조회 기준월</label>
       <select id="monthFilter">
         <option value="cur" selected>2026년 08월 (가마감)</option>
-<option value="7">2026년 07월 (가마감)</option>
-<option value="6">2026년 06월 (가마감)</option>
-<option value="5">2026년 05월 (가마감)</option>
-<option value="4">2026년 04월 (가마감)</option>
-<option value="3">2026년 03월 (가마감)</option>
-<option value="2">2026년 02월 (가마감)</option>
-<option value="1">2026년 01월 (가마감)</option>
+<option value="7">2026년 07월 (마감)</option>
+<option value="6">2026년 06월 (마감)</option>
+<option value="5">2026년 05월 (마감)</option>
+<option value="4">2026년 04월 (마감)</option>
+<option value="3">2026년 03월 (마감)</option>
+<option value="2">2026년 02월 (마감)</option>
+<option value="1">2026년 01월 (마감)</option>
       </select>
       <span class="status-pill live" id="statusPill"><span class="dot"></span>2026-08-31 기준 가마감(잠정) 자료</span>
       <span class="filter-note">2026년 마감 자료만 조회할 수 있습니다 · 8월은 가마감(잠정) 자료이며, 추후 확정 마감 시 수치가 변경될 수 있습니다.</span>
@@ -2539,10 +2539,10 @@
     }
   }
 
-  // 2026-09-01 fix: 과거월 선택 시 무조건 "마감 확정치"로 표시하던 것도 같은 문제였음 -
-  // 실제 확정 "마감" 공지를 받은 달(FINAL_MONTHS_JS)만 "마감 확정치"로, 나머지는
-  // "가마감(잠정) 자료"로 표시.
-  const FINAL_MONTHS_JS = [];
+  // 2026-09-01 critical fix (user caught this): 과거월(이번 달 이전)은 항상 "마감
+  // 확정치"로 표시 - 가마감/잠정 상태는 오직 당월(cur) 선택에만 해당됨. 이전 버전은
+  // final_months에 수동으로 넣어준 달만 "마감"으로 쳐서, 한 번도 넣어준 적 없는
+  // 1~7월이 전부 "가마감(잠정)"으로 잘못 표시되는 버그가 있었음.
   document.getElementById('monthFilter').addEventListener('change', (e) => {
     const isCur = e.target.value === 'cur';
     const sel = isCur ? 'cur' : parseInt(e.target.value, 10);
@@ -2553,7 +2553,7 @@
       pill.className = 'status-pill live';
       pill.innerHTML = '<span class="dot"></span>2026-08-31 기준 가마감(잠정) 자료';
     } else {
-      const isFinal = FINAL_MONTHS_JS.includes(sel);
+      const isFinal = true;
       pill.className = 'status-pill ' + (isFinal ? 'closed' : 'live');
       const phrase = isFinal ? '마감 확정치' : '가마감(잠정) 자료';
       pill.innerHTML = `<span class="dot"></span>2026년 ${String(sel).padStart(2,'0')}월 ${phrase}`;
