@@ -362,8 +362,8 @@
 
   <div class="tab-nav">
     <button class="tab-btn active" data-tab="performance" id="tabBtnPerf">📊 실적 현황</button>
+    <button class="tab-btn" data-tab="extras" id="tabBtnExtras">🎯 전략상품 (YES멤버스, 패키지현황)</button>
     <button class="tab-btn" data-tab="promotion" id="tabBtnPromo">🍂 프로모션 현황</button>
-    <button class="tab-btn" data-tab="extras" id="tabBtnExtras">📦 YES멤버스·패키지판매</button>
   </div>
 
   <div class="tab-panel active" id="tabPanel-performance">
@@ -704,6 +704,85 @@
 
   </div>
 
+  <div class="tab-panel" id="tabPanel-extras">
+    
+    <section style="margin-bottom:20px;">
+      <div class="card">
+        <h2>🎯 전략상품 현황 (YES멤버스 · 패키지판매)</h2>
+        <div class="card-sub" style="margin-bottom:6px;">YES멤버스 기준일자 2026-09-01 홈사업 · 패키지판매 기준일자 2026-09-01 홈사업</div>
+        <div class="promo-stats" style="gap:20px; margin:8px 0 4px;"><div class="promo-stat"><span class="promo-stat-label">YES멤버스 결제회원</span><span class="promo-stat-value">54명 (신규 3명)</span></div><div class="promo-stat"><span class="promo-stat-label">교실회원 대비 비중</span><span class="promo-stat-value">54명 / 121명 (44.6%)</span></div><div class="promo-stat"><span class="promo-stat-label">패키지 판매 센터</span><span class="promo-stat-value">0개 / 5개 (0.0%)</span></div><div class="promo-stat"><span class="promo-stat-label">8월 판매량 (누계)</span><span class="promo-stat-value">0건 (0건)</span></div></div>
+        <div class="table-scroll" style="margin-top:14px;">
+          <table>
+            <thead>
+              <tr>
+                <th rowspan="2" style="text-align:left;">센터</th>
+                <th class="group group-members" colspan="3">YES멤버스</th>
+                <th class="group group-new" colspan="3">패키지판매</th>
+              </tr>
+              <tr class="sub">
+                <th class="grp-members">당월 결제</th><th class="grp-members">당월 신규</th><th class="grp-members">교실비중</th>
+                <th class="grp-new">8월 판매량</th><th class="grp-new">7월 판매량</th><th class="grp-new">누계 판매량</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+        <tr>
+          <td class="sticky-col"><div class="center-name">교실둔산중부</div></td>
+          <td class="num grp-members"></td>
+          <td class="num grp-members"></td>
+          <td class="num grp-members">0명 / 35명 (0.0%)</td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col"><div class="center-name">교실유성서부</div></td>
+          <td class="num grp-members">26명</td>
+          <td class="num grp-members">2명</td>
+          <td class="num grp-members">26명 / 35명 (74.3%)</td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col"><div class="center-name">교실대전가오</div></td>
+          <td class="num grp-members">19명</td>
+          <td class="num grp-members">1명</td>
+          <td class="num grp-members">19명 / 22명 (86.4%)</td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col"><div class="center-name">교실대전월평</div></td>
+          <td class="num grp-members"></td>
+          <td class="num grp-members"></td>
+          <td class="num grp-members">0명 / 20명 (0.0%)</td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col"><div class="center-name">교실중구동부</div></td>
+          <td class="num grp-members">9명</td>
+          <td class="num grp-members"></td>
+          <td class="num grp-members">9명 / 9명 (100.0%)</td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+          <td class="num grp-new"></td>
+        </tr>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </section>
+    
+  </div>
+
   <div class="tab-panel" id="tabPanel-promotion">
     
     <section>
@@ -797,178 +876,6 @@
           <td class="num"><b>0명</b></td>
           <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
           <td class="num">—</td>
-        </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-    
-  </div>
-
-  <div class="tab-panel" id="tabPanel-extras">
-    
-    <section>
-      <div class="card promo-summary-card">
-        <h2>📦 패키지 상품 판매 현황</h2>
-        <div class="card-sub">영어교실  패키지 상품 판매 현황 (7. 1~ 8. 31)</div>
-        
-        <div class="promo-stats">
-          <div class="promo-stat"><span class="promo-stat-label">판매 센터</span><span class="promo-stat-value">0개 / 5개 (0.0%)</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">8월 판매</span><span class="promo-stat-value">0건 · 0원</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">누계 판매 (전사 점유율)</span><span class="promo-stat-value">0건 · 0원 (0.0%)</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h2>센터별 패키지 판매 (5개 센터)</h2>
-        <div class="card-sub">7월·8월 판매량/매출액과 누계(7월 1일~) 판매량/매출액입니다.</div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th style="text-align:left;">센터</th>
-                <th>8월 판매량</th>
-                <th>8월 매출액</th>
-                <th>7월 판매량</th>
-                <th>누계 판매량</th>
-                <th>누계 매출액</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실둔산중부</div></td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-          <td class="num">0건</td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실유성서부</div></td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-          <td class="num">0건</td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실대전가오</div></td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-          <td class="num">0건</td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실대전월평</div></td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-          <td class="num">0건</td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실중구동부</div></td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-          <td class="num">0건</td>
-          <td class="num">0건</td>
-          <td class="num">0원</td>
-        </tr>
-            </tbody>
-          </table>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="card promo-summary-card">
-        <h2>💳 YES멤버스 회원 현황</h2>
-        <div class="card-sub">1. YES멤버스 당월 실적 현황 (8/1~8/31) · 2026-09-01 홈사업</div>
-        
-        <div class="promo-stats">
-          <div class="promo-stat"><span class="promo-stat-label">YES멤버스 총 결제회원</span><span class="promo-stat-value">54명 (당월 신규 3명)</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">교실회원 대비 비중</span><span class="promo-stat-value">54명 / 121명 (44.6%)</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">당월 매출액 (YES멤버스 / 추가학습)</span><span class="promo-stat-value" style="font-size:13.5px;">8,972,000원 / 42,000원</span></div>
-        </div>
-      </div>
-    </section>
-
-    <section>
-      <div class="card">
-        <h2>센터별 YES멤버스 현황 (5개 센터)</h2>
-        <div class="card-sub">당월 결제완료·신규회원, 교실 전체회원 대비 YES멤버스 비중, 당월 매출액(YES멤버스·추가학습 매출 포함)입니다.</div>
-        <div class="table-scroll">
-          <table>
-            <thead>
-              <tr>
-                <th style="text-align:left;">센터</th>
-                <th>당월 결제회원</th>
-                <th>당월 신규</th>
-                <th>교실회원 대비 비중</th>
-                <th>당월 매출액</th>
-                <th>YES멤버스 매출</th>
-                <th>추가학습 매출</th>
-              </tr>
-            </thead>
-            <tbody>
-              
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실둔산중부</div></td>
-          <td class="num">0명</td>
-          <td class="num">0명</td>
-          <td class="num">0명 / 35명 (0.0%)</td>
-          <td class="num">0원</td>
-          <td class="num">0원</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실유성서부</div></td>
-          <td class="num">26명</td>
-          <td class="num">2명</td>
-          <td class="num">26명 / 35명 (74.3%)</td>
-          <td class="num">4,417,000원</td>
-          <td class="num">4,375,000원</td>
-          <td class="num">42,000원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실대전가오</div></td>
-          <td class="num">19명</td>
-          <td class="num">1명</td>
-          <td class="num">19명 / 22명 (86.4%)</td>
-          <td class="num">3,157,000원</td>
-          <td class="num">3,157,000원</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실대전월평</div></td>
-          <td class="num">0명</td>
-          <td class="num">0명</td>
-          <td class="num">0명 / 20명 (0.0%)</td>
-          <td class="num">0원</td>
-          <td class="num">0원</td>
-          <td class="num">0원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col"><div class="center-name">교실중구동부</div></td>
-          <td class="num">9명</td>
-          <td class="num">0명</td>
-          <td class="num">9명 / 9명 (100.0%)</td>
-          <td class="num">1,440,000원</td>
-          <td class="num">1,440,000원</td>
-          <td class="num">0원</td>
         </tr>
             </tbody>
           </table>
