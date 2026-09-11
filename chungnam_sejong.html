@@ -283,6 +283,12 @@
   thead th.group-ref { --grp-color: var(--grp-ref); --grp-bg: var(--grp-ref-bg); }
   thead tr.sub th { padding-top: 4px; font-size: 11px; }
   thead th:first-child, tbody td:first-child { text-align: left; }
+  /* 2026-09-07: 정렬 가능한 헤더 (사용자 요청 "각 항목에 정렬기준 포함") */
+  thead th.sortable-th { cursor: pointer; user-select: none; }
+  thead th.sortable-th:hover { color: var(--pine); }
+  .sort-arrow { display:inline-block; width: 10px; margin-left: 2px; opacity: 0.35; font-size: 10px; }
+  thead th.sortable-th.sort-active { color: var(--pine); }
+  thead th.sortable-th.sort-active .sort-arrow { opacity: 1; }
   tbody td { padding: 6px 5px; border-bottom: 1px solid var(--grid); text-align: right; white-space: nowrap; font-variant-numeric: tabular-nums; }
   tbody tr:hover td.grp-revenue { background: var(--grp-revenue-bg); }
   tbody tr:hover td.grp-members { background: var(--grp-members-bg); }
@@ -457,7 +463,7 @@
   <section>
     <div class="card">
       <h2>센터별 실적 (6개 센터)</h2>
-      <div class="card-sub">목표·달성률은 제외하고 매출·회원·신규회원의 당월 값, 전월대비·전년동기대비, 2026년 누적을 표시합니다. 참고 지표(휴면전환율·중단율·회원당매출·학습차시·YLSI)에는 지역 평균(충남세종 지역 집계) 대비가 함께 표시되며, 위 조회 기준월 필터를 바꾸면 매출·회원·신규 값과 함께 갱신됩니다. 참고 지표는 2026년 04월 마감부터 조회 가능하며, 01~03월은 자료가 없어 제공되지 않습니다. 당월 회원수 내림차순으로 정렬되어 있습니다.</div>
+      <div class="card-sub">목표·달성률은 제외하고 매출·회원·신규회원의 당월 값, 전월대비·전년동기대비, 2026년 누적을 표시합니다. 참고 지표(휴면전환율·중단율·회원당매출·학습차시·YLSI)에는 지역 평균(충남세종 지역 집계) 대비가 함께 표시되며, 위 조회 기준월 필터를 바꾸면 매출·회원·신규 값과 함께 갱신됩니다. 참고 지표는 2026년 04월 마감부터 조회 가능하며, 01~03월은 자료가 없어 제공되지 않습니다. 기본적으로 센터명 가나다순으로 정렬되어 있으며, 각 항목 제목을 클릭하면 오름차순·내림차순으로 정렬할 수 있습니다.</div>
       <div class="legend">
         <span class="legend-item"><span class="legend-dot" style="background:var(--grp-revenue)"></span>매출</span>
         <span class="legend-item"><span class="legend-dot" style="background:var(--grp-members)"></span>회원수</span>
@@ -474,255 +480,255 @@
         <span class="search-count" id="searchCount">전체 6개 센터</span>
       </div>
       <div class="table-scroll">
-        <table>
+        <table id="mainCenterTable">
           <thead>
             <tr>
-              <th rowspan="2" style="text-align:left;">센터</th>
+              <th rowspan="2" style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
               <th class="group group-revenue" colspan="4">매출</th>
               <th class="group group-members" colspan="4">회원수</th>
               <th class="group group-new" colspan="4">신규회원</th>
               <th class="group group-ref" colspan="5">참고 지표 (2026년 04월~ 제공)</th>
             </tr>
             <tr class="sub">
-              <th class="grp-revenue">당월</th><th class="grp-revenue">전월대비</th><th class="grp-revenue">전년동기대비</th><th class="grp-revenue">2026 누적</th>
-              <th class="grp-members">당월</th><th class="grp-members">전월대비</th><th class="grp-members">전년동기대비</th><th class="grp-members">추이(12개월)</th>
-              <th class="grp-new">당월</th><th class="grp-new">전월대비</th><th class="grp-new">전년동기대비</th><th class="grp-new">2026 누적</th>
-              <th class="grp-ref">휴면전환율</th><th class="grp-ref">중단율</th><th class="grp-ref">회원당매출</th><th class="grp-ref">회원당 학습차시</th><th class="grp-ref">회원당 YLSI</th>
+              <th class="grp-revenue sortable-th" data-sort-key="rev-v">당월<span class="sort-arrow"></span></th><th class="grp-revenue sortable-th" data-sort-key="rev-mom">전월대비<span class="sort-arrow"></span></th><th class="grp-revenue sortable-th" data-sort-key="rev-yoy">전년동기대비<span class="sort-arrow"></span></th><th class="grp-revenue sortable-th" data-sort-key="rev-ytd">2026 누적<span class="sort-arrow"></span></th>
+              <th class="grp-members sortable-th" data-sort-key="mem-v">당월<span class="sort-arrow"></span></th><th class="grp-members sortable-th" data-sort-key="mem-mom">전월대비<span class="sort-arrow"></span></th><th class="grp-members sortable-th" data-sort-key="mem-yoy">전년동기대비<span class="sort-arrow"></span></th><th class="grp-members">추이(12개월)</th>
+              <th class="grp-new sortable-th" data-sort-key="new-v">당월<span class="sort-arrow"></span></th><th class="grp-new sortable-th" data-sort-key="new-mom">전월대비<span class="sort-arrow"></span></th><th class="grp-new sortable-th" data-sort-key="new-yoy">전년동기대비<span class="sort-arrow"></span></th><th class="grp-new sortable-th" data-sort-key="new-ytd">2026 누적<span class="sort-arrow"></span></th>
+              <th class="grp-ref sortable-th" data-sort-key="ref-dormant">휴면전환율<span class="sort-arrow"></span></th><th class="grp-ref sortable-th" data-sort-key="ref-churn">중단율<span class="sort-arrow"></span></th><th class="grp-ref sortable-th" data-sort-key="ref-revpm">회원당매출<span class="sort-arrow"></span></th><th class="grp-ref sortable-th" data-sort-key="ref-sess">회원당 학습차시<span class="sort-arrow"></span></th><th class="grp-ref sortable-th" data-sort-key="ref-ysli">회원당 YLSI<span class="sort-arrow"></span></th>
             </tr>
           </thead>
           <tbody id="centerBody">
             
         <tr data-idx="0">
-          <td class="sticky-col">
-            <div class="center-name">교실천안서부</div>
-            <div class="center-sub">김은령 사장님</div>
-          </td>
-          <td class="num grp-revenue c-rev-v">4,836천원</td>
-          <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 12.5%</span></td>
-          <td class="num grp-revenue c-rev-yoy"><span class="delta up">▲ 8.5%</span></td>
-          <td class="num grp-revenue c-rev-ytd">38,735천원</td>
-          <td class="num grp-members c-mem-v"><div class="cell-main">92명</div><div class="cell-sub-prev">전월 94명</div></td>
-          <td class="num grp-members c-mem-mom"><span class="delta down">▼ 2.1%</span></td>
-          <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 6.1%</span></td>
-          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,6.0 17.3,24.0 25.0,14.0 32.7,14.0 40.3,4.0 48.0,4.0 55.7,14.0 63.3,8.0 71.0,14.0 78.7,18.0 86.3,16.0 94.0,14.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼6</span></span></td>
-          <td class="num grp-new c-new-v"><div class="cell-main">6명</div><div class="cell-sub-prev">전월 2명</div></td>
-          <td class="num grp-new c-new-mom"><span class="delta up">▲ 200.0%</span></td>
-          <td class="num grp-new c-new-yoy"><span class="delta up">▲ 100.0%</span></td>
-          <td class="num grp-new c-new-ytd">36명</td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">8.5%</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▼5.3%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">1.1%</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▼64.9%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">52,560원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼8.6%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">19.4회</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼9.5%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">56.5</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼4.5%</span></div>
-          </td>
-        </tr>
-
-        <tr data-idx="1">
-          <td class="sticky-col">
-            <div class="center-name">교실세종</div>
-            <div class="center-sub">김석재 사장님</div>
-          </td>
-          <td class="num grp-revenue c-rev-v">3,251천원</td>
-          <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 28.5%</span></td>
-          <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 18.9%</span></td>
-          <td class="num grp-revenue c-rev-ytd">30,962천원</td>
-          <td class="num grp-members c-mem-v"><div class="cell-main">72명</div><div class="cell-sub-prev">전월 75명</div></td>
-          <td class="num grp-members c-mem-mom"><span class="delta down">▼ 4.0%</span></td>
-          <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 25.8%</span></td>
-          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,3.0 9.7,2.0 17.3,6.0 25.0,14.0 32.7,17.0 40.3,19.0 48.0,18.0 55.7,18.0 63.3,20.0 71.0,17.0 78.7,17.0 86.3,21.0 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼21</span></span></td>
-          <td class="num grp-new c-new-v"><div class="cell-main">3명</div><div class="cell-sub-prev">전월 3명</div></td>
-          <td class="num grp-new c-new-mom"><span class="delta flat">— 0.0%</span></td>
-          <td class="num grp-new c-new-yoy"><span class="delta down">▼ 40.0%</span></td>
-          <td class="num grp-new c-new-ytd">29명</td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">9.3%</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▲3.9%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">6.1%</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▲96.6%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">45,153원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼21.5%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">19.9회</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼7.6%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">52.7</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼11.0%</span></div>
-          </td>
-        </tr>
-
-        <tr data-idx="2">
-          <td class="sticky-col">
-            <div class="center-name">교실아산</div>
-            <div class="center-sub">이인재 사장님</div>
-          </td>
-          <td class="num grp-revenue c-rev-v">4,035천원</td>
-          <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 4.9%</span></td>
-          <td class="num grp-revenue c-rev-yoy"><span class="delta up">▲ 10.6%</span></td>
-          <td class="num grp-revenue c-rev-ytd">33,460천원</td>
-          <td class="num grp-members c-mem-v"><div class="cell-main">52명</div><div class="cell-sub-prev">전월 57명</div></td>
-          <td class="num grp-members c-mem-mom"><span class="delta down">▼ 8.8%</span></td>
-          <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 8.3%</span></td>
-          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,17.4 9.7,24.0 17.3,17.4 25.0,24.0 32.7,24.0 40.3,15.2 48.0,8.6 55.7,10.8 63.3,2.0 71.0,10.8 78.7,8.6 86.3,4.2 94.0,4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲6</span></span></td>
-          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
-          <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
-          <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
-          <td class="num grp-new c-new-ytd">19명</td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">8.8%</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▼2.4%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">1.8%</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▼41.4%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">77,600원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲34.9%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">26.7회</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲24.4%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">73.1</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲23.6%</span></div>
-          </td>
-        </tr>
-
-        <tr data-idx="3">
-          <td class="sticky-col">
-            <div class="center-name">교실천안남</div>
-            <div class="center-sub">손문자 사장님</div>
-          </td>
-          <td class="num grp-revenue c-rev-v">1,590천원</td>
-          <td class="num grp-revenue c-rev-mom"><span class="delta flat">— 0.0%</span></td>
-          <td class="num grp-revenue c-rev-yoy"><span class="delta down">▼ 17.1%</span></td>
-          <td class="num grp-revenue c-rev-ytd">12,426천원</td>
-          <td class="num grp-members c-mem-v"><div class="cell-main">23명</div><div class="cell-sub-prev">전월 25명</div></td>
-          <td class="num grp-members c-mem-mom"><span class="delta down">▼ 8.0%</span></td>
-          <td class="num grp-members c-mem-yoy"><span class="delta up">▲ 4.5%</span></td>
-          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,24.0 17.3,24.0 25.0,18.5 32.7,7.5 40.3,13.0 48.0,13.0 55.7,18.5 63.3,7.5 71.0,24.0 78.7,18.5 86.3,13.0 94.0,7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼1</span></span></td>
-          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
-          <td class="num grp-new c-new-mom"><span class="delta down">▼ 100.0%</span></td>
-          <td class="num grp-new c-new-yoy"><span class="delta down">▼ 100.0%</span></td>
-          <td class="num grp-new c-new-ytd">6명</td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">8.0%</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▼11.0%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">0.0%</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▼100.0%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">69,111원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲20.2%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">22.9회</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲6.6%</span></div>
-          </td>
-          <td class="num grp-ref muted">
-            <div class="cell-main">55.3</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼6.5%</span></div>
-          </td>
-        </tr>
-
-        <tr data-idx="4">
-          <td class="sticky-col">
+          <td class="sticky-col" data-key="name" data-sort-value="교실공주신관M">
             <div class="center-name">교실공주신관M</div>
             <div class="center-sub">홍순옥 사장님</div>
           </td>
-          <td class="num grp-revenue c-rev-v">306천원</td>
-          <td class="num grp-revenue c-rev-mom"><span class="delta up">▲ 237.7%</span></td>
-          <td class="num grp-revenue c-rev-yoy"><span class="delta up">▲ 8.1%</span></td>
-          <td class="num grp-revenue c-rev-ytd">1,588천원</td>
-          <td class="num grp-members c-mem-v"><div class="cell-main">4명</div><div class="cell-sub-prev">전월 2명</div></td>
-          <td class="num grp-members c-mem-mom"><span class="delta up">▲ 100.0%</span></td>
-          <td class="num grp-members c-mem-yoy"><span class="delta flat">— 0.0%</span></td>
+          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="306320">306천원</td>
+          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="2.376543209876543"><span class="delta up">▲ 237.7%</span></td>
+          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="0.0810276679841897"><span class="delta up">▲ 8.1%</span></td>
+          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="1588160">1,588천원</td>
+          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="4"><div class="cell-main">4명</div><div class="cell-sub-prev">전월 2명</div></td>
+          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="1"><span class="delta up">▲ 100.0%</span></td>
+          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,16.7 9.7,9.3 17.3,9.3 25.0,9.3 32.7,2.0 40.3,9.3 48.0,9.3 55.7,16.7 63.3,24.0 71.0,16.7 78.7,16.7 86.3,24.0 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼1</span></span></td>
-          <td class="num grp-new c-new-v"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 0명</div></td>
-          <td class="num grp-new c-new-mom"><span class="delta up">신규발생</span></td>
-          <td class="num grp-new c-new-yoy"><span class="delta up">▲ 100.0%</span></td>
-          <td class="num grp-new c-new-ytd">3명</td>
-          <td class="num grp-ref muted">
+          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="2"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 0명</div></td>
+          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value=""><span class="delta up">신규발생</span></td>
+          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="1.0"><span class="delta up">▲ 100.0%</span></td>
+          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="3">3명</td>
+          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0">
             <div class="cell-main">0.0%</div>
             <div><span class="delta up cell-sub-delta">지역평균대비 ▼100.0%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0.3333333333333333">
             <div class="cell-main">33.3%</div>
             <div><span class="delta down cell-sub-delta">지역평균대비 ▲975.0%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="76580.0">
             <div class="cell-main">76,580원</div>
             <div><span class="delta up cell-sub-delta">지역평균대비 ▲33.2%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="22.5">
             <div class="cell-main">22.5회</div>
             <div><span class="delta up cell-sub-delta">지역평균대비 ▲4.7%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="75">
             <div class="cell-main">75.0</div>
             <div><span class="delta up cell-sub-delta">지역평균대비 ▲26.7%</span></div>
           </td>
         </tr>
 
-        <tr data-idx="5">
-          <td class="sticky-col">
+        <tr data-idx="1">
+          <td class="sticky-col" data-key="name" data-sort-value="교실부여">
             <div class="center-name">교실부여</div>
             <div class="center-sub">이상옥 사장님</div>
           </td>
-          <td class="num grp-revenue c-rev-v">73천원</td>
-          <td class="num grp-revenue c-rev-mom"><span class="delta down">▼ 17.6%</span></td>
-          <td class="num grp-revenue c-rev-yoy"><span class="delta flat">— 0.0%</span></td>
-          <td class="num grp-revenue c-rev-ytd">658천원</td>
-          <td class="num grp-members c-mem-v"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 3명</div></td>
-          <td class="num grp-members c-mem-mom"><span class="delta down">▼ 33.3%</span></td>
-          <td class="num grp-members c-mem-yoy"><span class="delta down">▼ 33.3%</span></td>
+          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="72520">73천원</td>
+          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.17647058823529416"><span class="delta down">▼ 17.6%</span></td>
+          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
+          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="657860">658천원</td>
+          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="2"><div class="cell-main">2명</div><div class="cell-sub-prev">전월 3명</div></td>
+          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="-0.33333333333333337"><span class="delta down">▼ 33.3%</span></td>
+          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="-0.33333333333333337"><span class="delta down">▼ 33.3%</span></td>
           <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,24.0 17.3,2.0 25.0,2.0 32.7,2.0 40.3,2.0 48.0,24.0 55.7,24.0 63.3,24.0 71.0,24.0 78.7,24.0 86.3,24.0 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼1</span></span></td>
-          <td class="num grp-new c-new-v"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
-          <td class="num grp-new c-new-mom"><span class="delta flat">변동없음</span></td>
-          <td class="num grp-new c-new-yoy"><span class="delta flat">변동없음</span></td>
-          <td class="num grp-new c-new-ytd">0명</td>
-          <td class="num grp-ref muted">
+          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="0"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 0명</div></td>
+          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value="0"><span class="delta flat">변동없음</span></td>
+          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="0"><span class="delta flat">변동없음</span></td>
+          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="0">0명</td>
+          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0.3333333333333333">
             <div class="cell-main">33.3%</div>
             <div><span class="delta down cell-sub-delta">지역평균대비 ▲271.0%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0">
             <div class="cell-main">0.0%</div>
             <div><span class="delta up cell-sub-delta">지역평균대비 ▼100.0%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="36260.0">
             <div class="cell-main">36,260원</div>
             <div><span class="delta down cell-sub-delta">지역평균대비 ▼37.0%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="19.5">
             <div class="cell-main">19.5회</div>
             <div><span class="delta down cell-sub-delta">지역평균대비 ▼9.3%</span></div>
           </td>
-          <td class="num grp-ref muted">
+          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="67">
             <div class="cell-main">67.0</div>
             <div><span class="delta up cell-sub-delta">지역평균대비 ▲13.2%</span></div>
+          </td>
+        </tr>
+
+        <tr data-idx="2">
+          <td class="sticky-col" data-key="name" data-sort-value="교실세종">
+            <div class="center-name">교실세종</div>
+            <div class="center-sub">김석재 사장님</div>
+          </td>
+          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="3251000">3,251천원</td>
+          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.2846769934870621"><span class="delta down">▼ 28.5%</span></td>
+          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.18943851600678174"><span class="delta down">▼ 18.9%</span></td>
+          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="30961600">30,962천원</td>
+          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="72"><div class="cell-main">72명</div><div class="cell-sub-prev">전월 75명</div></td>
+          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="-0.040000000000000036"><span class="delta down">▼ 4.0%</span></td>
+          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="-0.25773195876288657"><span class="delta down">▼ 25.8%</span></td>
+          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,3.0 9.7,2.0 17.3,6.0 25.0,14.0 32.7,17.0 40.3,19.0 48.0,18.0 55.7,18.0 63.3,20.0 71.0,17.0 78.7,17.0 86.3,21.0 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼21</span></span></td>
+          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="3"><div class="cell-main">3명</div><div class="cell-sub-prev">전월 3명</div></td>
+          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value="0.0"><span class="delta flat">— 0.0%</span></td>
+          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="-0.4"><span class="delta down">▼ 40.0%</span></td>
+          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="29">29명</td>
+          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0.09333333333333334">
+            <div class="cell-main">9.3%</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▲3.9%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0.06097560975609756">
+            <div class="cell-main">6.1%</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▲96.6%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="45152.77777777778">
+            <div class="cell-main">45,153원</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼21.5%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="19.86111111111111">
+            <div class="cell-main">19.9회</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼7.6%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="52.65277777777778">
+            <div class="cell-main">52.7</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼11.0%</span></div>
+          </td>
+        </tr>
+
+        <tr data-idx="3">
+          <td class="sticky-col" data-key="name" data-sort-value="교실아산">
+            <div class="center-name">교실아산</div>
+            <div class="center-sub">이인재 사장님</div>
+          </td>
+          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="4035220">4,035천원</td>
+          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.0493375174337517"><span class="delta down">▼ 4.9%</span></td>
+          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="0.1057487579843861"><span class="delta up">▲ 10.6%</span></td>
+          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="33459840">33,460천원</td>
+          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="52"><div class="cell-main">52명</div><div class="cell-sub-prev">전월 57명</div></td>
+          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="-0.08771929824561409"><span class="delta down">▼ 8.8%</span></td>
+          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="0.08333333333333326"><span class="delta up">▲ 8.3%</span></td>
+          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-up"><polyline points="2.0,17.4 9.7,24.0 17.3,17.4 25.0,24.0 32.7,24.0 40.3,15.2 48.0,8.6 55.7,10.8 63.3,2.0 71.0,10.8 78.7,8.6 86.3,4.2 94.0,4.2" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta up spark-delta">▲6</span></span></td>
+          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="0"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
+          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value="-1.0"><span class="delta down">▼ 100.0%</span></td>
+          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="-1.0"><span class="delta down">▼ 100.0%</span></td>
+          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="19">19명</td>
+          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0.08771929824561403">
+            <div class="cell-main">8.8%</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▼2.4%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0.01818181818181818">
+            <div class="cell-main">1.8%</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▼41.4%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="77600.38461538461">
+            <div class="cell-main">77,600원</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲34.9%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="26.73076923076923">
+            <div class="cell-main">26.7회</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲24.4%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="73.13461538461539">
+            <div class="cell-main">73.1</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲23.6%</span></div>
+          </td>
+        </tr>
+
+        <tr data-idx="4">
+          <td class="sticky-col" data-key="name" data-sort-value="교실천안남">
+            <div class="center-name">교실천안남</div>
+            <div class="center-sub">손문자 사장님</div>
+          </td>
+          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="1589560">1,590천원</td>
+          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
+          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.17054028950416933"><span class="delta down">▼ 17.1%</span></td>
+          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="12426420">12,426천원</td>
+          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="23"><div class="cell-main">23명</div><div class="cell-sub-prev">전월 25명</div></td>
+          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="-0.07999999999999996"><span class="delta down">▼ 8.0%</span></td>
+          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="0.045454545454545414"><span class="delta up">▲ 4.5%</span></td>
+          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,24.0 17.3,24.0 25.0,18.5 32.7,7.5 40.3,13.0 48.0,13.0 55.7,18.5 63.3,7.5 71.0,24.0 78.7,18.5 86.3,13.0 94.0,7.5" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼1</span></span></td>
+          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="0"><div class="cell-main">0명</div><div class="cell-sub-prev">전월 1명</div></td>
+          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value="-1.0"><span class="delta down">▼ 100.0%</span></td>
+          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="-1.0"><span class="delta down">▼ 100.0%</span></td>
+          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="6">6명</td>
+          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0.08">
+            <div class="cell-main">8.0%</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▼11.0%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0">
+            <div class="cell-main">0.0%</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▼100.0%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="69111.30434782608">
+            <div class="cell-main">69,111원</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲20.2%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="22.91304347826087">
+            <div class="cell-main">22.9회</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲6.6%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="55.34782608695652">
+            <div class="cell-main">55.3</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼6.5%</span></div>
+          </td>
+        </tr>
+
+        <tr data-idx="5">
+          <td class="sticky-col" data-key="name" data-sort-value="교실천안서부">
+            <div class="center-name">교실천안서부</div>
+            <div class="center-sub">김은령 사장님</div>
+          </td>
+          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="4835500">4,836천원</td>
+          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.12520013387486317"><span class="delta down">▼ 12.5%</span></td>
+          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="0.08474005944703045"><span class="delta up">▲ 8.5%</span></td>
+          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="38734700">38,735천원</td>
+          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="92"><div class="cell-main">92명</div><div class="cell-sub-prev">전월 94명</div></td>
+          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="-0.021276595744680882"><span class="delta down">▼ 2.1%</span></td>
+          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="-0.061224489795918324"><span class="delta down">▼ 6.1%</span></td>
+          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,6.0 17.3,24.0 25.0,14.0 32.7,14.0 40.3,4.0 48.0,4.0 55.7,14.0 63.3,8.0 71.0,14.0 78.7,18.0 86.3,16.0 94.0,14.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼6</span></span></td>
+          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="6"><div class="cell-main">6명</div><div class="cell-sub-prev">전월 2명</div></td>
+          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value="2.0"><span class="delta up">▲ 200.0%</span></td>
+          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="1.0"><span class="delta up">▲ 100.0%</span></td>
+          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="36">36명</td>
+          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0.0851063829787234">
+            <div class="cell-main">8.5%</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▼5.3%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0.010869565217391304">
+            <div class="cell-main">1.1%</div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▼64.9%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="52559.782608695656">
+            <div class="cell-main">52,560원</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼8.6%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="19.445652173913043">
+            <div class="cell-main">19.4회</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼9.5%</span></div>
+          </td>
+          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="56.52173913043478">
+            <div class="cell-main">56.5</div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼4.5%</span></div>
           </td>
         </tr>
           </tbody>
@@ -748,81 +754,81 @@
     <section style="margin-bottom:20px;">
       <div class="card">
         <h2>🎯 전략상품 현황 (YES멤버스 · 패키지판매)</h2>
-        <div class="card-sub" style="margin-bottom:6px;">YES멤버스 기준일자 2026-09-01 홈사업 · 패키지판매 기준일자 2026-09-01 홈사업</div>
-        <div class="promo-stats" style="gap:20px; margin:8px 0 4px;"><div class="promo-stat"><span class="promo-stat-label">YES멤버스 결제회원</span><span class="promo-stat-value">142명 (신규 6명)</span></div><div class="promo-stat"><span class="promo-stat-label">교실회원 대비 비중</span><span class="promo-stat-value">142명 / 245명 (58.0%)</span></div><div class="promo-stat"><span class="promo-stat-label">패키지 판매 센터</span><span class="promo-stat-value">0개 / 6개 (0.0%)</span></div><div class="promo-stat"><span class="promo-stat-label">8월 판매량 (누계)</span><span class="promo-stat-value">0건 (0건)</span></div></div>
+        <div class="card-sub" style="margin-bottom:6px;">YES멤버스 기준일자 2026-09-07 홈사업 · 패키지판매 기준일자 2026-09-07 홈사업</div>
+        <div class="promo-stats" style="gap:20px; margin:8px 0 4px;"><div class="promo-stat"><span class="promo-stat-label">YES멤버스 결제회원</span><span class="promo-stat-value">38명 (신규 0명)</span></div><div class="promo-stat"><span class="promo-stat-label">교실회원 대비 비중</span><span class="promo-stat-value">142명 / 245명 (58.0%)</span></div><div class="promo-stat"><span class="promo-stat-label">패키지 판매 센터</span><span class="promo-stat-value">0개 / 6개 (0.0%)</span></div><div class="promo-stat"><span class="promo-stat-label">9월 판매량 (누계)</span><span class="promo-stat-value">0건 (0건)</span></div></div>
         <div class="table-scroll" style="margin-top:14px;">
-          <table>
+          <table id="strategicTable">
             <thead>
               <tr>
-                <th rowspan="2" style="text-align:left;">센터</th>
+                <th rowspan="2" style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
                 <th class="group group-members" colspan="3">YES멤버스</th>
                 <th class="group group-new" colspan="3">패키지판매</th>
               </tr>
               <tr class="sub">
-                <th class="grp-members">당월 결제</th><th class="grp-members">당월 신규</th><th class="grp-members">교실비중</th>
-                <th class="grp-new">8월 판매량</th><th class="grp-new">7월 판매량</th><th class="grp-new">누계 판매량</th>
+                <th class="grp-members sortable-th" data-sort-key="ym-paid">당월 결제<span class="sort-arrow"></span></th><th class="grp-members sortable-th" data-sort-key="ym-new">당월 신규<span class="sort-arrow"></span></th><th class="grp-members sortable-th" data-sort-key="ym-share">교실비중<span class="sort-arrow"></span></th>
+                <th class="grp-new sortable-th" data-sort-key="pkg-cur">9월 판매량<span class="sort-arrow"></span></th><th class="grp-new sortable-th" data-sort-key="pkg-prev">8월 판매량<span class="sort-arrow"></span></th><th class="grp-new sortable-th" data-sort-key="pkg-ytd">누계 판매량<span class="sort-arrow"></span></th>
               </tr>
             </thead>
             <tbody>
               
         <tr>
-          <td class="sticky-col"><div class="center-name">교실천안서부</div></td>
-          <td class="num grp-members">74명</td>
-          <td class="num grp-members">6명</td>
-          <td class="num grp-members">74명 / 92명 (80.4%)</td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
+          <td class="sticky-col" data-key="name" data-sort-value="교실공주신관M"><div class="center-name">교실공주신관M</div></td>
+          <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-share" data-sort-value="0.25">1명 / 4명 (25.0%)</td>
+          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
         </tr>
 
         <tr>
-          <td class="sticky-col"><div class="center-name">교실세종</div></td>
-          <td class="num grp-members">54명</td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members">54명 / 72명 (75.0%)</td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
+          <td class="sticky-col" data-key="name" data-sort-value="교실부여"><div class="center-name">교실부여</div></td>
+          <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 2명 (0.0%)</td>
+          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
         </tr>
 
         <tr>
-          <td class="sticky-col"><div class="center-name">교실아산</div></td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members">0명 / 52명 (0.0%)</td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
+          <td class="sticky-col" data-key="name" data-sort-value="교실세종"><div class="center-name">교실세종</div></td>
+          <td class="num grp-members" data-key="ym-paid" data-sort-value="15">15명</td>
+          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-share" data-sort-value="0.7671232876712328">56명 / 73명 (76.7%)</td>
+          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
         </tr>
 
         <tr>
-          <td class="sticky-col"><div class="center-name">교실천안남</div></td>
-          <td class="num grp-members">13명</td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members">13명 / 23명 (56.5%)</td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
+          <td class="sticky-col" data-key="name" data-sort-value="교실아산"><div class="center-name">교실아산</div></td>
+          <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 52명 (0.0%)</td>
+          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
         </tr>
 
         <tr>
-          <td class="sticky-col"><div class="center-name">교실공주신관M</div></td>
-          <td class="num grp-members">1명</td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members">1명 / 4명 (25.0%)</td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
+          <td class="sticky-col" data-key="name" data-sort-value="교실천안남"><div class="center-name">교실천안남</div></td>
+          <td class="num grp-members" data-key="ym-paid" data-sort-value="9">9명</td>
+          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-share" data-sort-value="0.5652173913043478">13명 / 23명 (56.5%)</td>
+          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
         </tr>
 
         <tr>
-          <td class="sticky-col"><div class="center-name">교실부여</div></td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members"></td>
-          <td class="num grp-members">0명 / 2명 (0.0%)</td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
-          <td class="num grp-new"></td>
+          <td class="sticky-col" data-key="name" data-sort-value="교실천안서부"><div class="center-name">교실천안서부</div></td>
+          <td class="num grp-members" data-key="ym-paid" data-sort-value="14">14명</td>
+          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
+          <td class="num grp-members" data-key="ym-share" data-sort-value="0.7912087912087912">72명 / 91명 (79.1%)</td>
+          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
+          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
         </tr>
             </tbody>
           </table>
@@ -854,89 +860,89 @@
         <h2>센터별 프로모션 수혜 현황 (6개 센터)</h2>
         <div class="card-sub">8월·9월 신규회원 수와 합계, 지원조건(합산 3명 이상) 충족 여부, 지원 예정 금액(합산 신규회원 × 10,000원)을 센터별로 확인할 수 있습니다.</div>
         <div class="table-scroll">
-          <table>
+          <table id="promoTable">
             <thead>
               <tr>
-                <th style="text-align:left;">센터</th>
-                <th>8월 신규회원</th>
-                <th>9월 신규회원</th>
-                <th>8~9월 합계</th>
-                <th>지원 여부</th>
-                <th>지원 예정 금액</th>
+                <th style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+                <th class="sortable-th" data-sort-key="promo-aug">8월 신규회원<span class="sort-arrow"></span></th>
+                <th class="sortable-th" data-sort-key="promo-sep">9월 신규회원<span class="sort-arrow"></span></th>
+                <th class="sortable-th" data-sort-key="promo-combined">8~9월 합계<span class="sort-arrow"></span></th>
+                <th class="sortable-th" data-sort-key="promo-status">지원 여부<span class="sort-arrow"></span></th>
+                <th class="sortable-th" data-sort-key="promo-payout">지원 예정 금액<span class="sort-arrow"></span></th>
               </tr>
             </thead>
             <tbody>
               
         <tr>
-          <td class="sticky-col">
-            <div class="center-name">교실천안서부</div>
-            <div class="center-sub">김은령 사장님</div>
-          </td>
-          <td class="num">6명</td>
-          <td class="num"><span class="muted">집계 전</span></td>
-          <td class="num"><b>6명</b></td>
-          <td class="num"><span class="promo-badge promo-pending">진행중 · 조건 충족</span></td>
-          <td class="num">60,000원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col">
-            <div class="center-name">교실세종</div>
-            <div class="center-sub">김석재 사장님</div>
-          </td>
-          <td class="num">3명</td>
-          <td class="num"><span class="muted">집계 전</span></td>
-          <td class="num"><b>3명</b></td>
-          <td class="num"><span class="promo-badge promo-pending">진행중 · 조건 충족</span></td>
-          <td class="num">30,000원</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col">
-            <div class="center-name">교실아산</div>
-            <div class="center-sub">이인재 사장님</div>
-          </td>
-          <td class="num">0명</td>
-          <td class="num"><span class="muted">집계 전</span></td>
-          <td class="num"><b>0명</b></td>
-          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
-          <td class="num">—</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col">
-            <div class="center-name">교실천안남</div>
-            <div class="center-sub">손문자 사장님</div>
-          </td>
-          <td class="num">0명</td>
-          <td class="num"><span class="muted">집계 전</span></td>
-          <td class="num"><b>0명</b></td>
-          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
-          <td class="num">—</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col">
+          <td class="sticky-col" data-key="name" data-sort-value="교실공주신관M">
             <div class="center-name">교실공주신관M</div>
             <div class="center-sub">홍순옥 사장님</div>
           </td>
-          <td class="num">2명</td>
-          <td class="num"><span class="muted">집계 전</span></td>
-          <td class="num"><b>2명</b></td>
-          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
-          <td class="num">—</td>
+          <td class="num" data-key="promo-aug" data-sort-value="2">2명</td>
+          <td class="num" data-key="promo-sep" data-sort-value=""><span class="muted">집계 전</span></td>
+          <td class="num" data-key="promo-combined" data-sort-value="2"><b>2명</b></td>
+          <td class="num" data-key="promo-status" data-sort-value="2"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num" data-key="promo-payout" data-sort-value="0">—</td>
         </tr>
 
         <tr>
-          <td class="sticky-col">
+          <td class="sticky-col" data-key="name" data-sort-value="교실부여">
             <div class="center-name">교실부여</div>
             <div class="center-sub">이상옥 사장님</div>
           </td>
-          <td class="num">0명</td>
-          <td class="num"><span class="muted">집계 전</span></td>
-          <td class="num"><b>0명</b></td>
-          <td class="num"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
-          <td class="num">—</td>
+          <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
+          <td class="num" data-key="promo-sep" data-sort-value=""><span class="muted">집계 전</span></td>
+          <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
+          <td class="num" data-key="promo-status" data-sort-value="2"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num" data-key="promo-payout" data-sort-value="0">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col" data-key="name" data-sort-value="교실세종">
+            <div class="center-name">교실세종</div>
+            <div class="center-sub">김석재 사장님</div>
+          </td>
+          <td class="num" data-key="promo-aug" data-sort-value="3">3명</td>
+          <td class="num" data-key="promo-sep" data-sort-value=""><span class="muted">집계 전</span></td>
+          <td class="num" data-key="promo-combined" data-sort-value="3"><b>3명</b></td>
+          <td class="num" data-key="promo-status" data-sort-value="3"><span class="promo-badge promo-pending">진행중 · 조건 충족</span></td>
+          <td class="num" data-key="promo-payout" data-sort-value="30000">30,000원</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col" data-key="name" data-sort-value="교실아산">
+            <div class="center-name">교실아산</div>
+            <div class="center-sub">이인재 사장님</div>
+          </td>
+          <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
+          <td class="num" data-key="promo-sep" data-sort-value=""><span class="muted">집계 전</span></td>
+          <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
+          <td class="num" data-key="promo-status" data-sort-value="2"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num" data-key="promo-payout" data-sort-value="0">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col" data-key="name" data-sort-value="교실천안남">
+            <div class="center-name">교실천안남</div>
+            <div class="center-sub">손문자 사장님</div>
+          </td>
+          <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
+          <td class="num" data-key="promo-sep" data-sort-value=""><span class="muted">집계 전</span></td>
+          <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
+          <td class="num" data-key="promo-status" data-sort-value="2"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
+          <td class="num" data-key="promo-payout" data-sort-value="0">—</td>
+        </tr>
+
+        <tr>
+          <td class="sticky-col" data-key="name" data-sort-value="교실천안서부">
+            <div class="center-name">교실천안서부</div>
+            <div class="center-sub">김은령 사장님</div>
+          </td>
+          <td class="num" data-key="promo-aug" data-sort-value="6">6명</td>
+          <td class="num" data-key="promo-sep" data-sort-value=""><span class="muted">집계 전</span></td>
+          <td class="num" data-key="promo-combined" data-sort-value="6"><b>6명</b></td>
+          <td class="num" data-key="promo-status" data-sort-value="3"><span class="promo-badge promo-pending">진행중 · 조건 충족</span></td>
+          <td class="num" data-key="promo-payout" data-sort-value="60000">60,000원</td>
         </tr>
             </tbody>
           </table>
@@ -976,7 +982,7 @@
     });
   });
 
-  const DATA = {"centers": [{"revenue_monthly": [5527550, 4389820, 4949930, 5126710, 5223900, 4416720, 4264570, 6389640, 4222300, 5083340, 4655390, 4457750, 4513580, 5230360, 4991600, 5047520, 5318800, 5604660, 5090540, 5458720, 5665660, 5958080, 5514480, 6533200], "members_monthly": [94, 93, 92, 94, 97, 94, 99, 99, 94, 94, 89, 98, 100, 97, 99, 102, 101, 104, 107, 104, 105, 109, 114, 123], "new_members_monthly": [2, 5, 3, 3, 11, 3, 3, 6, 6, 5, 1, 3, 3, 5, 4, 7, 6, 3, 6, 3, 0, 3, 1, 1], "refHistory": {}}, {"revenue_monthly": [4544800, 3572400, 4119600, 3554600, 4811800, 3154200, 3953200, 4048000, 4385400, 3967600, 5220400, 4010800, 6613680, 3469400, 5371600, 5087000, 4940600, 5136600, 4208600, 5184800, 5222800, 5900600, 4583000, 5877800], "members_monthly": [75, 78, 82, 82, 79, 81, 81, 80, 82, 85, 93, 97, 96, 97, 100, 95, 95, 95, 103, 94, 100, 105, 105, 112], "new_members_monthly": [3, 1, 2, 8, 1, 4, 7, 2, 0, 0, 4, 5, 3, 0, 6, 6, 5, 3, 12, 4, 0, 5, 2, 7], "refHistory": {}}, {"revenue_monthly": [4244640, 4138820, 4118100, 4553220, 4340840, 4045580, 3983420, 3926440, 3662260, 3879820, 3960110, 3649310, 3879820, 3996000, 3715540, 4268320, 4216520, 4371920, 4263140, 4439260, 4884740, 4895100, 4760420, 4532500], "members_monthly": [57, 57, 55, 54, 58, 54, 55, 52, 48, 48, 51, 48, 51, 54, 55, 53, 60, 63, 65, 65, 67, 66, 65, 62], "new_members_monthly": [1, 3, 1, 3, 3, 2, 6, 3, 1, 1, 3, 2, 1, 1, 3, 0, 3, 3, 2, 0, 2, 2, 3, 1], "refHistory": {}}, {"revenue_monthly": [1589560, 1584380, 1584380, 1522220, 1537520, 1387300, 1631500, 1846920, 1997080, 1713820, 1947830, 1916380, 1832020, 1844280, 2052640, 2213640, 2316760, 2400120, 2482470, 2285110, 2580200, 2702260, 2733580, 2821880], "members_monthly": [25, 24, 23, 22, 25, 23, 24, 24, 25, 23, 22, 22, 26, 28, 29, 28, 28, 31, 35, 35, 35, 38, 35, 39], "new_members_monthly": [1, 1, 1, 0, 2, 0, 1, 0, 3, 1, 0, 1, 1, 0, 0, 1, 1, 0, 3, 1, 2, 1, 1, 6], "refHistory": {}}, {"revenue_monthly": [90720, 90720, 183120, 294000, 183120, 164640, 275520, 287840, 287840, 221760, 314160, 283360, 240240, 209440, 147840, 234080, 147840, 147840, 221760, 240240, 314160, 209440, 240240, 283360], "members_monthly": [2, 2, 3, 3, 2, 3, 4, 4, 5, 4, 4, 4, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4], "new_members_monthly": [0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {}}, {"revenue_monthly": [88060, 88060, 88060, 88060, 113960, 72520, 46620, 113960, 88060, 113960, 139860, 72520, 88060, 145040, 145040, 170940, 72520, 72520, 72520, 93240, 98420, 139860, 186480, 134680], "members_monthly": [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 5, 5, 5], "new_members_monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {}}], "region": {"revenue_monthly": [16085330, 13864200, 15043190, 15138810, 16211140, 13240960, 14154830, 16612800, 14642940, 14980300, 16237750, 14390120, 17167400, 14894520, 16424260, 17021500, 17013040, 17733660, 16339030, 17701370, 18765980, 19805340, 18018200, 20183420], "members_monthly": [256, 257, 258, 258, 264, 258, 266, 263, 258, 258, 263, 272, 280, 283, 290, 285, 289, 300, 318, 306, 315, 327, 328, 345], "new_members_monthly": [7, 10, 7, 15, 17, 9, 17, 11, 11, 7, 8, 12, 8, 6, 13, 16, 15, 9, 23, 8, 4, 11, 7, 15]}, "labels": ["2026년07월", "2026년06월", "2026년05월", "2026년04월", "2026년03월", "2026년02월", "2026년01월", "2025년12월", "2025년11월", "2025년10월", "2025년09월", "2025년08월", "2025년07월", "2025년06월", "2025년05월", "2025년04월", "2025년03월", "2025년02월", "2025년01월", "2024년12월", "2024년11월", "2024년10월", "2024년09월", "2024년08월"], "centerCount": 6, "refAvgsHistory": {"04": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "05": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "06": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "07": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "08": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}}};
+  const DATA = {"centers": [{"revenue_monthly": [90720, 90720, 183120, 294000, 183120, 164640, 275520, 287840, 287840, 221760, 314160, 283360, 240240, 209440, 147840, 234080, 147840, 147840, 221760, 240240, 314160, 209440, 240240, 283360], "members_monthly": [2, 2, 3, 3, 2, 3, 4, 4, 5, 4, 4, 4, 3, 3, 3, 3, 2, 4, 4, 4, 4, 4, 4, 4], "new_members_monthly": [0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {}}, {"revenue_monthly": [88060, 88060, 88060, 88060, 113960, 72520, 46620, 113960, 88060, 113960, 139860, 72520, 88060, 145040, 145040, 170940, 72520, 72520, 72520, 93240, 98420, 139860, 186480, 134680], "members_monthly": [3, 3, 3, 3, 3, 3, 3, 4, 4, 4, 4, 3, 4, 4, 4, 4, 3, 3, 4, 4, 4, 5, 5, 5], "new_members_monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {}}, {"revenue_monthly": [4544800, 3572400, 4119600, 3554600, 4811800, 3154200, 3953200, 4048000, 4385400, 3967600, 5220400, 4010800, 6613680, 3469400, 5371600, 5087000, 4940600, 5136600, 4208600, 5184800, 5222800, 5900600, 4583000, 5877800], "members_monthly": [75, 78, 82, 82, 79, 81, 81, 80, 82, 85, 93, 97, 96, 97, 100, 95, 95, 95, 103, 94, 100, 105, 105, 112], "new_members_monthly": [3, 1, 2, 8, 1, 4, 7, 2, 0, 0, 4, 5, 3, 0, 6, 6, 5, 3, 12, 4, 0, 5, 2, 7], "refHistory": {}}, {"revenue_monthly": [4244640, 4138820, 4118100, 4553220, 4340840, 4045580, 3983420, 3926440, 3662260, 3879820, 3960110, 3649310, 3879820, 3996000, 3715540, 4268320, 4216520, 4371920, 4263140, 4439260, 4884740, 4895100, 4760420, 4532500], "members_monthly": [57, 57, 55, 54, 58, 54, 55, 52, 48, 48, 51, 48, 51, 54, 55, 53, 60, 63, 65, 65, 67, 66, 65, 62], "new_members_monthly": [1, 3, 1, 3, 3, 2, 6, 3, 1, 1, 3, 2, 1, 1, 3, 0, 3, 3, 2, 0, 2, 2, 3, 1], "refHistory": {}}, {"revenue_monthly": [1589560, 1584380, 1584380, 1522220, 1537520, 1387300, 1631500, 1846920, 1997080, 1713820, 1947830, 1916380, 1832020, 1844280, 2052640, 2213640, 2316760, 2400120, 2482470, 2285110, 2580200, 2702260, 2733580, 2821880], "members_monthly": [25, 24, 23, 22, 25, 23, 24, 24, 25, 23, 22, 22, 26, 28, 29, 28, 28, 31, 35, 35, 35, 38, 35, 39], "new_members_monthly": [1, 1, 1, 0, 2, 0, 1, 0, 3, 1, 0, 1, 1, 0, 0, 1, 1, 0, 3, 1, 2, 1, 1, 6], "refHistory": {}}, {"revenue_monthly": [5527550, 4389820, 4949930, 5126710, 5223900, 4416720, 4264570, 6389640, 4222300, 5083340, 4655390, 4457750, 4513580, 5230360, 4991600, 5047520, 5318800, 5604660, 5090540, 5458720, 5665660, 5958080, 5514480, 6533200], "members_monthly": [94, 93, 92, 94, 97, 94, 99, 99, 94, 94, 89, 98, 100, 97, 99, 102, 101, 104, 107, 104, 105, 109, 114, 123], "new_members_monthly": [2, 5, 3, 3, 11, 3, 3, 6, 6, 5, 1, 3, 3, 5, 4, 7, 6, 3, 6, 3, 0, 3, 1, 1], "refHistory": {}}], "region": {"revenue_monthly": [16085330, 13864200, 15043190, 15138810, 16211140, 13240960, 14154830, 16612800, 14642940, 14980300, 16237750, 14390120, 17167400, 14894520, 16424260, 17021500, 17013040, 17733660, 16339030, 17701370, 18765980, 19805340, 18018200, 20183420], "members_monthly": [256, 257, 258, 258, 264, 258, 266, 263, 258, 258, 263, 272, 280, 283, 290, 285, 289, 300, 318, 306, 315, 327, 328, 345], "new_members_monthly": [7, 10, 7, 15, 17, 9, 17, 11, 11, 7, 8, 12, 8, 6, 13, 16, 15, 9, 23, 8, 4, 11, 7, 15]}, "labels": ["2026년07월", "2026년06월", "2026년05월", "2026년04월", "2026년03월", "2026년02월", "2026년01월", "2025년12월", "2025년11월", "2025년10월", "2025년09월", "2025년08월", "2025년07월", "2025년06월", "2025년05월", "2025년04월", "2025년03월", "2025년02월", "2025년01월", "2024년12월", "2024년11월", "2024년10월", "2024년09월", "2024년08월"], "centerCount": 6, "refAvgsHistory": {"04": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "05": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "06": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "07": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "08": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}}};
   // 2026-08-18 fix: was hardcoded to 6 (assumed most-recent-closed-month = June);
   // now derived from the same cur_month_num build.py/gen_html.py already use
   // elsewhere on this page, so the month filter keeps working correctly as
@@ -1038,24 +1044,31 @@
   }
 
   // cache the server-rendered "current month" values so we can restore them when the user picks "cur" again
+  // 2026-09-07: 정렬 기능(사용자 요청 "각 항목에 정렬기준 포함")을 붙이면서, 조회
+  // 기준월을 바꿀 때마다 화면 텍스트(innerHTML)뿐 아니라 정렬용 원본 숫자
+  // (dataset.sortValue)도 같이 갱신해야 함 - 안 그러면 월을 바꾼 뒤 정렬을 누르면
+  // 예전 달 숫자 기준으로 정렬되는 버그가 생김. setCell()이 그 둘을 항상 같이 쓰도록
+  // 강제. 또한 이 표는 정렬로 <tr> DOM 순서가 바뀔 수 있으므로, forEach의 배열
+  // 인덱스(i) 대신 각 행에 심어둔 data-idx를 사용해 DATA.centers[idx]/스냅샷을
+  // 찾음 - 안 그러면 정렬 직후 월 필터를 바꿨을 때 엉뚱한 센터 줄에 다른 센터의
+  // 숫자가 들어가는 버그가 생김.
+  function setCell(el, html, sortVal) {
+    el.innerHTML = html;
+    el.dataset.sortValue = (sortVal === null || sortVal === undefined || Number.isNaN(sortVal)) ? '' : sortVal;
+  }
+
   function snapshotCurrent() {
     const rows = document.querySelectorAll('#centerBody tr');
     const cur = { rows: [] };
     rows.forEach(tr => {
-      cur.rows.push({
-        revV: tr.querySelector('.c-rev-v').innerHTML,
-        revMom: tr.querySelector('.c-rev-mom').innerHTML,
-        revYoy: tr.querySelector('.c-rev-yoy').innerHTML,
-        revYtd: tr.querySelector('.c-rev-ytd').innerHTML,
-        memV: tr.querySelector('.c-mem-v').innerHTML,
-        memMom: tr.querySelector('.c-mem-mom').innerHTML,
-        memYoy: tr.querySelector('.c-mem-yoy').innerHTML,
-        newV: tr.querySelector('.c-new-v').innerHTML,
-        newMom: tr.querySelector('.c-new-mom').innerHTML,
-        newYoy: tr.querySelector('.c-new-yoy').innerHTML,
-        newYtd: tr.querySelector('.c-new-ytd').innerHTML,
-        refCells: Array.from(tr.querySelectorAll('td.grp-ref')).map(td => td.innerHTML),
-      });
+      const idx = parseInt(tr.dataset.idx, 10);
+      const pick = sel => ({ html: tr.querySelector(sel).innerHTML, sort: tr.querySelector(sel).dataset.sortValue });
+      cur.rows[idx] = {
+        revV: pick('.c-rev-v'), revMom: pick('.c-rev-mom'), revYoy: pick('.c-rev-yoy'), revYtd: pick('.c-rev-ytd'),
+        memV: pick('.c-mem-v'), memMom: pick('.c-mem-mom'), memYoy: pick('.c-mem-yoy'),
+        newV: pick('.c-new-v'), newMom: pick('.c-new-mom'), newYoy: pick('.c-new-yoy'), newYtd: pick('.c-new-ytd'),
+        refCells: Array.from(tr.querySelectorAll('td.grp-ref')).map(td => ({ html: td.innerHTML, sort: td.dataset.sortValue })),
+      };
     });
     cur.tile = {
       revV: document.getElementById('t-rev-v').innerHTML,
@@ -1085,41 +1098,42 @@
 
   function applyMonth(sel) {
     const rows = document.querySelectorAll('#centerBody tr');
-    rows.forEach((tr, i) => {
+    rows.forEach(tr => {
+      const idx = parseInt(tr.dataset.idx, 10);
       if (sel === 'cur') {
-        const snap = CURRENT_SNAPSHOT.rows[i];
-        tr.querySelector('.c-rev-v').innerHTML = snap.revV;
-        tr.querySelector('.c-rev-mom').innerHTML = snap.revMom;
-        tr.querySelector('.c-rev-yoy').innerHTML = snap.revYoy;
-        tr.querySelector('.c-rev-ytd').innerHTML = snap.revYtd;
-        tr.querySelector('.c-mem-v').innerHTML = snap.memV;
-        tr.querySelector('.c-mem-mom').innerHTML = snap.memMom;
-        tr.querySelector('.c-mem-yoy').innerHTML = snap.memYoy;
-        tr.querySelector('.c-new-v').innerHTML = snap.newV;
-        tr.querySelector('.c-new-mom').innerHTML = snap.newMom;
-        tr.querySelector('.c-new-yoy').innerHTML = snap.newYoy;
-        tr.querySelector('.c-new-ytd').innerHTML = snap.newYtd;
+        const snap = CURRENT_SNAPSHOT.rows[idx];
+        setCell(tr.querySelector('.c-rev-v'), snap.revV.html, snap.revV.sort);
+        setCell(tr.querySelector('.c-rev-mom'), snap.revMom.html, snap.revMom.sort);
+        setCell(tr.querySelector('.c-rev-yoy'), snap.revYoy.html, snap.revYoy.sort);
+        setCell(tr.querySelector('.c-rev-ytd'), snap.revYtd.html, snap.revYtd.sort);
+        setCell(tr.querySelector('.c-mem-v'), snap.memV.html, snap.memV.sort);
+        setCell(tr.querySelector('.c-mem-mom'), snap.memMom.html, snap.memMom.sort);
+        setCell(tr.querySelector('.c-mem-yoy'), snap.memYoy.html, snap.memYoy.sort);
+        setCell(tr.querySelector('.c-new-v'), snap.newV.html, snap.newV.sort);
+        setCell(tr.querySelector('.c-new-mom'), snap.newMom.html, snap.newMom.sort);
+        setCell(tr.querySelector('.c-new-yoy'), snap.newYoy.html, snap.newYoy.sort);
+        setCell(tr.querySelector('.c-new-ytd'), snap.newYtd.html, snap.newYtd.sort);
         tr.querySelectorAll('td.grp-ref').forEach((td, ri) => {
-          td.innerHTML = snap.refCells[ri];
+          setCell(td, snap.refCells[ri].html, snap.refCells[ri].sort);
           td.classList.remove('inactive');
         });
         return;
       }
-      const cd = DATA.centers[i];
+      const cd = DATA.centers[idx];
       const rev = computeMetric(cd.revenue_monthly, sel, true);
       const mem = computeMetric(cd.members_monthly, sel, false);
       const nm = computeMetric(cd.new_members_monthly, sel, true);
-      tr.querySelector('.c-rev-v').innerHTML = fmtWon(rev.v);
-      tr.querySelector('.c-rev-mom').innerHTML = deltaHtml(rev.mom);
-      tr.querySelector('.c-rev-yoy').innerHTML = deltaHtml(rev.yoy);
-      tr.querySelector('.c-rev-ytd').innerHTML = fmtWon(rev.ytd);
-      tr.querySelector('.c-mem-v').innerHTML = `<div class="cell-main">${fmtNum(mem.v)}명</div><div class="cell-sub-prev">전월 ${fmtNum(mem.prevV)}명</div>`;
-      tr.querySelector('.c-mem-mom').innerHTML = deltaHtml(mem.mom);
-      tr.querySelector('.c-mem-yoy').innerHTML = deltaHtml(mem.yoy);
-      tr.querySelector('.c-new-v').innerHTML = `<div class="cell-main">${fmtNum(nm.v)}명</div><div class="cell-sub-prev">전월 ${fmtNum(nm.prevV)}명</div>`;
-      tr.querySelector('.c-new-mom').innerHTML = deltaHtml(nm.mom);
-      tr.querySelector('.c-new-yoy').innerHTML = deltaHtml(nm.yoy);
-      tr.querySelector('.c-new-ytd').innerHTML = fmtNum(nm.ytd) + '명';
+      setCell(tr.querySelector('.c-rev-v'), fmtWon(rev.v), rev.v);
+      setCell(tr.querySelector('.c-rev-mom'), deltaHtml(rev.mom), rev.mom);
+      setCell(tr.querySelector('.c-rev-yoy'), deltaHtml(rev.yoy), rev.yoy);
+      setCell(tr.querySelector('.c-rev-ytd'), fmtWon(rev.ytd), rev.ytd);
+      setCell(tr.querySelector('.c-mem-v'), `<div class="cell-main">${fmtNum(mem.v)}명</div><div class="cell-sub-prev">전월 ${fmtNum(mem.prevV)}명</div>`, mem.v);
+      setCell(tr.querySelector('.c-mem-mom'), deltaHtml(mem.mom), mem.mom);
+      setCell(tr.querySelector('.c-mem-yoy'), deltaHtml(mem.yoy), mem.yoy);
+      setCell(tr.querySelector('.c-new-v'), `<div class="cell-main">${fmtNum(nm.v)}명</div><div class="cell-sub-prev">전월 ${fmtNum(nm.prevV)}명</div>`, nm.v);
+      setCell(tr.querySelector('.c-new-mom'), deltaHtml(nm.mom), nm.mom);
+      setCell(tr.querySelector('.c-new-yoy'), deltaHtml(nm.yoy), nm.yoy);
+      setCell(tr.querySelector('.c-new-ytd'), fmtNum(nm.ytd) + '명', nm.ytd);
       // reference indicators (dormant/churn/per-member) are available for closed months 04~06
       // (extracted from the historical Slack 마감 자료); 01~03 have no source data yet, so those
       // are blanked out instead of showing misleadingly-static numbers.
@@ -1128,15 +1142,15 @@
       const refTds = tr.querySelectorAll('td.grp-ref');
       if (rh) {
         const ra = DATA.refAvgsHistory[mkey] || {};
-        refTds[0].innerHTML = refCellHtml(pct1(rh.dormant_rate), rh.dormant_rate, ra.dormant_rate, true);
-        refTds[1].innerHTML = refCellHtml(pct1(rh.churn_rate), rh.churn_rate, ra.churn_rate, true);
-        refTds[2].innerHTML = refCellHtml(wonPlain(rh.per_member_revenue), rh.per_member_revenue, ra.per_member_revenue, false);
-        refTds[3].innerHTML = refCellHtml(num1(rh.per_member_sessions) + '회', rh.per_member_sessions, ra.per_member_sessions, false);
-        refTds[4].innerHTML = refCellHtml(num1(rh.per_member_ysli), rh.per_member_ysli, ra.per_member_ysli, false);
+        setCell(refTds[0], refCellHtml(pct1(rh.dormant_rate), rh.dormant_rate, ra.dormant_rate, true), rh.dormant_rate);
+        setCell(refTds[1], refCellHtml(pct1(rh.churn_rate), rh.churn_rate, ra.churn_rate, true), rh.churn_rate);
+        setCell(refTds[2], refCellHtml(wonPlain(rh.per_member_revenue), rh.per_member_revenue, ra.per_member_revenue, false), rh.per_member_revenue);
+        setCell(refTds[3], refCellHtml(num1(rh.per_member_sessions) + '회', rh.per_member_sessions, ra.per_member_sessions, false), rh.per_member_sessions);
+        setCell(refTds[4], refCellHtml(num1(rh.per_member_ysli), rh.per_member_ysli, ra.per_member_ysli, false), rh.per_member_ysli);
         refTds.forEach(td => td.classList.remove('inactive'));
       } else {
         refTds.forEach(td => {
-          td.innerHTML = '<span class="muted">—</span>';
+          setCell(td, '<span class="muted">—</span>', null);
           td.classList.add('inactive');
         });
       }
@@ -1243,6 +1257,66 @@
     countEl.textContent = q ? `검색결과 ${shown}개 센터` : `전체 ${rows.length}개 센터`;
   }
   document.getElementById('centerSearch').addEventListener('input', applyCenterSearch);
+
+  // 2026-09-07: 사용자 요청("각 항목에 정렬기준 포함할 수 있을까? ... 오름차순
+  // 내림차순") - 표 헤더를 클릭하면 그 항목 기준 오름/내림차순 정렬. 화면에 보이는
+  // 포맷 문자열이 아니라 각 td의 data-sort-value(원본 숫자, sv()/sv_delta()로 심어둠)
+  // 기준으로 정렬하고, 값이 없는 셀("자료 없음"/"—")은 방향과 무관하게 항상 맨
+  // 아래로 보냄. 실제 <tr> DOM 노드를 그대로 옮기므로(재생성 아님) 각 행에 이미 붙어
+  // 있는 이벤트/속성(예: 실적표의 data-idx)은 그대로 유지됨 - applyMonth가
+  // data-idx 기준으로 동작하도록 이미 고쳐져 있어서, 정렬 후 조회 기준월을 바꿔도
+  // 안전함.
+  function makeSortable(table) {
+    if (!table) return;
+    const tbody = table.querySelector('tbody');
+    const ths = Array.from(table.querySelectorAll('th.sortable-th'));
+    // 2026-09-11: rows now arrive pre-sorted by 센터명 가나다순(오름차순) from the
+    // server (build.py), and the "센터" header is marked sort-active on load to match.
+    // Initialize state to that same (key:'name', dir:1) so the FIRST click on 센터
+    // correctly flips to descending, instead of the click being misread as "new column,
+    // reset to ascending" (which would silently no-op since the rows are already asc).
+    const activeTh = ths.find(t => t.classList.contains('sort-active'));
+    const state = { key: activeTh ? activeTh.dataset.sortKey : null, dir: 1 };
+    ths.forEach(th => {
+      th.addEventListener('click', () => {
+        const key = th.dataset.sortKey;
+        state.dir = (state.key === key) ? -state.dir : 1;
+        state.key = key;
+        ths.forEach(t => {
+          t.classList.remove('sort-active');
+          const a = t.querySelector('.sort-arrow');
+          if (a) a.textContent = '';
+        });
+        th.classList.add('sort-active');
+        const arrowEl = th.querySelector('.sort-arrow');
+        if (arrowEl) arrowEl.textContent = state.dir === 1 ? '▲' : '▼';
+
+        const getVal = row => {
+          const cell = row.querySelector(`[data-key~="${key}"]`);
+          if (!cell) return null;
+          const raw = cell.dataset.sortValue;
+          if (raw === undefined || raw === '') return null;
+          const n = parseFloat(raw);
+          return Number.isNaN(n) ? raw : n;
+        };
+        const rows = Array.from(tbody.children);
+        rows.sort((a, b) => {
+          const va = getVal(a), vb = getVal(b);
+          if (va === null && vb === null) return 0;
+          if (va === null) return 1;   // 자료 없음/값 없음은 정렬 방향과 무관하게 항상 맨 아래
+          if (vb === null) return -1;
+          if (typeof va === 'string' || typeof vb === 'string') {
+            return state.dir * String(va).localeCompare(String(vb), 'ko');
+          }
+          return state.dir * (va - vb);
+        });
+        rows.forEach(r => tbody.appendChild(r));
+      });
+    });
+  }
+  makeSortable(document.getElementById('mainCenterTable'));
+  makeSortable(document.getElementById('strategicTable'));
+  makeSortable(document.getElementById('promoTable'));
 </script>
 </body>
 </html>
