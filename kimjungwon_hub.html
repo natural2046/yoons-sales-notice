@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="ko">
 <head>
 <meta charset="UTF-8">
@@ -27,6 +27,46 @@
 </style>
 </head>
 <body>
+<!-- PW-GATE -->
+<div id="pw-gate-overlay" style="position:fixed;inset:0;background:#f4f4f2;z-index:999999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;">
+  <div style="background:#fff;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:36px 32px;max-width:320px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.08);">
+    <div style="font-size:1rem;font-weight:600;margin-bottom:16px;">鍮꾨?踰덊샇瑜??낅젰?댁＜?몄슂</div>
+    <input id="pw-gate-input" type="password" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:1rem;box-sizing:border-box;margin-bottom:10px;" />
+    <button id="pw-gate-submit" style="width:100%;padding:10px 12px;border:none;border-radius:8px;background:#2a78d6;color:#fff;font-weight:600;font-size:1rem;cursor:pointer;">?뺤씤</button>
+    <div id="pw-gate-error" style="color:#d03b3b;font-size:.8rem;margin-top:10px;display:none;">鍮꾨?踰덊샇媛 ?щ컮瑜댁? ?딆뒿?덈떎</div>
+  </div>
+</div>
+<style>body.pw-gate-locked > *:not(#pw-gate-overlay){ display:none !important; }</style>
+<script>
+(function(){
+  document.body.classList.add("pw-gate-locked");
+  var HASH = "2a605dd2319a7d34906edf1517a9bf87f2f017973f34afab94ee61216711612a";
+  var KEY = "pw-gate-ok-" + location.pathname;
+  async function sha256(text){
+    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
+    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
+  }
+  function unlock(){
+    document.body.classList.remove("pw-gate-locked");
+    var ov = document.getElementById("pw-gate-overlay");
+    if (ov) ov.remove();
+  }
+  if (sessionStorage.getItem(KEY) === "1") { unlock(); return; }
+  document.addEventListener("DOMContentLoaded", function(){
+    var input = document.getElementById("pw-gate-input");
+    var btn = document.getElementById("pw-gate-submit");
+    var err = document.getElementById("pw-gate-error");
+    async function tryUnlock(){
+      var h = await sha256(input.value);
+      if (h === HASH) { sessionStorage.setItem(KEY, "1"); unlock(); }
+      else { err.style.display = "block"; }
+    }
+    btn.addEventListener("click", tryUnlock);
+    input.addEventListener("keydown", function(e){ if (e.key === "Enter") tryUnlock(); });
+    input.focus();
+  });
+})();
+</script>
 <div class="wrap">
   <h1>김정원 매니저 지역 (경남·부산·울산·경북·대구)</h1>
   <div class="sub">담당 매니저: 김정원 (전화번호 안내 예정 / 이메일 안내 예정) · 지역을 선택해주세요</div>
