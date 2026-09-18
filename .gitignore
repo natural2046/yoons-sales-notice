@@ -2,5 +2,30 @@
 sync_to_github.ps1
 seoulnam_owners_notice.html
 gyeonggi_owners_notice.html
+incheon_gimpo_owners_notice.html
+daejeon_owners_notice.html
+chungnam_sejong_owners_notice.html
+chungbuk_owners_notice.html
+chungcheong_hub_owners_notice.html
+# 2026-09-11 added: 12 new regions onboarded from the 2026-09-10 raw file
+# (도두영/최인숙/김정원 매니저) - same *_owners_notice.html (private source,
+# gitignored) vs short deployed-name (git-tracked) convention as above.
+gangwon_owners_notice.html
+jeju_owners_notice.html
+jeonbuk_owners_notice.html
+jeonnam_owners_notice.html
+gwangju_owners_notice.html
+dodueong_hub_owners_notice.html
+gyeonggibuk_owners_notice.html
+seoulbuk_owners_notice.html
+choiinsook_hub_owners_notice.html
+gyeongnam_owners_notice.html
+busan_owners_notice.html
+ulsan_owners_notice.html
+gyeongbuk_owners_notice.html
+daegu_owners_notice.html
+kimjungwon_hub_owners_notice.html
 .claude/
 pipeline/
+# 2026-09-18 added: PC-only manager account tool (never deploy)
+tools/

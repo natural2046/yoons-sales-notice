@@ -1,0 +1,129 @@
+{
+  "version": 1,
+  "repo": "natural2046/yoons-sales-notice",
+  "branch": "main",
+  "managers": [
+    {
+      "id": "parkjungsun",
+      "name": "박정선",
+      "regions": [
+        {
+          "slug": "seoulnam",
+          "label": "서울남"
+        },
+        {
+          "slug": "gyeonggi",
+          "label": "경기남"
+        }
+      ],
+      "iter": 600000,
+      "salt": "DRVyaVGQCo6ZrLeW/D6U9Q==",
+      "iv": "QR2giAVk/aTunPIy",
+      "ct": "0hn408kxYBZvL37s6T90A8hzaZm55Ex0oC1QZIaFtV8cuG34VS3D/IDiyIrwQ4/MO5Is5ZVYllXG7Z2/DqIbXeTkzBf/KSi89GeBquntSXSf+l26uzituWwtpuia18I2BnzmliBqk+BdHjWrzQ=="
+    },
+    {
+      "id": "kimmiok",
+      "name": "김미옥",
+      "regions": [
+        {
+          "slug": "incheon_gimpo",
+          "label": "인천김포"
+        },
+        {
+          "slug": "daejeon",
+          "label": "대전"
+        },
+        {
+          "slug": "chungnam_sejong",
+          "label": "충남세종"
+        },
+        {
+          "slug": "chungbuk",
+          "label": "충북"
+        }
+      ],
+      "iter": 600000,
+      "salt": "iVY6dzqHEpdnwXH15Bgelw==",
+      "iv": "kvGgLgSxtnl06uD/",
+      "ct": "dZGkiT4KEYumIIqdX7GIUOMSCBh8BMXDfboqTbtlVXpt1+t5sAEA/Rq+Ab7kOTMdNlQcuk8POt2shcy1S2L33+6h5LawwV73vYOR7rB5z+HqpWwXyw8nKAy1hDZicuJqsCO/16Q7IUqmlGJGLw=="
+    },
+    {
+      "id": "dodueong",
+      "name": "도두영",
+      "regions": [
+        {
+          "slug": "gangwon",
+          "label": "강원"
+        },
+        {
+          "slug": "jeju",
+          "label": "제주"
+        },
+        {
+          "slug": "jeonbuk",
+          "label": "전북"
+        },
+        {
+          "slug": "jeonnam",
+          "label": "전남"
+        },
+        {
+          "slug": "gwangju",
+          "label": "광주"
+        }
+      ],
+      "iter": 600000,
+      "salt": "PU/KGHlAa5m4ZZILIADEJA==",
+      "iv": "XQP66xEfaqvupDjQ",
+      "ct": "B6P+GJ/pO81GgjdMQPLnqCOX4JCZcM6PtvxzM3kU7TPAtFBOFwGBWTESw7qgpwYQFPRT5TUxVirZrtmcI8s18UQ+U+jF3TT/5W4tNihnwqi2auQiM9xeDsu2cxlP+bguuM2eFw48BEgByLrduA=="
+    },
+    {
+      "id": "choiinsook",
+      "name": "최인숙",
+      "regions": [
+        {
+          "slug": "gyeonggibuk",
+          "label": "경기북"
+        },
+        {
+          "slug": "seoulbuk",
+          "label": "서울북"
+        }
+      ],
+      "iter": 600000,
+      "salt": "zqrj/9llvgSKzTf5O5tjuA==",
+      "iv": "CW5OtYbhY6VdxqbN",
+      "ct": "zPWTSHfXD1M5Ugw02BpMs/NN6NXWhiUSPh37bUgbiB8tTLaiJrVIqLV8XJXdcaHGef2T9IugYFKqHQNGYEczEfkgjeXe9dK52k7ofzlQVUpVCyzuJPgHyO2QmxTgpunkVFGx0q2Zkrw32jV1xg=="
+    },
+    {
+      "id": "kimjungwon",
+      "name": "김정원",
+      "regions": [
+        {
+          "slug": "gyeongnam",
+          "label": "경남"
+        },
+        {
+          "slug": "busan",
+          "label": "부산"
+        },
+        {
+          "slug": "ulsan",
+          "label": "울산"
+        },
+        {
+          "slug": "gyeongbuk",
+          "label": "경북"
+        },
+        {
+          "slug": "daegu",
+          "label": "대구"
+        }
+      ],
+      "iter": 600000,
+      "salt": "bj9XZ/XqnjKMkFIS5tDZow==",
+      "iv": "dO8xJDgRH1LeDSZr",
+      "ct": "GXVSkFizT0mI/iZNT46PQmgNzzXhJTKOoItjn7Ho+uq+ip/n032kpsoM7H8+32aDawyIb4Yb7z2Ch2bHGVXSfVQO06xI9ypuIALfTDl1ULcMyu4GO0Jw6MpPeLSAZ7CSuc7lqUptHppKd7Wyzw=="
+    }
+  ]
+}
