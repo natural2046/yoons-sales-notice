@@ -11,8 +11,18 @@
       "mime": "application/pdf",
       "date": "2026-09-18",
       "author": "박정선"
+    },
+    {
+      "id": "mu68oao3b8kf",
+      "path": "library/seoulnam/20260918004725-ec0n.png",
+      "name": "SNS광고 - 성인대상 1.png",
+      "size": 335401,
+      "kind": "image",
+      "mime": "image/png",
+      "date": "2026-09-18",
+      "author": "박정선"
     }
   ],
-  "updated_at": "2026-09-18T00:47:12.037Z",
+  "updated_at": "2026-09-18T00:47:27.747Z",
   "updated_by": "박정선"
 }
