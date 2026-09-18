@@ -10,7 +10,18 @@
       "author": "김미옥"
     }
   ],
-  "files": [],
-  "updated_at": "2026-09-18T01:28:25.621Z",
+  "files": [
+    {
+      "id": "mu6a569j00p2",
+      "path": "library/incheon_gimpo/20260918012832-z6hu.png",
+      "name": "제목을 입력해주세요. (3).png",
+      "size": 405776,
+      "kind": "image",
+      "mime": "image/png",
+      "date": "2026-09-18",
+      "author": "김미옥"
+    }
+  ],
+  "updated_at": "2026-09-18T01:28:34.807Z",
   "updated_by": "김미옥"
 }
