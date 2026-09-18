@@ -1,6 +1,15 @@
 {
   "version": 1,
-  "notices": [],
+  "notices": [
+    {
+      "id": "mu68odb5ezdv",
+      "title": "안녕하세요 박정선 매니저입니다.",
+      "body": "안녕하세요.  박정선매니저입니다. \n앞으로 지역 실적은 주1회 (금) 업데이트될 예정입니다.",
+      "pinned": false,
+      "date": "2026-09-18",
+      "author": "박정선"
+    }
+  ],
   "files": [
     {
       "id": "mu68nyiosbpf",
@@ -23,6 +32,6 @@
       "author": "박정선"
     }
   ],
-  "updated_at": "2026-09-18T00:47:27.747Z",
+  "updated_at": "2026-09-18T00:47:31.169Z",
   "updated_by": "박정선"
 }
