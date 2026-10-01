@@ -1,103 +1,21 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta name="robots" content="noindex,nofollow">
 <meta charset="UTF-8">
+<meta http-equiv="refresh" content="0; url=dodueong.html">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>도두영 매니저 지역 (강원·제주·전북·전남·광주) — 지역 선택</title>
+<title>페이지 이동 안내</title>
 <style>
-  :root {
-    --bg:#f7f7f5; --surface-1:#ffffff; --border:#e5e3de; --text:#20211f;
-    --text-secondary:#5b5c58; --muted:#8a8b86; --pine:#2f5d50;
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin:0; background: var(--bg); color: var(--text);
-    font-family: -apple-system, BlinkMacSystemFont, "Apple SD Gothic Neo", "Malgun Gothic", sans-serif;
-  }
-  .wrap { max-width: 720px; margin: 0 auto; padding: 48px 20px; }
-  h1 { font-size: 22px; margin: 0 0 6px; }
-  .sub { color: var(--text-secondary); font-size: 13.5px; margin-bottom: 32px; }
-  .hub-card {
-    display:block; background: var(--surface-1); border: 1px solid var(--border);
-    border-radius: 14px; padding: 20px 22px; margin-bottom: 14px; text-decoration:none; color:inherit;
-  }
-  .hub-card-title { font-size: 17px; font-weight: 700; margin-bottom: 6px; }
-  .hub-card-meta { font-size: 12.5px; color: var(--muted); margin-bottom: 10px; }
-  .hub-card-cta { font-size: 13px; color: var(--pine); font-weight: 600; }
+  body { margin:0; min-height:100vh; display:flex; align-items:center; justify-content:center;
+    background:#f9f9f7; font-family:-apple-system,BlinkMacSystemFont,"Malgun Gothic",sans-serif; color:#0b0b0b; }
+  .card { text-align:center; padding:40px; }
+  a { color:#2a78d6; font-weight:600; }
 </style>
 </head>
 <body>
-<!-- PW-GATE -->
-<div id="pw-gate-overlay" style="position:fixed;inset:0;background:#f4f4f2;z-index:999999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;">
-  <div style="background:#fff;color:#1a1a1a;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:36px 32px;max-width:320px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.08);">
-    <div style="font-size:1rem;font-weight:600;margin-bottom:16px;color:#1a1a1a;">비밀번호를 입력해주세요</div>
-    <input id="pw-gate-input" type="password" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:1rem;box-sizing:border-box;margin-bottom:10px;color:#1a1a1a;background:#fff;" />
-    <button id="pw-gate-submit" style="width:100%;padding:10px 12px;border:none;border-radius:8px;background:#2a78d6;color:#fff;font-weight:600;font-size:1rem;cursor:pointer;">확인</button>
-    <div id="pw-gate-error" style="color:#d03b3b;font-size:.8rem;margin-top:10px;display:none;">비밀번호가 올바르지 않습니다</div>
+  <div class="card">
+    <p>도두영 매니저 지역 허브 페이지가 통합되었습니다.</p>
+    <p><a href="dodueong.html">여기를 눌러 새 페이지로 이동하세요 →</a></p>
   </div>
-</div>
-<style>body.pw-gate-locked > *:not(#pw-gate-overlay){ display:none !important; }</style>
-<script>
-(function(){
-  document.body.classList.add("pw-gate-locked");
-  var HASH = "2a605dd2319a7d34906edf1517a9bf87f2f017973f34afab94ee61216711612a";
-  var KEY = "pw-gate-ok-" + location.pathname;
-  async function sha256(text){
-    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
-  }
-  function unlock(){
-    document.body.classList.remove("pw-gate-locked");
-    var ov = document.getElementById("pw-gate-overlay");
-    if (ov) ov.remove();
-  }
-  if (sessionStorage.getItem(KEY) === "1") { unlock(); return; }
-  document.addEventListener("DOMContentLoaded", function(){
-    var input = document.getElementById("pw-gate-input");
-    var btn = document.getElementById("pw-gate-submit");
-    var err = document.getElementById("pw-gate-error");
-    async function tryUnlock(){
-      var h = await sha256(input.value);
-      if (h === HASH) { sessionStorage.setItem(KEY, "1"); unlock(); }
-      else { err.style.display = "block"; }
-    }
-    btn.addEventListener("click", tryUnlock);
-    input.addEventListener("keydown", function(e){ if (e.key === "Enter") tryUnlock(); });
-    input.focus();
-  });
-})();
-</script>
-<div class="wrap">
-  <h1>도두영 매니저 지역 (강원·제주·전북·전남·광주)</h1>
-  <div class="sub">담당 매니저: 도두영 (전화번호 안내 예정 / 이메일 안내 예정) · 지역을 선택해주세요</div>
-  
-      <a class="hub-card" href="gangwon.html">
-        <div class="hub-card-title">강원</div>
-        <div class="hub-card-meta">활동 센터 5개 · 2026-09-22 기준 진행중인 이번 달 잠정치</div>
-        <div class="hub-card-cta">사장단 페이지 열기 →</div>
-      </a>
-      <a class="hub-card" href="jeju.html">
-        <div class="hub-card-title">제주</div>
-        <div class="hub-card-meta">활동 센터 4개 · 2026-09-22 기준 진행중인 이번 달 잠정치</div>
-        <div class="hub-card-cta">사장단 페이지 열기 →</div>
-      </a>
-      <a class="hub-card" href="jeonbuk.html">
-        <div class="hub-card-title">전북</div>
-        <div class="hub-card-meta">활동 센터 8개 · 2026-09-22 기준 진행중인 이번 달 잠정치</div>
-        <div class="hub-card-cta">사장단 페이지 열기 →</div>
-      </a>
-      <a class="hub-card" href="jeonnam.html">
-        <div class="hub-card-title">전남</div>
-        <div class="hub-card-meta">활동 센터 9개 · 2026-09-22 기준 진행중인 이번 달 잠정치</div>
-        <div class="hub-card-cta">사장단 페이지 열기 →</div>
-      </a>
-      <a class="hub-card" href="gwangju.html">
-        <div class="hub-card-title">광주</div>
-        <div class="hub-card-meta">활동 센터 5개 · 2026-09-22 기준 진행중인 이번 달 잠정치</div>
-        <div class="hub-card-cta">사장단 페이지 열기 →</div>
-      </a>
-</div>
-<script src="site-content.js" defer></script>
 </body>
 </html>

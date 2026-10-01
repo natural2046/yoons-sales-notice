@@ -1,7 +1,6 @@
-﻿<!DOCTYPE html>
+<!DOCTYPE html>
 <html lang="ko">
 <head>
-<meta name="robots" content="noindex,nofollow">
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>경기북 사장단 공지 — 영업실적 · 자료실</title>
@@ -347,46 +346,6 @@
 </style>
 </head>
 <body>
-<!-- PW-GATE -->
-<div id="pw-gate-overlay" style="position:fixed;inset:0;background:#f4f4f2;z-index:999999;display:flex;align-items:center;justify-content:center;font-family:-apple-system,BlinkMacSystemFont,'Malgun Gothic',sans-serif;">
-  <div style="background:#fff;color:#1a1a1a;border:1px solid rgba(0,0,0,.1);border-radius:14px;padding:36px 32px;max-width:320px;width:90%;text-align:center;box-shadow:0 4px 24px rgba(0,0,0,.08);">
-    <div style="font-size:1rem;font-weight:600;margin-bottom:16px;color:#1a1a1a;">비밀번호를 입력해주세요</div>
-    <input id="pw-gate-input" type="password" style="width:100%;padding:10px 12px;border:1px solid #ccc;border-radius:8px;font-size:1rem;box-sizing:border-box;margin-bottom:10px;color:#1a1a1a;background:#fff;" />
-    <button id="pw-gate-submit" style="width:100%;padding:10px 12px;border:none;border-radius:8px;background:#2a78d6;color:#fff;font-weight:600;font-size:1rem;cursor:pointer;">확인</button>
-    <div id="pw-gate-error" style="color:#d03b3b;font-size:.8rem;margin-top:10px;display:none;">비밀번호가 올바르지 않습니다</div>
-  </div>
-</div>
-<style>body.pw-gate-locked > *:not(#pw-gate-overlay){ display:none !important; }</style>
-<script>
-(function(){
-  document.body.classList.add("pw-gate-locked");
-  var HASH = "2a605dd2319a7d34906edf1517a9bf87f2f017973f34afab94ee61216711612a";
-  var KEY = "pw-gate-ok-" + location.pathname;
-  async function sha256(text){
-    var buf = await crypto.subtle.digest("SHA-256", new TextEncoder().encode(text));
-    return Array.from(new Uint8Array(buf)).map(function(b){return b.toString(16).padStart(2,"0");}).join("");
-  }
-  function unlock(){
-    document.body.classList.remove("pw-gate-locked");
-    var ov = document.getElementById("pw-gate-overlay");
-    if (ov) ov.remove();
-  }
-  if (sessionStorage.getItem(KEY) === "1") { unlock(); return; }
-  document.addEventListener("DOMContentLoaded", function(){
-    var input = document.getElementById("pw-gate-input");
-    var btn = document.getElementById("pw-gate-submit");
-    var err = document.getElementById("pw-gate-error");
-    async function tryUnlock(){
-      var h = await sha256(input.value);
-      if (h === HASH) { sessionStorage.setItem(KEY, "1"); unlock(); }
-      else { err.style.display = "block"; }
-    }
-    btn.addEventListener("click", tryUnlock);
-    input.addEventListener("keydown", function(e){ if (e.key === "Enter") tryUnlock(); });
-    input.focus();
-  });
-})();
-</script>
 <div class="wrap">
 
   <header class="top">
@@ -397,7 +356,7 @@
         <span class="badge basis-badge"><span class="dot"></span>기준일 2026-09-22 · 진행중</span>
       </div>
       <h1>경기북 영업실적 · 공지사항 · 자료실</h1>
-      <div class="sub">담당 매니저: 최인숙 ((전화번호 안내 예정) / (이메일 안내 예정)) &nbsp;·&nbsp; 기준일: 2026-09-22 (2026-09-22 기준 진행중인 이번 달 잠정치)</div>
+      <div class="sub">담당 매니저: 최인숙 (02-2225-5892 / 010-5311-4625 / nadana@yoons.com) &nbsp;·&nbsp; 기준일: 2026-09-22 (2026-09-22 기준 진행중인 이번 달 잠정치)</div>
     </div>
     <div class="top-actions">
       <a class="region-link" href="choiinsook_hub.html">최인숙 매니저 지역 허브로 이동</a>
@@ -447,36 +406,36 @@
     <div class="tiles">
       <div class="tile tile-revenue">
         <div class="tile-label">매출 (<span id="basisWord">당월, 진행중</span>)</div>
-        <div class="tile-value" id="t-rev-v">14,640천원</div>
+        <div class="tile-value" id="t-rev-v">14,226천원</div>
         <div class="tile-deltas">
-          <span class="delta-tag">전월대비 <span id="t-rev-mom"><span class="delta down">▼ 14.1%</span></span></span>
-          <span class="delta-tag">전년동기대비 <span id="t-rev-yoy"><span class="delta down">▼ 35.4%</span></span></span>
-          <span class="delta-tag tile-ytd">2026년 지역 누적 <span id="t-rev-ytd">167,808천원</span></span>
-          <span class="delta-tag tile-avg">센터당 지역평균 <span id="t-rev-avg">1,331천원</span></span>
+          <span class="delta-tag">전월대비 <span id="t-rev-mom"><span class="delta down">▼ 9.6%</span></span></span>
+          <span class="delta-tag">전년동기대비 <span id="t-rev-yoy"><span class="delta down">▼ 34.3%</span></span></span>
+          <span class="delta-tag tile-ytd">2026년 지역 누적 <span id="t-rev-ytd">160,186천원</span></span>
+          <span class="delta-tag tile-avg">센터당 지역평균 <span id="t-rev-avg">1,423천원</span></span>
         </div>
       </div>
       <div class="tile tile-members">
         <div class="tile-label">회원수 (<span class="basisWord2">당월</span>)</div>
-        <div class="tile-value" id="t-mem-v">353명 <span class="tile-value-prev">(전월 353명)</span></div>
+        <div class="tile-value" id="t-mem-v">341명 <span class="tile-value-prev">(전월 341명)</span></div>
         <div class="tile-deltas">
           <span class="delta-tag">전월대비 <span id="t-mem-mom"><span class="delta flat">— 0.0%</span></span></span>
-          <span class="delta-tag">전년동기대비 <span id="t-mem-yoy"><span class="delta down">▼ 20.5%</span></span></span>
-          <span class="delta-tag tile-avg">센터당 지역평균 <span id="t-mem-avg">32명</span></span>
+          <span class="delta-tag">전년동기대비 <span id="t-mem-yoy"><span class="delta down">▼ 19.2%</span></span></span>
+          <span class="delta-tag tile-avg">센터당 지역평균 <span id="t-mem-avg">34명</span></span>
         </div>
       </div>
       <div class="tile tile-new">
         <div class="tile-label">신규회원 (<span class="basisWord2">당월</span>)</div>
-        <div class="tile-value" id="t-new-v">7명 <span class="tile-value-prev">(전월 14명)</span></div>
+        <div class="tile-value" id="t-new-v">6명 <span class="tile-value-prev">(전월 14명)</span></div>
         <div class="tile-deltas">
-          <span class="delta-tag">전월대비 <span id="t-new-mom"><span class="delta down">▼ 50.0%</span></span></span>
-          <span class="delta-tag">전년동기대비 <span id="t-new-yoy"><span class="delta down">▼ 68.2%</span></span></span>
-          <span class="delta-tag tile-ytd">2026년 지역 누적 <span id="t-new-ytd">149명</span></span>
+          <span class="delta-tag">전월대비 <span id="t-new-mom"><span class="delta down">▼ 57.1%</span></span></span>
+          <span class="delta-tag">전년동기대비 <span id="t-new-yoy"><span class="delta down">▼ 71.4%</span></span></span>
+          <span class="delta-tag tile-ytd">2026년 지역 누적 <span id="t-new-ytd">141명</span></span>
           <span class="delta-tag tile-avg">센터당 지역평균 <span id="t-new-avg">1명</span></span>
         </div>
       </div>
       <div class="tile tile-ref">
         <div class="tile-label">담당 센터 수</div>
-        <div class="tile-value">11개</div>
+        <div class="tile-value">10개</div>
         <div class="tile-deltas"><span class="tile-note">전체 활동 센터</span></div>
       </div>
     </div>
@@ -486,7 +445,7 @@
       <div class="avg-strip-items">
         <div class="avg-item"><span class="avg-item-label">휴면전환율</span><span class="avg-item-value" id="t-avgref-dormant">2.8%</span></div>
         <div class="avg-item"><span class="avg-item-label">중단율</span><span class="avg-item-value" id="t-avgref-churn">5.2%</span></div>
-        <div class="avg-item"><span class="avg-item-label">회원당매출</span><span class="avg-item-value" id="t-avgref-rev">41,473원</span></div>
+        <div class="avg-item"><span class="avg-item-label">회원당매출</span><span class="avg-item-value" id="t-avgref-rev">41,719원</span></div>
         <div class="avg-item"><span class="avg-item-label">회원당 학습차시</span><span class="avg-item-value" id="t-avgref-sess">18.8회</span></div>
         <div class="avg-item"><span class="avg-item-label">회원당 YLSI</span><span class="avg-item-value" id="t-avgref-ysli">57.6</span></div>
       </div>
@@ -498,13 +457,13 @@
     <div class="card trend-card">
       <h2 class="trend-h2">지역 전체 회원수 추이 (2026년)</h2>
       <div class="card-sub">1월부터 현재까지 경기북 전체 회원수 합계 추이입니다 · 9월은 진행중인 현재 시점 잠정치입니다.</div>
-      <div class="trend-chart-wrap"><svg width="100%" height="130" viewBox="0 0 560 130" preserveAspectRatio="xMidYMid meet" class="trend-chart"><line x1="28" y1="16.0" x2="530" y2="16.0" stroke="var(--grid)" stroke-width="1"/><line x1="28" y1="46.0" x2="530" y2="46.0" stroke="var(--grid)" stroke-width="1"/><line x1="28" y1="76.0" x2="530" y2="76.0" stroke="var(--grid)" stroke-width="1"/><line x1="28" y1="106.0" x2="530" y2="106.0" stroke="var(--grid)" stroke-width="1"/><polyline points="28.0,26.4 90.8,34.4 153.5,42.4 216.2,48.6 279.0,60.1 341.8,67.2 404.5,90.3 467.2,95.6 530.0,95.6" fill="none" stroke="var(--grp-members)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28.0" cy="26.4" r="2.6" fill="var(--grp-members)"/><circle cx="90.8" cy="34.4" r="2.6" fill="var(--grp-members)"/><circle cx="153.5" cy="42.4" r="2.6" fill="var(--grp-members)"/><circle cx="216.2" cy="48.6" r="2.6" fill="var(--grp-members)"/><circle cx="279.0" cy="60.1" r="2.6" fill="var(--grp-members)"/><circle cx="341.8" cy="67.2" r="2.6" fill="var(--grp-members)"/><circle cx="404.5" cy="90.3" r="2.6" fill="var(--grp-members)"/><circle cx="467.2" cy="95.6" r="2.6" fill="var(--grp-members)"/><circle cx="530.0" cy="95.6" r="2.6" fill="var(--grp-members)"/><text x="28.0" y="19.4" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">431</text><text x="28.0" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">1월</text><text x="90.8" y="27.4" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">422</text><text x="90.8" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">2월</text><text x="153.5" y="35.4" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">413</text><text x="153.5" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">3월</text><text x="216.2" y="41.6" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">406</text><text x="216.2" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">4월</text><text x="279.0" y="53.1" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">393</text><text x="279.0" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">5월</text><text x="341.8" y="60.2" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">385</text><text x="341.8" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">6월</text><text x="404.5" y="83.3" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">359</text><text x="404.5" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">7월</text><text x="467.2" y="88.6" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">353</text><text x="467.2" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">8월</text><text x="530.0" y="88.6" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">353</text><text x="530.0" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">9월*</text></svg></div>
+      <div class="trend-chart-wrap"><svg width="100%" height="130" viewBox="0 0 560 130" preserveAspectRatio="xMidYMid meet" class="trend-chart"><line x1="28" y1="16.0" x2="530" y2="16.0" stroke="var(--grid)" stroke-width="1"/><line x1="28" y1="46.0" x2="530" y2="46.0" stroke="var(--grid)" stroke-width="1"/><line x1="28" y1="76.0" x2="530" y2="76.0" stroke="var(--grid)" stroke-width="1"/><line x1="28" y1="106.0" x2="530" y2="106.0" stroke="var(--grid)" stroke-width="1"/><polyline points="28.0,26.4 90.8,35.6 153.5,43.9 216.2,49.5 279.0,60.5 341.8,67.9 404.5,91.9 467.2,95.6 530.0,95.6" fill="none" stroke="var(--grp-members)" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/><circle cx="28.0" cy="26.4" r="2.6" fill="var(--grp-members)"/><circle cx="90.8" cy="35.6" r="2.6" fill="var(--grp-members)"/><circle cx="153.5" cy="43.9" r="2.6" fill="var(--grp-members)"/><circle cx="216.2" cy="49.5" r="2.6" fill="var(--grp-members)"/><circle cx="279.0" cy="60.5" r="2.6" fill="var(--grp-members)"/><circle cx="341.8" cy="67.9" r="2.6" fill="var(--grp-members)"/><circle cx="404.5" cy="91.9" r="2.6" fill="var(--grp-members)"/><circle cx="467.2" cy="95.6" r="2.6" fill="var(--grp-members)"/><circle cx="530.0" cy="95.6" r="2.6" fill="var(--grp-members)"/><text x="28.0" y="19.4" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">416</text><text x="28.0" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">1월</text><text x="90.8" y="28.6" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">406</text><text x="90.8" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">2월</text><text x="153.5" y="36.9" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">397</text><text x="153.5" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">3월</text><text x="216.2" y="42.5" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">391</text><text x="216.2" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">4월</text><text x="279.0" y="53.5" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">379</text><text x="279.0" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">5월</text><text x="341.8" y="60.9" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">371</text><text x="341.8" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">6월</text><text x="404.5" y="84.9" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">345</text><text x="404.5" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">7월</text><text x="467.2" y="88.6" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">341</text><text x="467.2" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">8월</text><text x="530.0" y="88.6" text-anchor="middle" font-size="9" font-weight="700" fill="var(--text-primary)">341</text><text x="530.0" y="124" text-anchor="middle" font-size="9" fill="var(--muted)">9월*</text></svg></div>
     </div>
   </section>
 
   <section>
     <div class="card">
-      <h2>센터별 실적 (11개 센터)</h2>
+      <h2>센터별 실적 (10개 센터)</h2>
       <div class="card-sub">목표·달성률은 제외하고 매출·회원·신규회원의 당월 값, 전월대비·전년동기대비, 2026년 누적을 표시합니다. 참고 지표(휴면전환율·중단율·회원당매출·학습차시·YLSI)에는 지역 평균(경기북 지역 집계) 대비가 함께 표시되며, 위 조회 기준월 필터를 바꾸면 매출·회원·신규 값과 함께 갱신됩니다. 참고 지표는 2026년 04월 마감부터 조회 가능하며, 01~03월은 자료가 없어 제공되지 않습니다. 기본적으로 센터명 가나다순으로 정렬되어 있으며, 각 항목 제목을 클릭하면 오름차순·내림차순으로 정렬할 수 있습니다.</div>
       <div class="legend">
         <span class="legend-item"><span class="legend-dot" style="background:var(--grp-revenue)"></span>매출</span>
@@ -519,7 +478,7 @@
       <div class="search-bar">
         <label for="centerSearch" style="font-size:12.5px; color:var(--text-secondary); font-weight:600;">내 센터 찾기</label>
         <input type="text" id="centerSearch" placeholder="센터명 또는 사장님 성함 검색...">
-        <span class="search-count" id="searchCount">전체 11개 센터</span>
+        <span class="search-count" id="searchCount">전체 10개 센터</span>
       </div>
       <div class="table-scroll">
         <table id="mainCenterTable">
@@ -567,7 +526,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="40173.96226415094">
             <div class="cell-main">40,174원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼3.1%</span></div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼3.7%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="19.358490566037737">
             <div class="cell-main">19.4회</div>
@@ -606,7 +565,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="56116.666666666664">
             <div class="cell-main">56,117원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲35.3%</span></div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲34.5%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="25.041666666666668">
             <div class="cell-main">25.0회</div>
@@ -645,7 +604,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="18480.0">
             <div class="cell-main">18,480원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼55.4%</span></div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼55.7%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="6">
             <div class="cell-main">6.0회</div>
@@ -684,7 +643,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="89211.11111111111">
             <div class="cell-main">89,211원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲115.1%</span></div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲113.8%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="26.22222222222222">
             <div class="cell-main">26.2회</div>
@@ -697,45 +656,6 @@
         </tr>
 
         <tr data-idx="4">
-          <td class="sticky-col" data-key="name" data-sort-value="교실남양주다산(직영)">
-            <div class="center-name">교실남양주다산(직영)</div>
-            <div class="center-sub">이인 사장님</div>
-          </td>
-          <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="414060">414천원</td>
-          <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.6808712340169715"><span class="delta down">▼ 68.1%</span></td>
-          <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.5962910962910963"><span class="delta down">▼ 59.6%</span></td>
-          <td class="num grp-revenue c-rev-ytd" data-key="rev-ytd" data-sort-value="7622490">7,622천원</td>
-          <td class="num grp-members c-mem-v" data-key="mem-v" data-sort-value="12"><div class="cell-main">12명</div><div class="cell-sub-prev">전월 12명</div></td>
-          <td class="num grp-members c-mem-mom" data-key="mem-mom" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
-          <td class="num grp-members c-mem-yoy" data-key="mem-yoy" data-sort-value="-0.4545454545454546"><span class="delta down">▼ 45.5%</span></td>
-          <td class="num grp-members spark-td"><span class="spark-cell"><svg width="96" height="26" viewBox="0 0 96 26" class="spark spark-down"><polyline points="2.0,2.0 9.7,4.0 17.3,6.0 25.0,10.0 32.7,10.0 40.3,18.0 48.0,16.0 55.7,16.0 63.3,18.0 71.0,20.0 78.7,20.0 86.3,20.0 94.0,24.0" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg><span class="delta down spark-delta">▼11</span></span></td>
-          <td class="num grp-new c-new-v" data-key="new-v" data-sort-value="1"><div class="cell-main">1명</div><div class="cell-sub-prev">전월 0명</div></td>
-          <td class="num grp-new c-new-mom" data-key="new-mom" data-sort-value=""><span class="delta up">신규발생</span></td>
-          <td class="num grp-new c-new-yoy" data-key="new-yoy" data-sort-value="0.0"><span class="delta flat">— 0.0%</span></td>
-          <td class="num grp-new c-new-ytd" data-key="new-ytd" data-sort-value="8">8명</td>
-          <td class="num grp-ref muted" data-key="ref-dormant" data-sort-value="0.16666666666666666">
-            <div class="cell-main">16.7%</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▲488.3%</span></div>
-          </td>
-          <td class="num grp-ref muted" data-key="ref-churn" data-sort-value="0.07142857142857142">
-            <div class="cell-main">7.1%</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▲37.5%</span></div>
-          </td>
-          <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="34505.0">
-            <div class="cell-main">34,505원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼16.8%</span></div>
-          </td>
-          <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="12.416666666666666">
-            <div class="cell-main">12.4회</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼33.9%</span></div>
-          </td>
-          <td class="num grp-ref muted" data-key="ref-ysli" data-sort-value="41.75">
-            <div class="cell-main">41.8</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼27.5%</span></div>
-          </td>
-        </tr>
-
-        <tr data-idx="5">
           <td class="sticky-col" data-key="name" data-sort-value="교실남양주오남">
             <div class="center-name">교실남양주오남</div>
             <div class="center-sub">박명우 사장님</div>
@@ -762,7 +682,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="29137.5">
             <div class="cell-main">29,138원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼29.7%</span></div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼30.2%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="14.625">
             <div class="cell-main">14.6회</div>
@@ -774,7 +694,7 @@
           </td>
         </tr>
 
-        <tr data-idx="6">
+        <tr data-idx="5">
           <td class="sticky-col" data-key="name" data-sort-value="교실양주중앙">
             <div class="center-name">교실양주중앙</div>
             <div class="center-sub">박명우 사장님</div>
@@ -801,7 +721,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="31147.272727272728">
             <div class="cell-main">31,147원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼24.9%</span></div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼25.3%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="17.07792207792208">
             <div class="cell-main">17.1회</div>
@@ -813,7 +733,7 @@
           </td>
         </tr>
 
-        <tr data-idx="7">
+        <tr data-idx="6">
           <td class="sticky-col" data-key="name" data-sort-value="교실의정부">
             <div class="center-name">교실의정부</div>
             <div class="center-sub">박명우 사장님</div>
@@ -840,7 +760,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="44447.74193548387">
             <div class="cell-main">44,448원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲7.2%</span></div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲6.5%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="18.29032258064516">
             <div class="cell-main">18.3회</div>
@@ -852,7 +772,7 @@
           </td>
         </tr>
 
-        <tr data-idx="8">
+        <tr data-idx="7">
           <td class="sticky-col" data-key="name" data-sort-value="교실일산백석">
             <div class="center-name">교실일산백석</div>
             <div class="center-sub">최경희 사장님</div>
@@ -879,7 +799,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="42439.649122807015">
             <div class="cell-main">42,440원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲2.3%</span></div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲1.7%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="17.596491228070175">
             <div class="cell-main">17.6회</div>
@@ -891,7 +811,7 @@
           </td>
         </tr>
 
-        <tr data-idx="9">
+        <tr data-idx="8">
           <td class="sticky-col" data-key="name" data-sort-value="교실일산주엽">
             <div class="center-name">교실일산주엽</div>
             <div class="center-sub">이정현 사장님</div>
@@ -918,7 +838,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="52301.290322580644">
             <div class="cell-main">52,301원</div>
-            <div><span class="delta up cell-sub-delta">지역평균대비 ▲26.1%</span></div>
+            <div><span class="delta up cell-sub-delta">지역평균대비 ▲25.4%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="22.612903225806452">
             <div class="cell-main">22.6회</div>
@@ -930,7 +850,7 @@
           </td>
         </tr>
 
-        <tr data-idx="10">
+        <tr data-idx="9">
           <td class="sticky-col" data-key="name" data-sort-value="교실파주">
             <div class="center-name">교실파주</div>
             <div class="center-sub">이성웅 사장님</div>
@@ -957,7 +877,7 @@
           </td>
           <td class="num grp-ref muted" data-key="ref-revpm" data-sort-value="40221.75">
             <div class="cell-main">40,222원</div>
-            <div><span class="delta down cell-sub-delta">지역평균대비 ▼3.0%</span></div>
+            <div><span class="delta down cell-sub-delta">지역평균대비 ▼3.6%</span></div>
           </td>
           <td class="num grp-ref muted" data-key="ref-sess" data-sort-value="19.625">
             <div class="cell-main">19.6회</div>
@@ -1049,16 +969,6 @@
         </tr>
 
         <tr>
-          <td class="sticky-col" data-key="name" data-sort-value="교실남양주다산(직영)"><div class="center-name">교실남양주다산(직영)</div></td>
-          <td class="num grp-members" data-key="ym-paid" data-sort-value="8">8명</td>
-          <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
-          <td class="num grp-members" data-key="ym-share" data-sort-value="1.2727272727272727">14명 / 11명 (127.3%)</td>
-          <td class="num grp-new" data-key="pkg-cur" data-sort-value="0"></td>
-          <td class="num grp-new" data-key="pkg-prev" data-sort-value="0"></td>
-          <td class="num grp-new" data-key="pkg-ytd" data-sort-value="0"></td>
-        </tr>
-
-        <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실남양주오남"><div class="center-name">교실남양주오남</div></td>
           <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
@@ -1132,7 +1042,7 @@
         <h2>🍂 가을 신학기 신규 회원 모집 프로모션</h2>
         <div class="card-sub">내용: 8~9월 합산 신규 회원 × 10,000원 지원 &nbsp;·&nbsp; 지원 조건: 8~9월 센터 합산 3명 이상 모집 시 지원 &nbsp;·&nbsp; 집행 시기: 11월 중순</div>
         <div class="promo-stats">
-          <div class="promo-stat"><span class="promo-stat-label">지원 조건 충족(예상) 센터</span><span class="promo-stat-value">3개 / 11개</span></div>
+          <div class="promo-stat"><span class="promo-stat-label">지원 조건 충족(예상) 센터</span><span class="promo-stat-value">3개 / 10개</span></div>
           <div class="promo-stat"><span class="promo-stat-label">지원 예정 총액</span><span class="promo-stat-value">110,000원</span></div>
           <div class="promo-stat"><span class="promo-stat-label">집계 상태</span><span class="promo-stat-value" style="font-size:14px;">8월 마감 · 9월 진행중</span></div>
         </div>
@@ -1144,7 +1054,7 @@
 
     <section>
       <div class="card">
-        <h2>센터별 프로모션 수혜 현황 (11개 센터)</h2>
+        <h2>센터별 프로모션 수혜 현황 (10개 센터)</h2>
         <div class="card-sub">8월·9월 신규회원 수와 합계, 지원조건(합산 3명 이상) 충족 여부, 지원 예정 금액(합산 신규회원 × 10,000원)을 센터별로 확인할 수 있습니다.</div>
         <div class="table-scroll">
           <table id="promoTable">
@@ -1204,18 +1114,6 @@
           <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
-          <td class="num" data-key="promo-status" data-sort-value="2"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
-          <td class="num" data-key="promo-payout" data-sort-value="0">—</td>
-        </tr>
-
-        <tr>
-          <td class="sticky-col" data-key="name" data-sort-value="교실남양주다산(직영)">
-            <div class="center-name">교실남양주다산(직영)</div>
-            <div class="center-sub">이인 사장님</div>
-          </td>
-          <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
-          <td class="num" data-key="promo-sep" data-sort-value="1">1명 <span class="promo-live-tag">(진행중)</span></td>
-          <td class="num" data-key="promo-combined" data-sort-value="1"><b>1명</b></td>
           <td class="num" data-key="promo-status" data-sort-value="2"><span class="promo-badge promo-pending-low">진행중 · 미충족</span></td>
           <td class="num" data-key="promo-payout" data-sort-value="0">—</td>
         </tr>
@@ -1329,7 +1227,7 @@
     });
   });
 
-  const DATA = {"centers": [{"revenue_monthly": [2440020, 2720920, 2579480, 2650420, 2911000, 2791460, 2708680, 2777700, 2762500, 2160000, 2309620, 2729200, 2045340, 2257920, 2563440, 2646320, 2439120, 2392500, 2563640, 2807240, 2734920, 2828160, 2822440, 2719080], "members_monthly": [51, 50, 54, 56, 57, 53, 53, 52, 46, 46, 44, 44, 45, 44, 49, 49, 46, 49, 52, 56, 52, 52, 52, 54], "new_members_monthly": [3, 1, 1, 3, 6, 3, 2, 8, 0, 3, 2, 1, 1, 0, 2, 4, 1, 3, 3, 3, 1, 1, 1, 4], "refHistory": {}}, {"revenue_monthly": [1528100, 1610980, 1481480, 1533280, 1709400, 1730120, 1683500, 1890700, 1895880, 1460760, 77700, 3335920, 1745660, 1955450, 1968400, 1926960, 2325820, 2030560, 2009840, 2004660, 1958040, 1538460, 1921780, 1833720], "members_monthly": [24, 23, 26, 25, 26, 28, 29, 29, 26, 26, 24, 27, 29, 28, 30, 33, 33, 32, 31, 31, 29, 26, 28, 30], "new_members_monthly": [1, 0, 1, 0, 1, 1, 2, 3, 0, 2, 0, 2, 1, 0, 0, 2, 2, 3, 3, 2, 3, 1, 1, 1], "refHistory": {}}, {"revenue_monthly": [55440, 61600, 55440, 55440, 61600, 80080, 80080, 55440, 49280, 80080, 80080, 49280, 110880, 55440, 49280, 55440, 55440, 80080, 49280, 135520, 73920, 104720, 98560, 98560], "members_monthly": [4, 4, 2, 4, 2, 4, 4, 4, 4, 4, 3, 4, 4, 4, 1, 5, 1, 4, 5, 5, 5, 6, 6, 6], "new_members_monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {}}, {"revenue_monthly": [300440, 766640, 606060, 341880, 1374920, 964960, 606060, 481740, 792540, 720020, 429940, 665260, 592000, 321160, 1082620, 761460, 828800, 652680, 823620, 590520, 730380, 647500, 336700, 1232840], "members_monthly": [9, 11, 13, 13, 14, 14, 14, 13, 11, 10, 10, 10, 9, 10, 12, 13, 13, 12, 12, 11, 12, 12, 12, 13], "new_members_monthly": [0, 1, 0, 1, 1, 0, 1, 2, 1, 0, 1, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 1], "refHistory": {}}, {"revenue_monthly": [1297470, 1128360, 218400, 1066680, 754680, 1251360, 751800, 739680, 269360, 1082620, 968660, 1025640, 989380, 1238020, 968660, 300440, 1450400, 999740, 1445220, 1175860, 880600, 735560, 683760, 1149960], "members_monthly": [12, 14, 14, 14, 15, 16, 16, 15, 19, 19, 21, 22, 23, 22, 24, 24, 25, 25, 27, 28, 17, 19, 20, 23], "new_members_monthly": [0, 1, 0, 0, 0, 2, 2, 2, 0, 0, 0, 1, 2, 2, 1, 0, 2, 3, 0, 3, 0, 0, 0, 1], "refHistory": {}}, {"revenue_monthly": [580160, 445480, 600880, 528360, 663040, 922040, 486920, 714840, 429940, 797720, 823620, 1673140, 1629110, 2038330, 1471120, 1833720, 1642060, 1875160, 1921780, 1631700, 1926960, 2103360, 2191420, 2341360], "members_monthly": [15, 16, 16, 17, 17, 18, 18, 18, 19, 19, 33, 37, 39, 38, 40, 39, 40, 41, 42, 42, 45, 48, 49, 50], "new_members_monthly": [0, 1, 0, 0, 2, 1, 1, 0, 0, 1, 0, 2, 1, 0, 2, 0, 1, 2, 1, 3, 0, 2, 2, 3], "refHistory": {}}, {"revenue_monthly": [3853920, 3154620, 4040400, 3460240, 4325300, 4141410, 3838380, 3895360, 3548300, 3620820, 4563580, 4358970, 2425920, 4166880, 3290040, 2408700, 4428900, 3030300, 3662260, 3782600, 3667440, 3688440, 3320380, 3848740], "members_monthly": [78, 81, 86, 88, 90, 87, 88, 88, 90, 89, 81, 88, 71, 72, 78, 80, 78, 78, 80, 78, 80, 75, 75, 81], "new_members_monthly": [3, 2, 0, 4, 6, 7, 3, 5, 5, 5, 0, 5, 1, 3, 1, 3, 3, 5, 5, 2, 0, 1, 0, 2], "refHistory": {}}, {"revenue_monthly": [1282050, 1714580, 1849260, 1559180, 2356900, 2341360, 2289560, 2009840, 2538200, 1983940, 1719760, 2302510, 2377620, 2470860, 2082360, 2227400, 2579640, 2460500, 2367260, 2600360, 2450140, 1911420, 1958320, 1481480], "members_monthly": [32, 32, 38, 41, 46, 52, 50, 50, 47, 49, 40, 40, 54, 53, 50, 52, 52, 56, 59, 58, 56, 40, 32, 33], "new_members_monthly": [2, 1, 1, 1, 1, 3, 1, 4, 0, 3, 1, 5, 5, 1, 1, 2, 1, 3, 3, 5, 4, 1, 1, 1], "refHistory": {}}, {"revenue_monthly": [2486400, 2522660, 3102820, 2994040, 2688420, 2517480, 2434600, 2786840, 3253040, 2613310, 2652160, 2859360, 2610720, 2667700, 2305100, 2615900, 2968140, 2766120, 2548560, 2444960, 3025120, 2833460, 2885260, 2962960], "members_monthly": [56, 56, 61, 62, 62, 60, 60, 65, 62, 62, 62, 61, 58, 57, 58, 59, 59, 57, 61, 62, 70, 67, 69, 68], "new_members_monthly": [1, 2, 1, 4, 4, 4, 1, 7, 4, 1, 5, 4, 1, 2, 2, 1, 3, 6, 4, 1, 7, 3, 1, 1], "refHistory": {}}, {"revenue_monthly": [1554000, 1813000, 1828540, 1761200, 1960630, 1859620, 2196320, 2118620, 2481220, 2740220, 3009580, 2584820, 2750580, 3097640, 3216780, 3242680, 2957780, 2900800, 2957780, 2983680, 2672880, 2413880, 3004400, 2719500], "members_monthly": [32, 32, 34, 33, 34, 36, 42, 44, 47, 50, 52, 49, 52, 55, 58, 59, 51, 53, 55, 52, 53, 53, 53, 54], "new_members_monthly": [2, 0, 1, 0, 0, 1, 1, 3, 1, 0, 3, 0, 1, 1, 1, 8, 2, 3, 4, 1, 1, 1, 3, 2], "refHistory": {}}, {"revenue_monthly": [1664220, 2133010, 2379060, 1604650, 2552830, 2192340, 2420740, 2638300, 2995900, 2957350, 2299570, 4203120, 3154150, 3364860, 3841680, 2888560, 4018820, 3816560, 3568400, 3474680, 3742640, 3458580, 4050060, 3686380], "members_monthly": [40, 40, 41, 40, 43, 45, 48, 53, 58, 62, 60, 61, 60, 63, 66, 67, 72, 72, 66, 68, 68, 69, 70, 71], "new_members_monthly": [2, 1, 2, 1, 1, 1, 1, 3, 0, 3, 1, 2, 0, 2, 2, 1, 2, 12, 3, 3, 6, 3, 3, 6], "refHistory": {}}], "region": {"revenue_monthly": [17042220, 18071850, 18741820, 17555370, 21358720, 20792230, 19496640, 20109060, 21016160, 20216840, 18934270, 22677000, 20431360, 21538580, 23796440, 21692620, 27736140, 25011120, 26110240, 25544900, 26854480, 25641440, 26481440, 27386540], "members_monthly": [353, 359, 385, 393, 406, 413, 422, 431, 429, 436, 430, 444, 446, 454, 485, 515, 510, 519, 536, 541, 537, 532, 530, 553], "new_members_monthly": [14, 10, 7, 14, 22, 23, 15, 37, 11, 18, 13, 22, 13, 12, 12, 22, 21, 42, 30, 23, 25, 17, 13, 25]}, "labels": ["2026년08월", "2026년07월", "2026년06월", "2026년05월", "2026년04월", "2026년03월", "2026년02월", "2026년01월", "2025년12월", "2025년11월", "2025년10월", "2025년09월", "2025년08월", "2025년07월", "2025년06월", "2025년05월", "2025년04월", "2025년03월", "2025년02월", "2025년01월", "2024년12월", "2024년11월", "2024년10월", "2024년09월"], "centerCount": 11, "refAvgsHistory": {"04": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "05": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "06": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "07": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "08": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}}};
+  const DATA = {"centers": [{"revenue_monthly": [2440020, 2720920, 2579480, 2650420, 2911000, 2791460, 2708680, 2777700, 2762500, 2160000, 2309620, 2729200, 2045340, 2257920, 2563440, 2646320, 2439120, 2392500, 2563640, 2807240, 2734920, 2828160, 2822440, 2719080], "members_monthly": [51, 50, 54, 56, 57, 53, 53, 52, 46, 46, 44, 44, 45, 44, 49, 49, 46, 49, 52, 56, 52, 52, 52, 54], "new_members_monthly": [3, 1, 1, 3, 6, 3, 2, 8, 0, 3, 2, 1, 1, 0, 2, 4, 1, 3, 3, 3, 1, 1, 1, 4], "refHistory": {}}, {"revenue_monthly": [1528100, 1610980, 1481480, 1533280, 1709400, 1730120, 1683500, 1890700, 1895880, 1460760, 77700, 3335920, 1745660, 1955450, 1968400, 1926960, 2325820, 2030560, 2009840, 2004660, 1958040, 1538460, 1921780, 1833720], "members_monthly": [24, 23, 26, 25, 26, 28, 29, 29, 26, 26, 24, 27, 29, 28, 30, 33, 33, 32, 31, 31, 29, 26, 28, 30], "new_members_monthly": [1, 0, 1, 0, 1, 1, 2, 3, 0, 2, 0, 2, 1, 0, 0, 2, 2, 3, 3, 2, 3, 1, 1, 1], "refHistory": {}}, {"revenue_monthly": [55440, 61600, 55440, 55440, 61600, 80080, 80080, 55440, 49280, 80080, 80080, 49280, 110880, 55440, 49280, 55440, 55440, 80080, 49280, 135520, 73920, 104720, 98560, 98560], "members_monthly": [4, 4, 2, 4, 2, 4, 4, 4, 4, 4, 3, 4, 4, 4, 1, 5, 1, 4, 5, 5, 5, 6, 6, 6], "new_members_monthly": [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0], "refHistory": {}}, {"revenue_monthly": [300440, 766640, 606060, 341880, 1374920, 964960, 606060, 481740, 792540, 720020, 429940, 665260, 592000, 321160, 1082620, 761460, 828800, 652680, 823620, 590520, 730380, 647500, 336700, 1232840], "members_monthly": [9, 11, 13, 13, 14, 14, 14, 13, 11, 10, 10, 10, 9, 10, 12, 13, 13, 12, 12, 11, 12, 12, 12, 13], "new_members_monthly": [0, 1, 0, 1, 1, 0, 1, 2, 1, 0, 1, 0, 0, 0, 0, 0, 2, 1, 2, 0, 0, 0, 0, 1], "refHistory": {}}, {"revenue_monthly": [580160, 445480, 600880, 528360, 663040, 922040, 486920, 714840, 429940, 797720, 823620, 1673140, 1629110, 2038330, 1471120, 1833720, 1642060, 1875160, 1921780, 1631700, 1926960, 2103360, 2191420, 2341360], "members_monthly": [15, 16, 16, 17, 17, 18, 18, 18, 19, 19, 33, 37, 39, 38, 40, 39, 40, 41, 42, 42, 45, 48, 49, 50], "new_members_monthly": [0, 1, 0, 0, 2, 1, 1, 0, 0, 1, 0, 2, 1, 0, 2, 0, 1, 2, 1, 3, 0, 2, 2, 3], "refHistory": {}}, {"revenue_monthly": [3853920, 3154620, 4040400, 3460240, 4325300, 4141410, 3838380, 3895360, 3548300, 3620820, 4563580, 4358970, 2425920, 4166880, 3290040, 2408700, 4428900, 3030300, 3662260, 3782600, 3667440, 3688440, 3320380, 3848740], "members_monthly": [78, 81, 86, 88, 90, 87, 88, 88, 90, 89, 81, 88, 71, 72, 78, 80, 78, 78, 80, 78, 80, 75, 75, 81], "new_members_monthly": [3, 2, 0, 4, 6, 7, 3, 5, 5, 5, 0, 5, 1, 3, 1, 3, 3, 5, 5, 2, 0, 1, 0, 2], "refHistory": {}}, {"revenue_monthly": [1282050, 1714580, 1849260, 1559180, 2356900, 2341360, 2289560, 2009840, 2538200, 1983940, 1719760, 2302510, 2377620, 2470860, 2082360, 2227400, 2579640, 2460500, 2367260, 2600360, 2450140, 1911420, 1958320, 1481480], "members_monthly": [32, 32, 38, 41, 46, 52, 50, 50, 47, 49, 40, 40, 54, 53, 50, 52, 52, 56, 59, 58, 56, 40, 32, 33], "new_members_monthly": [2, 1, 1, 1, 1, 3, 1, 4, 0, 3, 1, 5, 5, 1, 1, 2, 1, 3, 3, 5, 4, 1, 1, 1], "refHistory": {}}, {"revenue_monthly": [2486400, 2522660, 3102820, 2994040, 2688420, 2517480, 2434600, 2786840, 3253040, 2613310, 2652160, 2859360, 2610720, 2667700, 2305100, 2615900, 2968140, 2766120, 2548560, 2444960, 3025120, 2833460, 2885260, 2962960], "members_monthly": [56, 56, 61, 62, 62, 60, 60, 65, 62, 62, 62, 61, 58, 57, 58, 59, 59, 57, 61, 62, 70, 67, 69, 68], "new_members_monthly": [1, 2, 1, 4, 4, 4, 1, 7, 4, 1, 5, 4, 1, 2, 2, 1, 3, 6, 4, 1, 7, 3, 1, 1], "refHistory": {}}, {"revenue_monthly": [1554000, 1813000, 1828540, 1761200, 1960630, 1859620, 2196320, 2118620, 2481220, 2740220, 3009580, 2584820, 2750580, 3097640, 3216780, 3242680, 2957780, 2900800, 2957780, 2983680, 2672880, 2413880, 3004400, 2719500], "members_monthly": [32, 32, 34, 33, 34, 36, 42, 44, 47, 50, 52, 49, 52, 55, 58, 59, 51, 53, 55, 52, 53, 53, 53, 54], "new_members_monthly": [2, 0, 1, 0, 0, 1, 1, 3, 1, 0, 3, 0, 1, 1, 1, 8, 2, 3, 4, 1, 1, 1, 3, 2], "refHistory": {}}, {"revenue_monthly": [1664220, 2133010, 2379060, 1604650, 2552830, 2192340, 2420740, 2638300, 2995900, 2957350, 2299570, 4203120, 3154150, 3364860, 3841680, 2888560, 4018820, 3816560, 3568400, 3474680, 3742640, 3458580, 4050060, 3686380], "members_monthly": [40, 40, 41, 40, 43, 45, 48, 53, 58, 62, 60, 61, 60, 63, 66, 67, 72, 72, 66, 68, 68, 69, 70, 71], "new_members_monthly": [2, 1, 2, 1, 1, 1, 1, 3, 0, 3, 1, 2, 0, 2, 2, 1, 2, 12, 3, 3, 6, 3, 3, 6], "refHistory": {}}], "region": {"revenue_monthly": [15744750, 16943490, 18523420, 16488690, 20604040, 19540870, 18744840, 19369380, 20746800, 19134220, 17965610, 21651360, 19441980, 20300560, 22827780, 21392180, 26285740, 24011380, 24665020, 24369040, 25973880, 24905880, 25797680, 26236580], "members_monthly": [341, 345, 371, 379, 391, 397, 406, 416, 410, 417, 409, 422, 423, 432, 461, 491, 485, 494, 509, 513, 520, 513, 510, 530], "new_members_monthly": [14, 9, 7, 14, 22, 21, 13, 35, 11, 18, 13, 21, 11, 10, 11, 22, 19, 39, 30, 20, 25, 17, 13, 24]}, "labels": ["2026년08월", "2026년07월", "2026년06월", "2026년05월", "2026년04월", "2026년03월", "2026년02월", "2026년01월", "2025년12월", "2025년11월", "2025년10월", "2025년09월", "2025년08월", "2025년07월", "2025년06월", "2025년05월", "2025년04월", "2025년03월", "2025년02월", "2025년01월", "2024년12월", "2024년11월", "2024년10월", "2024년09월"], "centerCount": 10, "refAvgsHistory": {"04": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "05": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "06": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "07": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}, "08": {"dormant_rate": null, "churn_rate": null, "per_member_revenue": null, "per_member_sessions": null, "per_member_ysli": null}}};
   // 2026-08-18 fix: was hardcoded to 6 (assumed most-recent-closed-month = June);
   // now derived from the same cur_month_num build.py/gen_html.py already use
   // elsewhere on this page, so the month filter keeps working correctly as
@@ -1665,6 +1563,5 @@
   makeSortable(document.getElementById('strategicTable'));
   makeSortable(document.getElementById('promoTable'));
 </script>
-<script src="site-content.js" defer></script>
 </body>
 </html>
