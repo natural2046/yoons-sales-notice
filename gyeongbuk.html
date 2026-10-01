@@ -301,6 +301,10 @@
   .sticky-col { position: sticky; left: 0; background: var(--surface-1); }
   .center-name { font-weight: 600; }
   .center-sub { color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+  /* 2026-10-01 추가: 병합된 지역 그룹 페이지(도두영 통합/충청 통합)에서 센터가 속한
+     하위 지역(본부)을 보여주는 컬럼 - 사용자 요청 "본부명을 표시해주고, 본부명 별로
+     소팅 기능 넣어줘". */
+  td.hq-col { text-align: left; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
   td.muted { color: var(--text-secondary); }
 
   .notice-box {
@@ -485,6 +489,7 @@
           <thead>
             <tr>
               <th rowspan="2" style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+              
               <th class="group group-revenue" colspan="4">매출</th>
               <th class="group group-members" colspan="4">회원수</th>
               <th class="group group-new" colspan="4">신규회원</th>
@@ -504,6 +509,7 @@
             <div class="center-name">교실경주남부</div>
             <div class="center-sub">김진이 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="248640">249천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
@@ -543,6 +549,7 @@
             <div class="center-name">교실구미지산</div>
             <div class="center-sub">장윤희 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="1032320">1,032천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="0"><span class="delta flat">— 0.0%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.09765392818432916"><span class="delta down">▼ 9.8%</span></td>
@@ -582,6 +589,7 @@
             <div class="center-name">교실김천</div>
             <div class="center-sub">이현주 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="561600">562천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="0.5"><span class="delta up">▲ 50.0%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.026014568158168605"><span class="delta down">▼ 2.6%</span></td>
@@ -621,6 +629,7 @@
             <div class="center-name">교실상주</div>
             <div class="center-sub">김경숙 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="753800">754천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.10443150766306286"><span class="delta down">▼ 10.4%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.3771071593838832"><span class="delta down">▼ 37.7%</span></td>
@@ -660,6 +669,7 @@
             <div class="center-name">교실안동</div>
             <div class="center-sub">박해원 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="1583940">1,584천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.306542563437998"><span class="delta down">▼ 30.7%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.3909375456621883"><span class="delta down">▼ 39.1%</span></td>
@@ -699,6 +709,7 @@
             <div class="center-name">교실영주</div>
             <div class="center-sub">김영환 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="2346540">2,347천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="0.027210884353741527"><span class="delta up">▲ 2.7%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.238655462184874"><span class="delta down">▼ 23.9%</span></td>
@@ -738,6 +749,7 @@
             <div class="center-name">교실포항남부</div>
             <div class="center-sub">김윤로즈마리 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="1357160">1,357천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="0.20737327188940102"><span class="delta up">▲ 20.7%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.12080536912751683"><span class="delta down">▼ 12.1%</span></td>
@@ -777,6 +789,7 @@
             <div class="center-name">교실포항서부</div>
             <div class="center-sub">강윤순 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="14141460">14,141천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.12971988981692772"><span class="delta down">▼ 13.0%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.2989177478446673"><span class="delta down">▼ 29.9%</span></td>
@@ -840,6 +853,7 @@
             <thead>
               <tr>
                 <th rowspan="2" style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+                
                 <th class="group group-members" colspan="3">YES멤버스</th>
                 <th class="group group-new" colspan="3">패키지판매</th>
               </tr>
@@ -852,6 +866,7 @@
               
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실경주남부"><div class="center-name">교실경주남부</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 4명 (0.0%)</td>
@@ -862,6 +877,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실구미지산"><div class="center-name">교실구미지산</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="10">10명</td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0.8235294117647058">14명 / 17명 (82.4%)</td>
@@ -872,6 +888,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실김천"><div class="center-name">교실김천</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="7">7명</td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="1">8명 / 8명 (100.0%)</td>
@@ -882,6 +899,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실상주"><div class="center-name">교실상주</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="10">10명</td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0.7368421052631579">14명 / 19명 (73.7%)</td>
@@ -892,6 +910,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실안동"><div class="center-name">교실안동</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="17">17명</td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0.8823529411764706">30명 / 34명 (88.2%)</td>
@@ -902,6 +921,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실영주"><div class="center-name">교실영주</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 34명 (0.0%)</td>
@@ -912,6 +932,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실포항남부"><div class="center-name">교실포항남부</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 25명 (0.0%)</td>
@@ -922,6 +943,7 @@
 
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실포항서부"><div class="center-name">교실포항서부</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 255명 (0.0%)</td>
@@ -963,6 +985,7 @@
             <thead>
               <tr>
                 <th style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+                
                 <th class="sortable-th" data-sort-key="promo-aug">8월 신규회원<span class="sort-arrow"></span></th>
                 <th class="sortable-th" data-sort-key="promo-sep">9월 신규회원<span class="sort-arrow"></span></th>
                 <th class="sortable-th" data-sort-key="promo-combined">8~9월 합계<span class="sort-arrow"></span></th>
@@ -977,6 +1000,7 @@
             <div class="center-name">교실경주남부</div>
             <div class="center-sub">김진이 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
@@ -989,6 +1013,7 @@
             <div class="center-name">교실구미지산</div>
             <div class="center-sub">장윤희 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
@@ -1001,6 +1026,7 @@
             <div class="center-name">교실김천</div>
             <div class="center-sub">이현주 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
@@ -1013,6 +1039,7 @@
             <div class="center-name">교실상주</div>
             <div class="center-sub">김경숙 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="2">2명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="2"><b>2명</b></td>
@@ -1025,6 +1052,7 @@
             <div class="center-name">교실안동</div>
             <div class="center-sub">박해원 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="2">2명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="2"><b>2명</b></td>
@@ -1037,6 +1065,7 @@
             <div class="center-name">교실영주</div>
             <div class="center-sub">김영환 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="1">1명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="1"><b>1명</b></td>
@@ -1049,6 +1078,7 @@
             <div class="center-name">교실포항남부</div>
             <div class="center-sub">김윤로즈마리 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="0">0명</td>
           <td class="num" data-key="promo-sep" data-sort-value="0">0명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="0"><b>0명</b></td>
@@ -1061,6 +1091,7 @@
             <div class="center-name">교실포항서부</div>
             <div class="center-sub">강윤순 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="16">16명</td>
           <td class="num" data-key="promo-sep" data-sort-value="6">6명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="22"><b>22명</b></td>

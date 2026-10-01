@@ -301,6 +301,10 @@
   .sticky-col { position: sticky; left: 0; background: var(--surface-1); }
   .center-name { font-weight: 600; }
   .center-sub { color: var(--muted); font-size: 11.5px; margin-top: 2px; }
+  /* 2026-10-01 추가: 병합된 지역 그룹 페이지(도두영 통합/충청 통합)에서 센터가 속한
+     하위 지역(본부)을 보여주는 컬럼 - 사용자 요청 "본부명을 표시해주고, 본부명 별로
+     소팅 기능 넣어줘". */
+  td.hq-col { text-align: left; color: var(--text-secondary); font-weight: 600; white-space: nowrap; }
   td.muted { color: var(--text-secondary); }
 
   .notice-box {
@@ -485,6 +489,7 @@
           <thead>
             <tr>
               <th rowspan="2" style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+              
               <th class="group group-revenue" colspan="4">매출</th>
               <th class="group group-members" colspan="4">회원수</th>
               <th class="group group-new" colspan="4">신규회원</th>
@@ -504,6 +509,7 @@
             <div class="center-name">교실울산옥동</div>
             <div class="center-sub">김일조 사장님</div>
           </td>
+          
           <td class="num grp-revenue c-rev-v" data-key="rev-v" data-sort-value="5524470">5,524천원</td>
           <td class="num grp-revenue c-rev-mom" data-key="rev-mom" data-sort-value="-0.00046860356138711534"><span class="delta down">▼ 0.0%</span></td>
           <td class="num grp-revenue c-rev-yoy" data-key="rev-yoy" data-sort-value="-0.10189473684210526"><span class="delta down">▼ 10.2%</span></td>
@@ -567,6 +573,7 @@
             <thead>
               <tr>
                 <th rowspan="2" style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+                
                 <th class="group group-members" colspan="3">YES멤버스</th>
                 <th class="group group-new" colspan="3">패키지판매</th>
               </tr>
@@ -579,6 +586,7 @@
               
         <tr>
           <td class="sticky-col" data-key="name" data-sort-value="교실울산옥동"><div class="center-name">교실울산옥동</div></td>
+          
           <td class="num grp-members" data-key="ym-paid" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-new" data-sort-value="0"></td>
           <td class="num grp-members" data-key="ym-share" data-sort-value="0">0명 / 112명 (0.0%)</td>
@@ -620,6 +628,7 @@
             <thead>
               <tr>
                 <th style="text-align:left;" class="sortable-th sort-active" data-sort-key="name">센터<span class="sort-arrow">▲</span></th>
+                
                 <th class="sortable-th" data-sort-key="promo-aug">8월 신규회원<span class="sort-arrow"></span></th>
                 <th class="sortable-th" data-sort-key="promo-sep">9월 신규회원<span class="sort-arrow"></span></th>
                 <th class="sortable-th" data-sort-key="promo-combined">8~9월 합계<span class="sort-arrow"></span></th>
@@ -634,6 +643,7 @@
             <div class="center-name">교실울산옥동</div>
             <div class="center-sub">김일조 사장님</div>
           </td>
+          
           <td class="num" data-key="promo-aug" data-sort-value="6">6명</td>
           <td class="num" data-key="promo-sep" data-sort-value="7">7명 <span class="promo-live-tag">(진행중)</span></td>
           <td class="num" data-key="promo-combined" data-sort-value="13"><b>13명</b></td>
