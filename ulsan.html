@@ -242,6 +242,17 @@
   }
   .ref-formula-note b { color: var(--text-primary); }
 
+  /* 2026-10-02 추가: extra_link_tab의 content_html(예: 지역 프로모션 기안서 요약)에 쓰이는
+     소형 안내 테이블 - 메인/전략상품/프로모션표가 쓰는 공용 table 규칙(min-width:1180px,
+     가로 스크롤 전제)과는 달리 이 테이블은 한 카드 안에 들어가는 작은 요약표라 별도 클래스로
+     분리함. 다른 표에는 전혀 영향 없음(클래스명이 다름). */
+  table.promo-doc-table { border-collapse: collapse; width: auto; min-width: 0; font-size: 13px; margin: 10px 0; }
+  table.promo-doc-table th, table.promo-doc-table td {
+    padding: 9px 16px; border: 1px solid var(--border); text-align: center; white-space: nowrap;
+  }
+  table.promo-doc-table thead th { position: static; background: var(--grp-new-bg); color: var(--text-primary); font-weight: 700; }
+  table.promo-doc-table td:first-child { text-align: left; font-weight: 600; }
+
   .search-bar { display:flex; align-items:center; gap:10px; flex-wrap:wrap; margin-bottom: 12px; }
   .search-bar input {
     border: 1px solid var(--border); background: var(--page); color: var(--text-primary);
@@ -374,6 +385,7 @@
     <button class="tab-btn active" data-tab="performance" id="tabBtnPerf">📊 실적 현황</button>
     <button class="tab-btn" data-tab="extras" id="tabBtnExtras">🎯 전략상품 (YES멤버스, 패키지현황)</button>
     <button class="tab-btn" data-tab="promotion" id="tabBtnPromo">🍂 프로모션 현황</button>
+    
   </div>
 
   <div class="tab-panel active" id="tabPanel-performance">
@@ -657,6 +669,7 @@
     </section>
     
   </div>
+  
 
   <footer>
     데이터 출처: 슬랙 #00-notice-실적공지 채널 · 영업실적현황_20260922_v1.xlsx (기준일 2026-09-22) · 참고 지표 과거월(04~06월)은 같은 채널의 각 마감월 자료에서 확인했습니다 · 홈(교실) BM 기준.
