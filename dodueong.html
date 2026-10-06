@@ -2595,15 +2595,10 @@
             <h2>📣 지역 프로모션</h2>
             <div class="card-sub">강원·제주·전라(도두영 통합) 10-11월 실회원 순증 프로모션 — 센터별 실데이터</div>
             
-        <div class="card-sub" style="margin-top:-6px;">기안번호 YE-사업팀H-기안-26-136 · 기안일 2026.9.23. · 담당 황성연 (사업팀H)</div>
         <div class="promo-stats">
           <div class="promo-stat"><span class="promo-stat-label">대상 센터</span><span class="promo-stat-value">31개 (강원·제주·전남·전북·광주)</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">8월→9월 순증 센터(참고)</span><span class="promo-stat-value">7개</span></div>
           <div class="promo-stat"><span class="promo-stat-label">9월말 10명 미만</span><span class="promo-stat-value">8개 센터</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">전원 10월 순증 시뮬레이션</span><span class="promo-stat-value" style="font-size:15px;">890,000원</span></div>
-          <div class="promo-stat"><span class="promo-stat-label">전원 10·11월 연속 순증 시뮬레이션(최대)</span><span class="promo-stat-value" style="font-size:15px;">2,280,000원</span></div>
         </div>
-        <div class="card-sub" style="margin:-4px 0 10px;">※ 위 2개 시뮬레이션 금액은 "9월말 기준 등급의 센터가 전부 순증에 성공한다면"이라는 가정 하의 최대치이며, 실제 집행액은 10·11월 실제 순증 결과에 따라 달라집니다.</div>
         <table class="promo-doc-table">
           <thead>
             <tr><th>회원등급(전월기준)</th><th>센터수</th><th>10월</th><th>11월</th><th>연속순증시 추가</th><th>최대 시상금</th></tr>
@@ -2615,21 +2610,28 @@
         <div class="ref-formula-note">
           <b>내용:</b> 전월대비 실회원 순증(1명 이상)시 매월(10월·11월) 회원등급별 금액 시상 · 회원등급은 전월 마감 회원수 기준(10월 평가=9월 기준, 11월 평가=10월 기준) ·
           10·11월 연속 순증시 추가 시상금 · 9월말 10명 미만 센터는 10월 또는 11월 중 10명 이상 달성시 "10명이상" 등급 금액 지급.<br>
-          <b>안내:</b> 공식 평가 기간은 2026년 10~11월입니다. 이번 주(2026-09-30 9월 가마감) 기준으로는 아직 10월 순증 여부를 확정할 수 없어,
-          "전월대비(참고)" 칸은 현재 실제 데이터인 "8월 마감 → 9월 가마감 추이"를 참고용으로 보여드리고, "순증시 예상 수령액"은 9월말 등급을 10월 평가
-          기준(기안서 규정)으로 그대로 적용해 계산한 시뮬레이션입니다. 10월 마감 데이터가 반영되는 다음 업데이트부터 11월 평가용 시뮬레이션도 자동으로
-          10월 등급 기준으로 갱신됩니다.
+          <b>안내:</b> 10월 마감 자료는 아직 없어 10월 순증 여부를 확정할 수 없습니다. 아래 표는 이번 주(2026-09-30 9월 가마감) 기준 실회원수와
+          그에 따른 회원등급(10월 평가의 공식 기준)만 보여드리며, 순증 추이나 예상 지급액은 10월 마감 데이터가 반영되는 다음 업데이트부터 표시됩니다.
         </div>
+        <style>
+          #dodueongPromoTable th.sortable-th {
+            background: var(--grp-new-bg); font-weight: 700; text-decoration: underline;
+            text-decoration-style: dotted; text-decoration-color: var(--muted);
+            text-underline-offset: 3px;
+          }
+          #dodueongPromoTable th.sortable-th .sort-arrow { width: auto; font-size: 11px; }
+          #dodueongPromoTable th.sortable-th .sort-arrow::before { content: '⇅'; opacity: .55; margin-right: 1px; }
+          #dodueongPromoTable th.sortable-th.sort-active .sort-arrow::before { content: ''; }
+          #dodueongPromoTable th.sortable-th.sort-active { background: var(--grp-new-bg); text-decoration: none; }
+        </style>
         <div class="table-scroll">
-          <table>
+          <table id="dodueongPromoTable">
             <thead>
               <tr>
                 <th style="text-align:left;">센터</th>
-                <th>본부</th>
-                <th>9월 실회원수</th>
-                <th>회원등급</th>
-                <th>전월대비(참고)</th>
-                <th>순증시 예상 수령액(시뮬레이션)</th>
+                <th class="sortable-th" data-sort-key="hq">본부<span class="sort-arrow"></span></th>
+                <th class="sortable-th" data-sort-key="members">9월 실회원수<span class="sort-arrow"></span></th>
+                <th class="sortable-th" data-sort-key="tier">회원등급<span class="sort-arrow"></span></th>
               </tr>
             </thead>
             <tbody>
@@ -2639,11 +2641,9 @@
             <div class="center-name">교실원주남부</div>
             <div class="center-sub">하수자 사장님</div>
           </td>
-          <td class="hq-col">강원</td>
-          <td>21명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 1명 순증(참고)</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="강원">강원</td>
+          <td data-key="members" data-sort-value="21">21명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2651,11 +2651,9 @@
             <div class="center-name">교실원주북부</div>
             <div class="center-sub">양준기 사장님</div>
           </td>
-          <td class="hq-col">강원</td>
-          <td>34명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="강원">강원</td>
+          <td data-key="members" data-sort-value="34">34명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2663,11 +2661,9 @@
             <div class="center-name">교실인제</div>
             <div class="center-sub">손학빈 사장님</div>
           </td>
-          <td class="hq-col">강원</td>
-          <td>56명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>50명이상</td>
-          <td><span class="promo-badge promo-no">▼ 3명 감소</span></td>
-          <td><b>50,000원</b><div class="center-sub">최대(10·11월 연속) 130,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="강원">강원</td>
+          <td data-key="members" data-sort-value="56">56명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="50">50명이상</td>
         </tr>
 
         <tr>
@@ -2675,11 +2671,9 @@
             <div class="center-name">교실정선사북</div>
             <div class="center-sub">박춘섭 사장님</div>
           </td>
-          <td class="hq-col">강원</td>
-          <td>6명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="강원">강원</td>
+          <td data-key="members" data-sort-value="6">6명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2687,11 +2681,9 @@
             <div class="center-name">교실춘천강남</div>
             <div class="center-sub">염정엽 사장님</div>
           </td>
-          <td class="hq-col">강원</td>
-          <td>14명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-no">▼ 1명 감소</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="강원">강원</td>
+          <td data-key="members" data-sort-value="14">14명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2699,11 +2691,9 @@
             <div class="center-name">교실광주백운남</div>
             <div class="center-sub">오흥열 사장님</div>
           </td>
-          <td class="hq-col">광주</td>
-          <td>9명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="광주">광주</td>
+          <td data-key="members" data-sort-value="9">9명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2711,11 +2701,9 @@
             <div class="center-name">교실광주북</div>
             <div class="center-sub">김남식 사장님</div>
           </td>
-          <td class="hq-col">광주</td>
-          <td>132명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>100명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 2명 순증(참고)</span></td>
-          <td><b>100,000원</b><div class="center-sub">최대(10·11월 연속) 250,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="광주">광주</td>
+          <td data-key="members" data-sort-value="132">132명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="100">100명이상</td>
         </tr>
 
         <tr>
@@ -2723,11 +2711,9 @@
             <div class="center-name">교실광주신가</div>
             <div class="center-sub">장금구 사장님</div>
           </td>
-          <td class="hq-col">광주</td>
-          <td>37명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="광주">광주</td>
+          <td data-key="members" data-sort-value="37">37명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2735,11 +2721,9 @@
             <div class="center-name">교실광주진월</div>
             <div class="center-sub">한석일 사장님</div>
           </td>
-          <td class="hq-col">광주</td>
-          <td>155명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>100명이상</td>
-          <td><span class="promo-badge promo-no">▼ 3명 감소</span></td>
-          <td><b>100,000원</b><div class="center-sub">최대(10·11월 연속) 250,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="광주">광주</td>
+          <td data-key="members" data-sort-value="155">155명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="100">100명이상</td>
         </tr>
 
         <tr>
@@ -2747,11 +2731,9 @@
             <div class="center-name">교실광주첨단</div>
             <div class="center-sub">김소연 사장님</div>
           </td>
-          <td class="hq-col">광주</td>
-          <td>55명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>50명이상</td>
-          <td><span class="promo-badge promo-no">▼ 1명 감소</span></td>
-          <td><b>50,000원</b><div class="center-sub">최대(10·11월 연속) 130,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="광주">광주</td>
+          <td data-key="members" data-sort-value="55">55명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="50">50명이상</td>
         </tr>
 
         <tr>
@@ -2759,11 +2741,9 @@
             <div class="center-name">교실나주혁신</div>
             <div class="center-sub">강대훈 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>7명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="7">7명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2771,11 +2751,9 @@
             <div class="center-name">교실목포상동</div>
             <div class="center-sub">양정현 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>1명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="1">1명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2783,11 +2761,9 @@
             <div class="center-name">교실목포서부</div>
             <div class="center-sub">황혜린 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>15명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 1명 순증(참고)</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="15">15명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2795,11 +2771,9 @@
             <div class="center-name">교실무안남악</div>
             <div class="center-sub">박정희 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>9명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="9">9명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2807,11 +2781,9 @@
             <div class="center-name">교실보성벌교</div>
             <div class="center-sub">전은주 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>12명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="12">12명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2819,11 +2791,9 @@
             <div class="center-name">교실순천</div>
             <div class="center-sub">안정용 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>28명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-no">▼ 9명 감소</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="28">28명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2831,11 +2801,9 @@
             <div class="center-name">교실여천서부</div>
             <div class="center-sub">정연수 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>103명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>100명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 5명 순증(참고)</span></td>
-          <td><b>100,000원</b><div class="center-sub">최대(10·11월 연속) 250,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="103">103명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="100">100명이상</td>
         </tr>
 
         <tr>
@@ -2843,11 +2811,9 @@
             <div class="center-name">교실완도</div>
             <div class="center-sub">이미희 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>1명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="1">1명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2855,11 +2821,9 @@
             <div class="center-name">교실장흥</div>
             <div class="center-sub">남창옥 사장님</div>
           </td>
-          <td class="hq-col">전남</td>
-          <td>0명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전남">전남</td>
+          <td data-key="members" data-sort-value="0">0명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2867,11 +2831,9 @@
             <div class="center-name">교실남원도통</div>
             <div class="center-sub">박성윤 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>10명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="10">10명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2879,11 +2841,9 @@
             <div class="center-name">교실부안M</div>
             <div class="center-sub">김정현 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>2명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명미만</td>
-          <td><span class="promo-badge promo-no">▼ 1명 감소</span></td>
-          <td><span class="promo-badge promo-pending-low">10명 달성시 2만원(10명이상 등급 적용)</span></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="2">2명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="0">10명미만</td>
         </tr>
 
         <tr>
@@ -2891,11 +2851,9 @@
             <div class="center-name">교실신군산</div>
             <div class="center-sub">채명희 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>29명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 1명 순증(참고)</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="29">29명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2903,11 +2861,9 @@
             <div class="center-name">교실익산남부</div>
             <div class="center-sub">박하늘 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>37명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="37">37명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2915,11 +2871,9 @@
             <div class="center-name">교실익산중앙</div>
             <div class="center-sub">홍대진 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>56명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>50명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 2명 순증(참고)</span></td>
-          <td><b>50,000원</b><div class="center-sub">최대(10·11월 연속) 130,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="56">56명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="50">50명이상</td>
         </tr>
 
         <tr>
@@ -2927,11 +2881,9 @@
             <div class="center-name">교실전주북</div>
             <div class="center-sub">임유광 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>33명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-ok">▲ 1명 순증(참고)</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="33">33명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2939,11 +2891,9 @@
             <div class="center-name">교실전주서부</div>
             <div class="center-sub">김현엽 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>43명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="43">43명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2951,11 +2901,9 @@
             <div class="center-name">교실정읍</div>
             <div class="center-sub">임병훈 사장님</div>
           </td>
-          <td class="hq-col">전북</td>
-          <td>90명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>50명이상</td>
-          <td><span class="promo-badge promo-wait">유지</span></td>
-          <td><b>50,000원</b><div class="center-sub">최대(10·11월 연속) 130,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="전북">전북</td>
+          <td data-key="members" data-sort-value="90">90명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="50">50명이상</td>
         </tr>
 
         <tr>
@@ -2963,11 +2911,9 @@
             <div class="center-name">교실서귀포</div>
             <div class="center-sub">박선미 사장님</div>
           </td>
-          <td class="hq-col">제주</td>
-          <td>16명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-no">▼ 3명 감소</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="제주">제주</td>
+          <td data-key="members" data-sort-value="16">16명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
 
         <tr>
@@ -2975,11 +2921,9 @@
             <div class="center-name">교실제주</div>
             <div class="center-sub">김예지 사장님</div>
           </td>
-          <td class="hq-col">제주</td>
-          <td>32명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-no">▼ 2명 감소</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="제주">제주</td>
+          <td data-key="members" data-sort-value="32">32명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2987,11 +2931,9 @@
             <div class="center-name">교실제주노형</div>
             <div class="center-sub">고미경 사장님</div>
           </td>
-          <td class="hq-col">제주</td>
-          <td>34명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>30명이상</td>
-          <td><span class="promo-badge promo-no">▼ 1명 감소</span></td>
-          <td><b>30,000원</b><div class="center-sub">최대(10·11월 연속) 80,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="제주">제주</td>
+          <td data-key="members" data-sort-value="34">34명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="30">30명이상</td>
         </tr>
 
         <tr>
@@ -2999,15 +2941,21 @@
             <div class="center-name">교실제주외도</div>
             <div class="center-sub">김정민 사장님</div>
           </td>
-          <td class="hq-col">제주</td>
-          <td>13명<span class="promo-live-tag"> (가마감)</span></td>
-          <td>10명이상</td>
-          <td><span class="promo-badge promo-no">▼ 1명 감소</span></td>
-          <td><b>20,000원</b><div class="center-sub">최대(10·11월 연속) 50,000원</div></td>
+          <td class="hq-col" data-key="hq" data-sort-value="제주">제주</td>
+          <td data-key="members" data-sort-value="13">13명<span class="promo-live-tag"> (가마감)</span></td>
+          <td data-key="tier" data-sort-value="10">10명이상</td>
         </tr>
             </tbody>
           </table>
         </div>
+        <div class="card-sub" style="margin-top:6px;">※ 본부·9월 실회원수·회원등급 머리글을 클릭하면 정렬됩니다 (⇅ 표시된 칸).</div>
+        <script>
+          document.addEventListener('DOMContentLoaded', function() {
+            if (typeof makeSortable === 'function') {
+              makeSortable(document.getElementById('dodueongPromoTable'));
+            }
+          });
+        </script>
 
           </div>
         </section>
